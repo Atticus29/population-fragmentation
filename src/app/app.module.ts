@@ -21,9 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
