@@ -46,9 +46,9 @@ export class DrawingService {
 drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle:number, endAngle:number, elementId: string, color: string, fillStatus: boolean){
   let canvas = <HTMLCanvasElement> document.getElementById(elementId);
   let ctx = canvas.getContext('2d');
-  ctx.setLineDash([])
+  // ctx.setLineDash([])
   ctx.beginPath();
-  ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle); //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
+  ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, false); //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
   ctx.stroke();
   if(fillStatus){
     ctx.fillStyle = color;
