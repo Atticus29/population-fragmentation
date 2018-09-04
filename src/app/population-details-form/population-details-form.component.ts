@@ -10,6 +10,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./population-details-form.component.css'],
 })
 export class PopulationDetailsFormComponent implements OnInit {
+  //TODO fix the form (which is displaying the input terribly!)
   private popsize = new FormControl('',[Validators.required, Validators.min(2)]);
   constructor() { }
 

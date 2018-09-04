@@ -9,13 +9,16 @@ import { PopulationDetailsFormComponent } from './population-details-form/popula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LizardDisplayComponent } from './lizard-display/lizard-display.component';
+import { DrawingService } from './drawing.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormDisplayComponent,
     OrganismDisplayComponent,
-    PopulationDetailsFormComponent
+    PopulationDetailsFormComponent,
+    LizardDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [],
+  providers: [DrawingService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
