@@ -11,7 +11,8 @@ export class DrawingService {
   drawArc(x: number, y: number, radius: number, startAngle:number, endAngle: number, elementId: string, color: string, fillStatus: boolean) {
     let canvas = <HTMLCanvasElement> document.getElementById(elementId);
     if (canvas.getContext) {
-      var ctx = canvas.getContext('2d');
+      let ctx = canvas.getContext('2d');
+      ctx.beginPath();
       ctx.arc(x, y, radius, startAngle, endAngle);
       if (fillStatus) {
         ctx.fillStyle = color;
@@ -37,8 +38,8 @@ export class DrawingService {
       context.strokeStyle = color;
       context.stroke();
       if(fillStatus){
-      context.fillStyle = color;
-      context.fill();
+        context.fillStyle = color;
+        context.fill();
     }
   }
 }
@@ -54,5 +55,6 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
     ctx.fillStyle = color;
     ctx.fill();
   }
+  ctx.closePath();
 }
 }
