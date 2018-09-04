@@ -8,13 +8,15 @@ import { DrawingService } from '../drawing.service';
   providers: [DrawingService]
 })
 export class LizardDisplayComponent implements OnInit {
-
+  private individualIds = [1,2,3,4];
   constructor(private ds: DrawingService) { }
 
   ngOnInit() {
-      this.ds.drawLizard('lizard-canvas1');
-      this.ds.drawLizard('lizard-canvas2');
-      this.ds.drawLizard('lizard-canvas3');
+    let self = this;
+    this.individualIds.forEach(individual => {
+      console.log('lizard-canvas' + individual.toString());
+      self.ds.drawLizard('lizard-canvas' + individual.toString());
+    });
   }
 
 }
