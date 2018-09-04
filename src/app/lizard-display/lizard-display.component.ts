@@ -12,7 +12,10 @@ export class LizardDisplayComponent implements OnInit {
   constructor(private ds: DrawingService) { }
 
   ngOnInit() {
-    this.ds.drawCircle(100, 100, 50, 'lizard-canvas');
+    this.ds.drawTriangle(100, 50, 100, 150, 0, 100, 'lizard-canvas',"black", true);
+    // this.ds.drawArc(100, 100, 50, 0, Math.PI, 'lizard-canvas',"black", true);
+    // this.ds.drawEllipse(100, 100, 50, 25, 45 * Math.PI/180,  0, 2 * Math.PI, 'lizard-canvas', 'black', false);
+    // this.ds.drawEllipse(100, 100, 50, 25, 0, 0, 2*Math.PI, 'lizard-canvas', 'black', true);
   }
 
 }
