@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DrawingService } from '../drawing.service';
 import { Genotype } from '../genotype.model';
+import { Gene } from '../gene.model';
+import { Organism } from '../organism.model';
 import { ColorNameService } from '../color-name.service';
 import { PopulationGenerationService } from '../population-generation.service';
 
@@ -11,13 +13,18 @@ import { PopulationGenerationService } from '../population-generation.service';
   providers: [DrawingService]
 })
 export class LizardDisplayComponent implements OnInit {
+  private name: string;
+  private individuals: Array<Organism> = new Array<Organism>();
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private popgenservice: PopulationGenerationService) { }
 
   ngOnInit() {
-      let testIndividual = this.popgenservice.makeIndividual("green", "blue");
-      let genotype = testIndividual.getGeneByName("spot color").getGenotype();
-      console.log(genotype);
+
+      //TODO delete me after fleshed out more
+      let testIndividual: Organism = this.popgenservice.makeIndividual("green", "blue");
+      this.individuals.push(testIndividual);
+      this.name = testIndividual.getOrganismName();
+      let genotype: Genotype = testIndividual.getGeneByName("spot color").getGenotype();
 
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
