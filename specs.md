@@ -1,4 +1,9 @@
+# Bugs
+
+- [ ] Pet names require() not working in population-generation service
+
 # Specs
+
 - [ ] User can choose starting total population size
 - [ ] User can choose number of population fragments
 - [ ] User can choose the number of generations to track

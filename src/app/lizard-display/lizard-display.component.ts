@@ -13,7 +13,6 @@ import { PopulationGenerationService } from '../population-generation.service';
   providers: [DrawingService]
 })
 export class LizardDisplayComponent implements OnInit {
-  private name: string;
   private individuals: Array<Organism> = new Array<Organism>();
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private popgenservice: PopulationGenerationService) { }
@@ -22,9 +21,8 @@ export class LizardDisplayComponent implements OnInit {
 
       //TODO delete me after fleshed out more
       let testIndividual: Organism = this.popgenservice.makeIndividual("green", "blue");
-      this.individuals.push(testIndividual);
-      this.name = testIndividual.getOrganismName();
       let genotype: Genotype = testIndividual.getGeneByName("spot color").getGenotype();
+      this.individuals.push(testIndividual);
 
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
