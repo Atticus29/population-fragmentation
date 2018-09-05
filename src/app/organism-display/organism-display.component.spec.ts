@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Gene } from '../gene.model';
 import { Genotype } from '../genotype.model';
+import { Organism } from '../organism.model';
 
 import { OrganismDisplayComponent } from './organism-display.component';
 
@@ -46,5 +47,8 @@ describe('OrganismDisplayComponent', () => {
   it('should instantiate an organism', () => {
     let genotype1: Genotype = new Genotype("a1", "a2");
     let gene1: Gene = new Gene ("spot color", genotype1);
+    let genes: Array<Gene> = new Array<Gene>(gene1);
+    let organism1: Organism = new Organism("pickles", genes);
+    expect(organism1.getOrganismName()).toEqual("pickles");
   });
 });
