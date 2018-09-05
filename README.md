@@ -1,6 +1,10 @@
 # PopulationFragmentation
 
+## Description
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+
+Population fragmentation is an open-source web app that allows students to simulate the effect of a phenomenon called genetic drift on genetic diversity. In particular, it explores the effect of fragmenting populations on genetic diversity.
 
 ## Development server
 
