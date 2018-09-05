@@ -13,6 +13,7 @@ import { LizardDisplayComponent } from './lizard-display/lizard-display.componen
 import { DrawingService } from './drawing.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ColorNameService } from './color-name.service';
+import { PopulationGenerationService } from './population-generation.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ColorNameService } from './color-name.service';
     MatInputModule,
     HttpClientModule
   ],
-  providers: [DrawingService, ColorNameService],
+  providers: [DrawingService, ColorNameService, PopulationGenerationService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

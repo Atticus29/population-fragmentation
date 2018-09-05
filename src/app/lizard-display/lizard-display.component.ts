@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DrawingService } from '../drawing.service';
 import { Genotype } from '../genotype.model';
 import { ColorNameService } from '../color-name.service';
+import { PopulationGenerationService } from '../population-generation.service';
 
 @Component({
   selector: 'app-lizard-display',
@@ -11,12 +12,12 @@ import { ColorNameService } from '../color-name.service';
 })
 export class LizardDisplayComponent implements OnInit {
 
-  constructor(private ds: DrawingService, private cns: ColorNameService) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private popgenservice: PopulationGenerationService) { }
 
   ngOnInit() {
-      let genotype1: Genotype = new Genotype("green", "magenta");
-      let genotype2: Genotype = new Genotype("lightblue", "green");
-      let genotype3: Genotype = new Genotype("magenta", "lightblue");
+      let testIndividual = this.popgenservice.makeIndividual("green", "blue");
+      let genotype = testIndividual.getGeneByName("spot color").getGenotype();
+      console.log(genotype);
 
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
@@ -24,9 +25,9 @@ export class LizardDisplayComponent implements OnInit {
       //   console.log(newResult);
       // });
 
-      this.ds.drawLizard('lizard-canvas1', genotype1);
-      this.ds.drawLizard('lizard-canvas2', genotype2);
-      this.ds.drawLizard('lizard-canvas3', genotype3);
+      this.ds.drawLizard('lizard-canvas1', genotype);
+      // this.ds.drawLizard('lizard-canvas2', genotype2);
+      // this.ds.drawLizard('lizard-canvas3', genotype3);
   }
 
 }
