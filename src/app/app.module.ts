@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LizardDisplayComponent } from './lizard-display/lizard-display.component';
 import { DrawingService } from './drawing.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ColorNameService } from './color-name.service';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,9 @@ import { DrawingService } from './drawing.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    HttpClientModule
   ],
-  providers: [DrawingService],
+  providers: [DrawingService, ColorNameService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

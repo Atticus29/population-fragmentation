@@ -5,8 +5,8 @@
 - [ ] User can choose allele frequencies of brown, green, and magenta alleles
   - [ ] Default frequency is ~1/3, ~1/3, ~1/3
 - [ ] User can see the individuals in their population(s)
-	- [ ] Lizard drawings
-		- [ ] Stripe colors according to alleles
+	- [x] Lizard drawings
+		- [x] Stripe colors according to alleles
 	- [ ] Lizard names are displayed
 	- [ ] Lizard alleles are displayed for each individual
 
@@ -22,7 +22,7 @@
 	- [ ] User no longer sees make baby button after two (x) babies are made
 
 
-- [ ] When all babies are made, user is asked to calculate allele frequencies of new offspring generation	
+- [ ] When all babies are made, user is asked to calculate allele frequencies of new offspring generation
 
 - [ ] User sees offspring population replace their parents
 - [ ] User repeats process above until 10 (x) generations are done
