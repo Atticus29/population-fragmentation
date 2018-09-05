@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Genotype } from './genotype.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
   ctx.closePath();
 }
 
-drawLizard(canvasId: string){
+drawLizard(canvasId: string, genotype: Genotype){
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasId,"black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasId,"black", true);
@@ -79,11 +80,12 @@ drawLizard(canvasId: string){
   this.drawEllipse(70, 90, 30, 3, Math.PI/6, 0, 2 * Math.PI, canvasId, 'black', true);
 
   //random polka dots
-  let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
-  this.drawArc(60, 101, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
-  this.drawArc(77, 95, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
-  this.drawArc(100, 102, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
-  this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
-  this.drawArc(120, 102, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
+  // let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
+  // this.drawArc(77, 95, 3, 0, 2*Math.PI, canvasId, colorArray[Math.floor(Math.random()*colorArray.length)], true);
+
+  this.drawArc(60, 101, 3, 0, 2*Math.PI, canvasId, genotype.getAllele1(), true);
+  this.drawArc(85, 102, 3, 0, 2*Math.PI, canvasId, genotype.getAllele2(), true);
+  this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasId, genotype.getAllele1(), true);
+  this.drawArc(120, 102, 3, 0, 2*Math.PI, canvasId, genotype.getAllele2(), true);
 }
 }

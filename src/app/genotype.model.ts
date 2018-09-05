@@ -8,4 +8,12 @@ export class Genotype {
     returnArray.push(this.allele2);
     return returnArray;
   }
+
+  getAllele1(): string{
+    return this.allele1;
+  }
+
+  getAllele2(): string{
+    return this.allele2;
+  }
 }
