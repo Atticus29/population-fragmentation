@@ -6,6 +6,10 @@ export class Organism {
 
   constructor(public organismName: string, public genes:Array<Gene>) {}
 
+  getOrganismName(){
+    return this.organismName;
+  }
+
   getGeneByName(geneName: string): Gene{
     let returnVal = null; //TODO improve this
     for(let i=0; i<this.genes.length; i++){
@@ -15,6 +19,4 @@ export class Organism {
     }
     return returnVal; //TODO will only return the last match currently and there's nothing to ensure that there can only be one gene by a given name
   }
-
-
 }
