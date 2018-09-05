@@ -10,7 +10,8 @@ export class DrawingService {
 
   drawArc(x: number, y: number, radius: number, startAngle:number, endAngle: number, elementId: string, color: string, fillStatus: boolean) {
     let canvas = <HTMLCanvasElement> document.getElementById(elementId);
-    if (canvas.getContext) {
+    console.log(canvas);
+    if (canvas) {
       let ctx = canvas.getContext('2d');
       ctx.beginPath();
       ctx.arc(x, y, radius, startAngle, endAngle);
@@ -22,11 +23,14 @@ export class DrawingService {
         ctx.strokeStyle = color;
         ctx.stroke();
       }
+    } else {
+      //TODO handle error here
     }
   }
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementId: string, color: string, fillStatus: boolean){
     let canvasElement = <HTMLCanvasElement>document.getElementById(elementId);
+    console.log(canvasElement);
     if (canvasElement){
       let context = canvasElement.getContext("2d");
       context.beginPath();
@@ -41,27 +45,35 @@ export class DrawingService {
         context.fillStyle = color;
         context.fill();
     }
+  } else{
+    //TODO throw/handle error here
   }
 }
 
 drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle:number, endAngle:number, elementId: string, color: string, fillStatus: boolean){
   let canvas = <HTMLCanvasElement> document.getElementById(elementId);
-  let ctx = canvas.getContext('2d');
-  // ctx.setLineDash([])
-  ctx.beginPath();
-  ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, false); //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
-  ctx.stroke();
-  if(fillStatus){
-    ctx.fillStyle = color;
-    ctx.fill();
+  if(canvas){
+    let ctx = canvas.getContext('2d');
+    // ctx.setLineDash([])
+    ctx.beginPath();
+    ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, false); //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
+    ctx.stroke();
+    if(fillStatus){
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+    ctx.closePath();
+  } else{
+    //TODO handle error here
   }
-  ctx.closePath();
+
 }
 
 drawLizard(canvasId: string){
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasId,"black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasId,"black", true);
+  console.log("mark got here, too");
 
   //eyes
   this.drawArc(37.5, 106.25, 2, 0, 2*Math.PI, canvasId,"white", true);
