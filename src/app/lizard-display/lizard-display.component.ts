@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { DrawingService } from '../drawing.service';
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
