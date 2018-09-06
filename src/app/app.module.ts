@@ -49,13 +49,15 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { QuestionsComponent } from './questions/questions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrganismDisplayComponent,
     PopulationDetailsFormComponent,
-    LizardDisplayComponent
+    LizardDisplayComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

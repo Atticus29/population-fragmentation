@@ -12,7 +12,7 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
-
+  private displayQuestions: boolean = false;
 
   constructor(private fb: FormBuilder) {
     this.userInputFG = this.fb.group({
@@ -37,6 +37,8 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+    this.displayQuestions = true;
+    // focus('questions-div');
   }
 
   //TODO improve this
