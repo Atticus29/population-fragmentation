@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
@@ -13,6 +13,8 @@ import {MatIcon} from '@angular/material/icon';
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
   private displayQuestions: boolean = false;
+
+  @ViewChild('questions-div') questionElement: ElementRef;
 
   constructor(private fb: FormBuilder) {
     this.userInputFG = this.fb.group({
@@ -38,6 +40,7 @@ export class PopulationDetailsFormComponent implements OnInit {
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     this.displayQuestions = true;
+    this.questionElement.nativeElement.focus();
     // focus('questions-div');
   }
 

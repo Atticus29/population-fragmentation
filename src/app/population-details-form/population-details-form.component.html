@@ -30,7 +30,9 @@
       </div>
     </div>
   </form>
-  <div *ngIf="displayQuestions" id="questions-div">
-      <app-questions></app-questions>
+  <div id="questions-div">
+    <div *ngIf="displayQuestions">
+        <app-questions></app-questions>
+    </div>
   </div>
 </div>
