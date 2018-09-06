@@ -65,7 +65,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [DrawingService, ColorNameService, PopulationGenerationService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
