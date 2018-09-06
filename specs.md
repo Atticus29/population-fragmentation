@@ -4,11 +4,11 @@
 
 # Specs
 
-- [ ] User can choose starting total population size
-- [ ] User can choose number of population fragments
-- [ ] User can choose the number of generations to track
-- [ ] User can choose allele frequencies of brown, green, and magenta alleles
-  - [ ] Default frequency is ~1/3, ~1/3, ~1/3
+- [x] User can choose starting total population size
+- [x] User can choose number of population fragments
+- [x] User can choose the number of generations to track
+- [x] User can choose allele frequencies of brown, green, and magenta alleles
+  - [x] Default frequency is ~1/3, ~1/3, ~1/3
 - [ ] User can see the individuals in their population(s)
 	- [x] Lizard drawings
 		- [x] Stripe colors according to alleles

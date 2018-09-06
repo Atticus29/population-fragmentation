@@ -1,30 +1,30 @@
 <div class="example-container">
-  <form materialize class="example-form">
+  <form materialize class="example-form" [formGroup]="userInputFG">
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Population Size" value="100" required [formControl]="popsize">
+          <input matInput placeholder="Population Size" value="100" required formControlName="popsize">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of fragments" value="1" required [formControl]="fragNum">
+          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of generations" value="100" required [formControl]="genNum">
+          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum">
         </mat-form-field>
       </div>
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of green allele" value="0.33" required [formControl]="greenAlleleFreq">
+          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required [formControl]="blueAlleleFreq">
+          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required [formControl]="magentaAlleleFreq">
+          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq">
         </mat-form-field>
       </div>
       <div class="col m1 s1">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="processForm()">
           <mat-icon aria-label="Example icon-button with a heart icon">send</mat-icon>
         </button>
       </div>

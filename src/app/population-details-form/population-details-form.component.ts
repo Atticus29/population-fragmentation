@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 
 
@@ -11,17 +11,39 @@ import {MatIcon} from '@angular/material/icon';
   styleUrls: ['./population-details-form.component.css'],
 })
 export class PopulationDetailsFormComponent implements OnInit {
-  //TODO fix the form (which is displaying the input terribly!)
-  private popsize = new FormControl('',[Validators.required, Validators.min(2)]);
-  constructor() { }
+  private userInputFG: FormGroup;
+
+
+  constructor(private fb: FormBuilder) {
+    this.userInputFG = this.fb.group({
+      popsize: ['100', Validators.required],
+      fragNum: ['1', Validators.required],
+      genNum:  ['10', Validators.required],
+      greenAlleleFreq: ['0.33', Validators.required],
+      blueAlleleFreq: ['0.33', Validators.required],
+      magentaAlleleFreq: ['0.34', Validators.required]
+    })
+  }
 
   ngOnInit() {
   }
 
-  getErrorMessage() {
-    return this.popsize.hasError('required') ? 'You must enter a value' :
-        this.popsize.hasError('small') ? 'Number too small' :
-            '';
+  getValues(){
+    let result = this.userInputFG.value;
+    console.log(result);
+    return result;
   }
+
+  processForm(){
+    let result = this.getValues();
+    let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+  }
+
+  //TODO improve this
+  // getErrorMessage() {
+  //   return this.popsize.hasError('required') ? 'You must enter a value' :
+  //       this.popsize.hasError('small') ? 'Number too small' :
+  //           '';
+  // }
 
 }
