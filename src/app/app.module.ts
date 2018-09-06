@@ -3,7 +3,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormDisplayComponent } from './form-display/form-display.component';
 import { OrganismDisplayComponent } from './organism-display/organism-display.component';
 import { PopulationDetailsFormComponent } from './population-details-form/population-details-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,7 +53,6 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    FormDisplayComponent,
     OrganismDisplayComponent,
     PopulationDetailsFormComponent,
     LizardDisplayComponent
