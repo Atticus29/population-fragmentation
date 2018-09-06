@@ -3,30 +3,24 @@
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <label>Population Size</label>
-          <input matInput placeholder="100" required [formControl]="popsize">
+          <input matInput placeholder="Population Size" value="100" required [formControl]="popsize">
         </mat-form-field>
         <mat-form-field>
-          <label>Number of fragments</label>
-          <input matInput placeholder="1" required [formControl]="fragNum">
+          <input matInput placeholder="Number of fragments" value="1" required [formControl]="fragNum">
         </mat-form-field>
         <mat-form-field>
-          <label>Number of generations</label>
-          <input matInput placeholder="1" required [formControl]="genNum">
+          <input matInput placeholder="Number of generations" value="100" required [formControl]="genNum">
         </mat-form-field>
       </div>
       <div class="col m1 s1">
         <mat-form-field>
-          <label>Allele frequency of green allele</label>
-          <input matInput placeholder="1" required [formControl]="greenAlleleFreq">
+          <input matInput placeholder="Allele frequency of green allele" value="0.33" required [formControl]="greenAlleleFreq">
         </mat-form-field>
         <mat-form-field>
-          <label>Allele frequency of blue allele</label>
-          <input matInput placeholder="1" required [formControl]="blueAlleleFreq">
+          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required [formControl]="blueAlleleFreq">
         </mat-form-field>
         <mat-form-field>
-          <label>Allele frequency of magenta allele</label>
-          <input matInput placeholder="1" required [formControl]="magentaAlleleFreq">
+          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required [formControl]="magentaAlleleFreq">
         </mat-form-field>
       </div>
       <div class="col m1 s1">
