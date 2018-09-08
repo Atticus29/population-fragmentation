@@ -4,7 +4,7 @@ import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
 import { Organism } from '../organism.model';
 import { ColorNameService } from '../color-name.service';
-import { PopulationGenerationService } from '../population-generation.service';
+import { IndividualGenerationService } from '../individual-generation.service';
 
 @Component({
   selector: 'app-lizard-display',
@@ -15,12 +15,12 @@ import { PopulationGenerationService } from '../population-generation.service';
 export class LizardDisplayComponent implements OnInit {
   private individuals: Array<Organism> = new Array<Organism>();
 
-  constructor(private ds: DrawingService, private cns: ColorNameService, private popgenservice: PopulationGenerationService) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService) { }
 
   ngOnInit() {
 
       //TODO delete me after fleshed out more
-      let testIndividual: Organism = this.popgenservice.makeIndividual("green", "blue");
+      let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
       let genotype: Genotype = testIndividual.getGeneByName("spot color").getGenotype();
       this.individuals.push(testIndividual);
 

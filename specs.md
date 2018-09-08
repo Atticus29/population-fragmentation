@@ -1,6 +1,9 @@
 # Bugs
 
-- [ ] Pet names require() not working in population-generation service
+- [x] Pet names require() not working in population-generation service
+- [ ] Dynamically generated canvas elements can't be targeted by the drawLizard() method, making the lizard rendering impossible currently
+- [ ] Shifting focus to the questions div upon click of the form button doesn't work
+- [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 
 # Specs
 
@@ -12,11 +15,11 @@
 - [ ] User can see the individuals in their population(s)
 	- [x] Lizard drawings
 		- [x] Stripe colors according to alleles
-	- [ ] Lizard names are displayed
-	- [ ] Lizard alleles are displayed for each individual
+	- [x] Lizard names are displayed
+	- [x] Lizard alleles are displayed for each individual
 
-- [ ] User is asked to calculate expected genotype frequencies
-- [ ] User is asked whether the calculated frequencies match the observed (they should)
+- [x] User is asked to calculate expected genotype frequencies
+- [x] User is asked whether the calculated frequencies match the observed (they should)
 
 - [ ] Users can roll a die of size N (where N is number of individuals in certain subpopulation)
 - [ ] Mated pairs are displayed

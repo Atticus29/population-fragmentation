@@ -3,8 +3,11 @@ import { Gene } from './gene.model';
 
 export class Organism {
   //Assume diploid for now
+  private organismId: string;
 
-  constructor(public organismName: string, public genes:Array<Gene>) {}
+  constructor(public organismName: string, public genes:Array<Gene>) {
+    
+  }
 
   getOrganismName(){
     return this.organismName;

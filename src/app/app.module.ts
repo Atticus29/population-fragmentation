@@ -11,7 +11,8 @@ import { LizardDisplayComponent } from './lizard-display/lizard-display.componen
 import { DrawingService } from './drawing.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ColorNameService } from './color-name.service';
-import { PopulationGenerationService } from './population-generation.service';
+import { IndividualGenerationService } from './individual-generation.service';
+import { PopulationManagerService } from './population-manager.service';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -50,6 +51,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { QuestionsComponent } from './questions/questions.component';
+import { DiceComponent } from './dice/dice.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { QuestionsComponent } from './questions/questions.component';
     OrganismDisplayComponent,
     PopulationDetailsFormComponent,
     LizardDisplayComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    DiceComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,7 @@ import { QuestionsComponent } from './questions/questions.component';
     MatCardModule,
     MatIconModule
   ],
-  providers: [DrawingService, ColorNameService, PopulationGenerationService],
+  providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

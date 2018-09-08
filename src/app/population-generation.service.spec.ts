@@ -3,16 +3,16 @@ import { Gene } from './gene.model';
 import { Genotype } from './genotype.model';
 import { Organism } from './organism.model';
 
-import { PopulationGenerationService } from './population-generation.service';
+import { IndividualGenerationService } from './population-generation.service';
 
-describe('PopulationGenerationService', () => {
+describe('IndividualGenerationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PopulationGenerationService]
+      providers: [IndividualGenerationService]
     });
   });
 
-  it('should be created', inject([PopulationGenerationService], (service: PopulationGenerationService) => {
+  it('should be created', inject([IndividualGenerationService], (service: IndividualGenerationService) => {
     expect(service).toBeTruthy();
   }));
 
