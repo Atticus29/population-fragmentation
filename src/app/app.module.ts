@@ -51,6 +51,7 @@ import {
 } from '@angular/material';
 import { QuestionsComponent } from './questions/questions.component';
 import { DiceComponent } from './dice/dice.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DiceComponent } from './dice/dice.component';
     PopulationDetailsFormComponent,
     LizardDisplayComponent,
     QuestionsComponent,
-    DiceComponent
+    DiceComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
