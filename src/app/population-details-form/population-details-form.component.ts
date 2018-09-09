@@ -39,7 +39,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-    this.displayQuestions = true;
+    this.displayQuestions = !this.displayQuestions;
     this.questionElement.nativeElement.focus();
     // focus('questions-div');
   }
