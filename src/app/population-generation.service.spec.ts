@@ -3,7 +3,7 @@ import { Gene } from './gene.model';
 import { Genotype } from './genotype.model';
 import { Organism } from './organism.model';
 
-import { IndividualGenerationService } from './population-generation.service';
+import { IndividualGenerationService } from './individual-generation.service';
 
 describe('IndividualGenerationService', () => {
   beforeEach(() => {
