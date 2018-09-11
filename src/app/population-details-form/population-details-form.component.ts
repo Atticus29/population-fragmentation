@@ -13,6 +13,7 @@ import {MatIcon} from '@angular/material/icon';
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
   private displayQuestions: boolean = false;
+  private focusOnQuestion: boolean = false;
 
   @ViewChild('questions-div') questionElement: ElementRef;
 
@@ -32,7 +33,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   getValues(){
     let result = this.userInputFG.value;
-    console.log(result);
+    // console.log(result);
     return result;
   }
 
@@ -40,7 +41,10 @@ export class PopulationDetailsFormComponent implements OnInit {
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     this.displayQuestions = !this.displayQuestions;
-    this.questionElement.nativeElement.focus();
+    // console.log(this.focusOnQuestion);
+    this.focusOnQuestion = !this.focusOnQuestion;
+    // console.log(this.focusOnQuestion);
+    // this.questionElement.nativeElement.focus();
     // focus('questions-div');
   }
 

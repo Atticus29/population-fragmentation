@@ -52,6 +52,7 @@ import {
 import { QuestionsComponent } from './questions/questions.component';
 import { DiceComponent } from './dice/dice.component';
 import { PaymentComponent } from './payment/payment.component';
+import { FocusDirective } from './focus.directive';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PaymentComponent } from './payment/payment.component';
     LizardDisplayComponent,
     QuestionsComponent,
     DiceComponent,
-    PaymentComponent
+    PaymentComponent,
+    FocusDirective
   ],
   imports: [
     BrowserModule,
