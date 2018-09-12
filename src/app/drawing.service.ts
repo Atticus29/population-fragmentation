@@ -30,10 +30,11 @@ export class DrawingService {
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementId: string, color: string, fillStatus: boolean){
 
-    let canvasElementTest = <HTMLCanvasElement>document.getElementById("first");
+    // let canvasElementTest = <HTMLCanvasElement>document.getElementById("first");
     // console.log(canvasElementTest); //TODO fix
     let canvasElement = <HTMLCanvasElement>document.getElementById(elementId);
-    // console.log(canvasElement); //TODO fix
+    // let canvasElement: Element = <HTMLCanvasElement>document.getElementsByClassName(elementId);
+    console.log(canvasElement); //TODO fix
     if (canvasElement){
       let context = canvasElement.getContext("2d");
       context.beginPath();
@@ -73,8 +74,6 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasId: string, genotype: Genotype){
-
-
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasId,"black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasId,"black", true);
