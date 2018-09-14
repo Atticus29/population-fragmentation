@@ -1,10 +1,8 @@
 import { Organism } from './organism.model';
 
 export class Population {
-  private individuals: Array<Organism>;
-
-  constructor(individuals: Array<Organism>){
-    this.individuals = individuals;
+  private individuals: any;
+  constructor(individuals: Organism[]){
   }
 
   getIndividuals(){

@@ -30,7 +30,7 @@ export class LizardDisplayComponent implements OnInit {
       //   console.log(newResult);
       // });
 
-      this.ds.drawLizard('lizard-canvas1', genotype);
+      this.ds.drawLizard('lizard-canvas0', genotype);
       // this.ds.drawLizard('lizard-canvas2', genotype2);
       // this.ds.drawLizard('lizard-canvas3', genotype3);
   }
