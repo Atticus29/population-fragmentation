@@ -6,6 +6,7 @@ import { Organism } from '../organism.model';
 import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lizard-display',
@@ -25,8 +26,12 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       this.popManager.addOrganismToPopulation(testIndividual);
       let testIndividual2: Organism = this.individualGenService.makeIndividual("magenta", "blue");
       this.popManager.addOrganismToPopulation(testIndividual2);
-      this.popManager.currentPopulation.subscribe(results =>{
+      this.popManager.currentPopulation.pipe(take(1)).subscribe(results =>{
         this.individuals = results.getIndividuals();
+      });
+
+      this.popManager.calculateAlleleFrequency("magenta", false).subscribe(result =>{
+        console.log(result);
       });
 
       //TODO for future more interesting color support, work on this and the color-name service

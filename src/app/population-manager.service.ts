@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Organism } from './organism.model';
 import { Population } from './population.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -10,23 +10,57 @@ import { take } from 'rxjs/operators';
 export class PopulationManagerService {
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
-  private newPop: Population = null;
+  private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
+  newGenerationPopulation = this.currentPopulationSource.asObservable();
+  private populationWithPotentiallyNewIndividual: Population = null;
   constructor() { }
 
   addOrganismToPopulation(organism: Organism){
     this.currentPopulationSource.pipe(take(1))
     .subscribe((population: Population) => {
       if(population.getIndividuals()){
-        this.newPop = new Population([...population.getIndividuals(), organism]);
+        this.populationWithPotentiallyNewIndividual = new Population([...population.getIndividuals(), organism]);
       } else {
-        this.newPop = new Population([organism]);
+        this.populationWithPotentiallyNewIndividual = new Population([organism]);
       }
-      this.currentPopulationSource.next(this.newPop);
-  });
+      this.currentPopulationSource.next(this.populationWithPotentiallyNewIndividual);
+    });
+  }
 
-  // this.currentPopulationSource.next(new Population(new Array<Organism>(organism)));
+  calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){
+    let alleleOfInterestCount = 0;
+    if(doYouWantNewGeneration){
+      //TODO do this for new generation
+      return Observable.create(obs => {
+        this.newGenerationPopulationSource.pipe(take(1))
+        .subscribe((population: Population) => {
+          let individuals = population.getIndividuals();
+          let popSize = individuals.length;
+          individuals.forEach(individual =>{
+            let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+            let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+            if (allele1 === alleleName){alleleOfInterestCount++;}
+            if (allele2 === alleleName){alleleOfInterestCount++;}
+          });
+          obs.next(alleleOfInterestCount/(2*popSize));
+        });
+      });
+    } else{
+      return Observable.create(obs =>{
+      this.currentPopulationSource.pipe(take(1))
+      .subscribe((population: Population) => {
+        let individuals = population.getIndividuals();
+        let popSize = individuals.length;
+        individuals.forEach(individual =>{
+          let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+          let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+          if (allele1 === alleleName){alleleOfInterestCount++;}
+          if (allele2 === alleleName){alleleOfInterestCount++;}
+        });
+        obs.next(alleleOfInterestCount/(2*popSize));
+      });
+      });
 
-  //TODO how to add an element to an observable array?
-  // this.currentPopulation.getIndividuals().push(organism);
-}
+    }
+  }
 }
