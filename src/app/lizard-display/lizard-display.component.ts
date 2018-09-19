@@ -21,6 +21,12 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
   ngOnInit() {
+      let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
+      this.popManager.addOrganismToPopulation(testIndividual);
+      this.popManager.currentPopulation.subscribe(results =>{
+        this.individuals = results.getIndividuals();
+      })
+
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
       // result.subscribe(newResult =>{
@@ -32,10 +38,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     this.canvases.forEach(canvas =>{
       // console.log(canvas);
     });
-    this.popManager.currentPopulation.subscribe(results =>{
-      console.log(results);
-      this.individuals = results.getIndividuals();
-    })
     // console.log(this.canvases.toArray());
     this.ds.drawLizard(this.canvases.toArray()[0], this.genotypeTest);
   }

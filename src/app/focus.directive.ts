@@ -11,7 +11,7 @@ export class FocusDirective implements OnInit{
   ngOnInit() {
     // console.log(this.isFocused);
     if (this.isFocused) {
-      console.log("Got here!");
+      console.log("isFocused go here in FocusDirective");
       this.renderer.invokeElementMethod(this.hostElement.nativeElement, 'scrollIntoView');
     }
   }

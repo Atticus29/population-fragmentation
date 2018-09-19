@@ -6,6 +6,7 @@ import {MatIcon} from '@angular/material/icon';
 import { Organism } from '../organism.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   @ViewChild('questions-div') questionElement: ElementRef;
 
-  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) {
+  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
       popsize: ['100', Validators.required],
       fragNum: ['1', Validators.required],
@@ -44,12 +45,13 @@ export class PopulationDetailsFormComponent implements OnInit {
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     this.displayQuestions = !this.displayQuestions;
+    this.focusOnQuestion = !this.focusOnQuestion;
     // console.log(this.focusOnQuestion);
 
     //TODO remove this because it is simply a test of the population manager
-    this.focusOnQuestion = !this.focusOnQuestion;
-    let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
-    this.popManager.addOrganismToPopulation(testIndividual);
+    // let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
+    // this.popManager.addOrganismToPopulation(testIndividual);
+    // this.cdr.detectChanges();
 
     // console.log(this.focusOnQuestion);
     // this.questionElement.nativeElement.focus();
