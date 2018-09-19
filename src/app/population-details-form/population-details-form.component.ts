@@ -3,6 +3,9 @@ import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
+import { Organism } from '../organism.model';
+import { IndividualGenerationService } from '../individual-generation.service';
+import { PopulationManagerService } from '../population-manager.service';
 
 
 @Component({
@@ -17,7 +20,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   @ViewChild('questions-div') questionElement: ElementRef;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) {
     this.userInputFG = this.fb.group({
       popsize: ['100', Validators.required],
       fragNum: ['1', Validators.required],
@@ -42,7 +45,12 @@ export class PopulationDetailsFormComponent implements OnInit {
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     this.displayQuestions = !this.displayQuestions;
     // console.log(this.focusOnQuestion);
+
+    //TODO remove this because it is simply a test of the population manager
     this.focusOnQuestion = !this.focusOnQuestion;
+    let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
+    this.popManager.addOrganismToPopulation(testIndividual);
+
     // console.log(this.focusOnQuestion);
     // this.questionElement.nativeElement.focus();
     // focus('questions-div');
