@@ -21,31 +21,17 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
   ngOnInit() {
-
-      //TODO delete me after fleshed out more
-      // let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
-      // this.genotypeTest = testIndividual.getGeneByName("spot color").getGenotype();
-      // this.individuals.push(testIndividual);
-      // this.popManager.addOrganismToPopulation(testIndividual);
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
       // result.subscribe(newResult =>{
       //   console.log(newResult);
       // });
-
-      // this.ds.drawLizard('lizard-canvas0', genotype);
-      // this.ds.drawLizard('lizard-canvas2', genotype2);
-      // this.ds.drawLizard('lizard-canvas3', genotype3);
   }
 
   ngAfterViewInit(){
-    // console.log(this.canvases);
     this.canvases.forEach(canvas =>{
       // console.log(canvas);
     });
-    // let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
-    // this.genotypeTest = testIndividual.getGeneByName("spot color").getGenotype();
-    // this.popManager.addOrganismToPopulation(testIndividual);
     this.popManager.currentPopulation.subscribe(results =>{
       console.log(results);
       this.individuals = results.getIndividuals();
