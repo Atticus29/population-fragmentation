@@ -20,6 +20,7 @@
 		- [x] Stripe colors according to alleles
 	- [x] Lizard names are displayed
 	- [x] Lizard alleles are displayed for each individual
+  - [ ] Each lizard has a unique name
 
 - [x] User is asked to calculate expected genotype frequencies
 - [x] User is asked whether the calculated frequencies match the observed (they should)
