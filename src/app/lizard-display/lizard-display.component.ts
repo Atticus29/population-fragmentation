@@ -14,7 +14,7 @@ import { PopulationManagerService } from '../population-manager.service';
   providers: [DrawingService]
 })
 export class LizardDisplayComponent implements OnInit, AfterViewInit {
-  @ViewChildren('canvas') canvases: QueryList<ElementRef>;
+  @ViewChildren('canvases') canvases: QueryList<ElementRef>;
   private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
@@ -25,7 +25,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       this.popManager.addOrganismToPopulation(testIndividual);
       this.popManager.currentPopulation.subscribe(results =>{
         this.individuals = results.getIndividuals();
-      })
+      });
 
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
@@ -35,10 +35,12 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.canvases.forEach(canvas =>{
-      // console.log(canvas);
-    });
-    // console.log(this.canvases.toArray());
-    this.ds.drawLizard(this.canvases.toArray()[0], this.genotypeTest);
+    console.log("got into ngAfterViewInit");
+    let canvasArray = this.canvases.toArray();
+    for(let i = 0; i<canvasArray.length; i++){
+      console.log(canvasArray[i]);
+      console.log(this.individuals[i].getGeneByName("spot color").getGenotype());
+      this.ds.drawLizard(canvasArray[i], this.individuals[i].getGeneByName("spot color").getGenotype());
+    }
   }
 }
