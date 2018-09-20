@@ -4,6 +4,7 @@
 - [x] Dynamically generated canvas elements can't be targeted by the drawLizard() method, making the lizard rendering impossible currently
 - [x] Pet names require() not working in population-generation service
 - [x] Shifting focus to the questions div upon click of the form button doesn't work
+- [ ] The population size is rounded down right now in generatePopulation in population-manager service
 
 ## Low Priority
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
