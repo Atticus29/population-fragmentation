@@ -12,6 +12,7 @@
 
 
 ## Low Priority
+- [ ] Grid layout for angular material not working well to display the draggle cards
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 
