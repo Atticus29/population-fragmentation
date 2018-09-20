@@ -7,6 +7,7 @@
 - [ ] The population size is rounded down right now in generatePopulation in population-manager service
 
 ## Low Priority
+- [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 
 # Specs
@@ -26,6 +27,7 @@
 
 - [x] User is asked to calculate expected genotype frequencies
 - [x] User is asked whether the calculated frequencies match the observed (they should)
+- [ ] Users can see a table of allele frequency for each generation
 
 - [ ] Users can roll a die of size N (where N is number of individuals in certain subpopulation)
 - [ ] Mated pairs are displayed

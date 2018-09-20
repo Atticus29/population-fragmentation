@@ -9,6 +9,7 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
+  //TODO accommodate different generations!
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
   private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
@@ -17,7 +18,7 @@ export class PopulationManagerService {
   constructor(private individualGenerator: IndividualGenerationService) { }
 
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
-    
+
     //assuming Hardy-Weinberg Equilibrium
     let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
     for (let i = 0; i<blueHomozygousCount; i++){
