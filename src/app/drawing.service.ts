@@ -11,7 +11,6 @@ export class DrawingService {
 
   drawArc(x: number, y: number, radius: number, startAngle:number, endAngle: number, elementRef: ElementRef, color: string, fillStatus: boolean) {
     let canvas = <HTMLCanvasElement> elementRef.nativeElement;
-    // console.log(canvas); //TODO fix
     if (canvas) {
       let ctx = canvas.getContext('2d');
       ctx.beginPath();
@@ -30,10 +29,7 @@ export class DrawingService {
   }
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementRef: ElementRef, color: string, fillStatus: boolean){
-    // let canvasElementTest = <HTMLCanvasElement>document.getElementById("first");
-    // console.log(canvasElementTest); //TODO fix
     let canvasElement = <HTMLCanvasElement>elementRef.nativeElement;
-    // let canvasElement: Element = <HTMLCanvasElement>document.getElementsByClassName(elementRef);
     console.log(canvasElement); //TODO fix
     if (canvasElement){
       let context = canvasElement.getContext("2d");
@@ -58,7 +54,6 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
   let canvas = <HTMLCanvasElement> elementRef.nativeElement;
   if(canvas){
     let ctx = canvas.getContext('2d');
-    // ctx.setLineDash([])
     ctx.beginPath();
     ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, false); //x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise
     ctx.stroke();
@@ -74,11 +69,9 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasRef: ElementRef, genotype: Genotype){
-  console.log(canvasRef);
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef,"black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef,"black", true);
-  // console.log("mark got here, too"); //TODO fix
 
   //eyes
   this.drawArc(37.5, 106.25, 2, 0, 2*Math.PI, canvasRef,"white", true);

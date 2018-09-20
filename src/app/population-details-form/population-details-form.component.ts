@@ -38,7 +38,6 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   getValues(){
     let result = this.userInputFG.value;
-    // console.log(result);
     return result;
   }
 
@@ -50,16 +49,6 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.displayLizards = !this.displayLizards;
     this.displayQuestions = !this.displayQuestions;
     this.focusOnQuestion = !this.focusOnQuestion;
-    // console.log(this.focusOnQuestion);
-
-    //TODO remove this because it is simply a test of the population manager
-    // let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
-    // this.popManager.addOrganismToPopulation(testIndividual);
-    // this.cdr.detectChanges();
-
-    // console.log(this.focusOnQuestion);
-    // this.questionElement.nativeElement.focus();
-    // focus('questions-div');
   }
 
   //TODO improve this
