@@ -53,6 +53,7 @@ import { QuestionsComponent } from './questions/questions.component';
 import { DiceComponent } from './dice/dice.component';
 import { PaymentComponent } from './payment/payment.component';
 import { FocusDirective } from './focus.directive';
+import { DisplayTableComponent } from './display-table/display-table.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { FocusDirective } from './focus.directive';
     QuestionsComponent,
     DiceComponent,
     PaymentComponent,
-    FocusDirective
+    FocusDirective,
+    DisplayTableComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,10 @@ import { FocusDirective } from './focus.directive';
     MatInputModule,
     HttpClientModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
