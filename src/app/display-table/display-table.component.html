@@ -1,0 +1,40 @@
+<div class="mat-elevation-z8">
+  <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="generation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Generation</th>
+      <td mat-cell *matCellDef="let row">{{row.generation}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fragment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fragment Number</th>
+      <td mat-cell *matCellDef="let row">{{row.fragment}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="alleleFrequencyBlue">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Blue Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyBlue}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="alleleFrequencyGreen">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Green Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyGreen}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="alleleFrequencyMagenta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Magenta Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyMagenta}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+    [length]="dataSource.data.length"
+    [pageIndex]="0"
+    [pageSize]="50"
+    [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>
