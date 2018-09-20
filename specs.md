@@ -5,9 +5,11 @@
 - [x] Pet names require() not working in population-generation service
 - [x] Shifting focus to the questions div upon click of the form button doesn't work
 - [ ] The population size is rounded down right now in generatePopulation in population-manager service
+    - [ ] Add a generateSingleIndividualGivenAlleleFrequencies
 - [ ] You need to click twice to re-seed population (maybe change to disabling generate population button until you hit clear population button?)
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries
+
 
 ## Low Priority
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
