@@ -13,13 +13,14 @@ export interface DisplayTableItem {
 }
 
 // TODO: replace this with real data from your application
+//TODO fix
 let frequencyData: DisplayTableItem[] = [];
-let popManagerInstance = new PopulationManagerService();
-popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
-  console.log(result);
-  frequencyData.push({generation: 0, fragment: 1, alleleFrequencyBlue: result, alleleFrequencyGreen: 0.77, alleleFrequencyMagenta: 0.78});
-  //TODO update this somehow
-});
+// let popManagerInstance = new PopulationManagerService();
+// popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
+//   console.log(result);
+//   frequencyData.push({generation: 0, fragment: 1, alleleFrequencyBlue: result, alleleFrequencyGreen: 0.77, alleleFrequencyMagenta: 0.78});
+//   //TODO update this somehow
+// });
 // const frequencyData: DisplayTableItem[] = [
 //   {id: 1, name: 'Hydrogen'},
 //   {id: 2, name: 'Helium'},

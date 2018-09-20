@@ -45,6 +45,7 @@ export class PopulationDetailsFormComponent implements OnInit {
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     //TODO accommodate fragments
+    this.popManager.clearPopulation();
     this.popManager.generatePopulation(blueAlleleFreq, greenAlleleFreq, magentaAlleleFreq, popsize);
     this.displayLizards = !this.displayLizards;
     this.displayQuestions = !this.displayQuestions;

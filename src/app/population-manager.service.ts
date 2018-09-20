@@ -17,8 +17,12 @@ export class PopulationManagerService {
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
-  generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
+  clearPopulation(){
+    let emptyPopulation = new Population([]);
+    this.currentPopulationSource.next(emptyPopulation);
+  }
 
+  generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
     //assuming Hardy-Weinberg Equilibrium
     let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
     for (let i = 0; i<blueHomozygousCount; i++){

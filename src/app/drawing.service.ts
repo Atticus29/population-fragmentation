@@ -30,7 +30,6 @@ export class DrawingService {
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementRef: ElementRef, color: string, fillStatus: boolean){
     let canvasElement = <HTMLCanvasElement>elementRef.nativeElement;
-    console.log(canvasElement); //TODO fix
     if (canvasElement){
       let context = canvasElement.getContext("2d");
       context.beginPath();
