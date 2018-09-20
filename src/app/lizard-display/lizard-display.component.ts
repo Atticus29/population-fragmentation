@@ -22,10 +22,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
   ngOnInit() {
-      let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
-      this.popManager.addOrganismToPopulation(testIndividual);
-      let testIndividual2: Organism = this.individualGenService.makeIndividual("magenta", "blue");
-      this.popManager.addOrganismToPopulation(testIndividual2);
+      // let testIndividual: Organism = this.individualGenService.makeIndividual("green", "blue");
+      // this.popManager.addOrganismToPopulation(testIndividual);
+      // let testIndividual2: Organism = this.individualGenService.makeIndividual("magenta", "blue");
+      // this.popManager.addOrganismToPopulation(testIndividual2);
       this.popManager.currentPopulation.pipe(take(1)).subscribe(results =>{
         this.individuals = results.getIndividuals();
       });

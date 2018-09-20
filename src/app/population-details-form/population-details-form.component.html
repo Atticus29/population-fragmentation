@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Population Size" value="100" required formControlName="popsize">
+          <input matInput placeholder="Population Size" value="10" required formControlName="popsize">
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
@@ -30,6 +30,9 @@
       </div>
     </div>
   </form>
+  <div id="lizard-display-div" *ngIf="displayLizards">
+    <app-lizard-display></app-lizard-display>
+  </div>
   <div id="questions-div">
     <div *ngIf="displayQuestions" [appFocus]="focusOnQuestion">
         <app-questions></app-questions>

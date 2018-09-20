@@ -17,13 +17,14 @@ import { ChangeDetectorRef } from '@angular/core';
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
   private displayQuestions: boolean = false;
+  private displayLizards: boolean = false;
   private focusOnQuestion: boolean = false;
 
   @ViewChild('questions-div') questionElement: ElementRef;
 
   constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
-      popsize: ['100', Validators.required],
+      popsize: ['10', Validators.required],
       fragNum: ['1', Validators.required],
       genNum:  ['10', Validators.required],
       greenAlleleFreq: ['0.33', Validators.required],
@@ -44,6 +45,9 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+    //TODO accommodate fragments
+    this.popManager.generatePopulation(blueAlleleFreq, greenAlleleFreq, magentaAlleleFreq, popsize);
+    this.displayLizards = !this.displayLizards;
     this.displayQuestions = !this.displayQuestions;
     this.focusOnQuestion = !this.focusOnQuestion;
     // console.log(this.focusOnQuestion);

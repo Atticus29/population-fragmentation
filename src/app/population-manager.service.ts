@@ -3,6 +3,7 @@ import { Organism } from './organism.model';
 import { Population } from './population.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { IndividualGenerationService } from './individual-generation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,42 @@ export class PopulationManagerService {
   private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   newGenerationPopulation = this.currentPopulationSource.asObservable();
   private populationWithPotentiallyNewIndividual: Population = null;
-  constructor() { }
+  constructor(private individualGenerator: IndividualGenerationService) { }
+
+  generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
+    
+    //assuming Hardy-Weinberg Equilibrium
+    let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
+    for (let i = 0; i<blueHomozygousCount; i++){
+      let individual = this.individualGenerator.makeIndividual("blue", "blue");
+      this.addOrganismToPopulation(individual);
+    }
+    let greenHomozygousCount = Math.round(alleleFrequencyGreen * alleleFrequencyGreen * popSize);
+    for (let i = 0; i<greenHomozygousCount; i++){
+      let individual = this.individualGenerator.makeIndividual("green", "green");
+      this.addOrganismToPopulation(individual);
+    }
+    let magentaHomozygousCount = Math.round(alleleFrequencyMagenta * alleleFrequencyMagenta * popSize);
+    for (let i = 0; i<magentaHomozygousCount; i++){
+      let individual = this.individualGenerator.makeIndividual("magenta", "magenta");
+      this.addOrganismToPopulation(individual);
+    }
+    let blueGreenHeterozygoteCount = Math.round(2* alleleFrequencyBlue * alleleFrequencyGreen * popSize);
+    for (let i = 0; i<blueGreenHeterozygoteCount; i++){
+      let individual = this.individualGenerator.makeIndividual("blue", "green");
+      this.addOrganismToPopulation(individual);
+    }
+    let blueMagentaHeterozygoteCount = Math.round(2* alleleFrequencyBlue * alleleFrequencyMagenta * popSize);
+    for (let i = 0; i<blueMagentaHeterozygoteCount; i++){
+      let individual = this.individualGenerator.makeIndividual("blue", "magenta");
+      this.addOrganismToPopulation(individual);
+    }
+    let greenMagentaHeterozygoteCount = Math.round(2* alleleFrequencyGreen * alleleFrequencyMagenta * popSize);
+    for (let i = 0; i<greenMagentaHeterozygoteCount; i++){
+      let individual = this.individualGenerator.makeIndividual("green", "magenta");
+      this.addOrganismToPopulation(individual);
+    }
+  }
 
   addOrganismToPopulation(organism: Organism){
     this.currentPopulationSource.pipe(take(1))
