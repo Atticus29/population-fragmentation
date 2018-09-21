@@ -58,6 +58,7 @@ export class PopulationManagerService {
 
     //check the count
     this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
+    // console.log(population);
     if(population.getIndividuals().length<popSize){
       console.log("your population is too small!");
       this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
@@ -69,19 +70,35 @@ export class PopulationManagerService {
   });
   //can't do a while loop instead of an if statement above, because I don't think the addRandomIndividualGivenPopAlleleFrequencies emits in time to ever be falsified by the while statement?
   this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
-    if(population.getIndividuals().length<popSize){
-      console.log("your population is too small!");
-      this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
-    }
-    if(population.getIndividuals().length>popSize){
-      console.log("your population is too big! Weird!")
-      this.removeAnIndividualAtRandomFromPopulation();
-    }
-  });
+  // console.log(population);
+  if(population.getIndividuals().length<popSize){
+    console.log("your population is too small!");
+    this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
+  }
+  if(population.getIndividuals().length>popSize){
+    console.log("your population is too big! Weird!")
+    this.removeAnIndividualAtRandomFromPopulation();
+  }
+});
 }
 
 removeAnIndividualAtRandomFromPopulation(){
-  //TODO flesh this out
+  //TODO I'm sure there's an easier way
+  this.currentPopulationSource.pipe(take(1)).subscribe((population: Population) =>{
+    let randomIndex = Math.floor(Math.random()*population.getIndividuals().length) + 1;
+    let newIndividualArray: Array<Organism> = population.getIndividuals();
+    newIndividualArray.splice(randomIndex,1);
+    // for (let i = 0; i<population.getIndividuals().length; i++){
+    //   if(i == randomIndex){
+    //     //Do nothing
+    //   } else{
+    //   //add it to the newIndividualArray
+    //   newIndividualArray.push(population.getIndividuals()[i]);
+    //   }
+    // }
+    let newPopulation: Population = new Population(newIndividualArray);
+    this.currentPopulationSource.next(newPopulation);
+  });
 }
 
 addRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
