@@ -14,12 +14,23 @@ export class PopulationManagerService {
   currentPopulation = this.currentPopulationSource.asObservable();
   private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   newGenerationPopulation = this.currentPopulationSource.asObservable();
+  private generationsSouce: BehaviorSubject<Population[]> = new BehaviorSubject<Population[]>(new Array<Population>());
+  generations = this.generationsSouce.asObservable();
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
   clearPopulation(){
     let emptyPopulation = new Population([]);
+    let emptyGenerations = new Array<Population>();
     this.currentPopulationSource.next(emptyPopulation);
+    this.generationsSouce.next(emptyGenerations);
+  }
+
+  addToGenerations(population: Population){
+    this.generationsSouce.pipe(take(1)).subscribe((populations: Array<Population>)=>{
+      populations.push(population);
+      this.generationsSouce.next(populations);
+    });
   }
 
   allPossibleCases(arr) {
@@ -102,6 +113,11 @@ export class PopulationManagerService {
     this.removeAnIndividualAtRandomFromPopulation();
   }
 });
+
+  //TODO unclear if I can add this into the subscription above
+  this.currentPopulationSource.pipe(take(1)).subscribe((population: Population) =>{
+    this.addToGenerations(population);
+  });
 }
 
 removeAnIndividualAtRandomFromPopulation(){

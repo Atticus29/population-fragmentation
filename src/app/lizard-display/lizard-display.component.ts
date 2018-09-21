@@ -39,6 +39,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         console.log(result);
       });
 
+      this.popManager.generations.pipe(take(1)).subscribe(results=>{
+        console.log(results);
+      });
+
       //TODO for future more interesting color support, work on this and the color-name service
       // let result = this.cns.getJSON("http://thecolorapi.com/id?hex=00FF00&format=json");
       // result.subscribe(newResult =>{

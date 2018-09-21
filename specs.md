@@ -6,7 +6,7 @@
 - [x] Shifting focus to the questions div upon click of the form button doesn't work
 - [x] The population size is rounded down right now in generatePopulation in population-manager service
     - [x] Add a generateSingleIndividualGivenAlleleFrequencies
-- [ ] When you enter 5 individuals, six are generated
+- [x] When you enter 5 individuals, six are generated
 - [x] You need to click twice to re-seed population (maybe change to disabling generate population button until you hit clear population button?)
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries
