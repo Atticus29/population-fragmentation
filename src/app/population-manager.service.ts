@@ -22,8 +22,30 @@ export class PopulationManagerService {
     this.currentPopulationSource.next(emptyPopulation);
   }
 
+  allPossibleCases(arr) {
+    if (arr.length == 1) {
+      return arr[0];
+    } else {
+      var result = [];
+      var allCasesOfRest = this.allPossibleCases(arr.slice(1));  // recur with the rest of array
+      for (var i = 0; i < allCasesOfRest.length; i++) {
+        for (var j = 0; j < arr[0].length; j++) {
+          result.push(arr[0][j] + allCasesOfRest[i]);
+        }
+      }
+      return result;
+    }
+  }
+
+  testMethod(){
+    var allArrays = [['blue', 'green', 'magenta'],['blue', 'green', 'magenta']]
+    let results = this.allPossibleCases(allArrays);
+    console.log(results);
+  }
+
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
     //TODO generalize this for an array of allele frequencies
+    //TODO generalize to different populationSources
     //assuming Hardy-Weinberg Equilibrium
     let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
     for (let i = 0; i<blueHomozygousCount; i++){
@@ -83,6 +105,7 @@ export class PopulationManagerService {
 }
 
 removeAnIndividualAtRandomFromPopulation(){
+  //TODO generalize to different populationSources
   this.currentPopulationSource.pipe(take(1)).subscribe((population: Population) =>{
     let randomIndex = Math.floor(Math.random()*population.getIndividuals().length) + 1;
     let newIndividualArray: Array<Organism> = population.getIndividuals();
@@ -93,6 +116,7 @@ removeAnIndividualAtRandomFromPopulation(){
 }
 
 addRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
+  //TODO generalize to different populationSources
   //TODO I am not 100% convinced that this works as expected
   // console.log(alleleFrequencies);
   let randomNumberBetween0And1 = Math.random();
@@ -130,6 +154,7 @@ this.addOrganismToPopulation(newIndividual);
 }
 
 addOrganismToPopulation(organism: Organism){
+  //TODO generalize to different populationSources
   this.currentPopulationSource.pipe(take(1))
   .subscribe((population: Population) => {
     if(population.getIndividuals()){
