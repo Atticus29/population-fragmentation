@@ -83,19 +83,10 @@ export class PopulationManagerService {
 }
 
 removeAnIndividualAtRandomFromPopulation(){
-  //TODO I'm sure there's an easier way
   this.currentPopulationSource.pipe(take(1)).subscribe((population: Population) =>{
     let randomIndex = Math.floor(Math.random()*population.getIndividuals().length) + 1;
     let newIndividualArray: Array<Organism> = population.getIndividuals();
     newIndividualArray.splice(randomIndex,1);
-    // for (let i = 0; i<population.getIndividuals().length; i++){
-    //   if(i == randomIndex){
-    //     //Do nothing
-    //   } else{
-    //   //add it to the newIndividualArray
-    //   newIndividualArray.push(population.getIndividuals()[i]);
-    //   }
-    // }
     let newPopulation: Population = new Population(newIndividualArray);
     this.currentPopulationSource.next(newPopulation);
   });
