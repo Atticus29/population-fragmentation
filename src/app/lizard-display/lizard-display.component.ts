@@ -26,6 +26,14 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         this.individuals = results.getIndividuals();
       });
 
+      this.popManager.calculateAlleleFrequency("blue", false).subscribe(result =>{
+        console.log(result);
+      });
+
+      this.popManager.calculateAlleleFrequency("green", false).subscribe(result =>{
+        console.log(result);
+      });
+
       this.popManager.calculateAlleleFrequency("magenta", false).subscribe(result =>{
         console.log(result);
       });

@@ -23,6 +23,7 @@ export class PopulationManagerService {
   }
 
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
+    //TODO generalize this for an array of allele frequencies
     //assuming Hardy-Weinberg Equilibrium
     let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
     for (let i = 0; i<blueHomozygousCount; i++){
@@ -54,54 +55,118 @@ export class PopulationManagerService {
       let individual = this.individualGenerator.makeIndividual("green", "magenta");
       this.addOrganismToPopulation(individual);
     }
-  }
 
-  addOrganismToPopulation(organism: Organism){
+    //check the count
+    this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
+    if(population.getIndividuals().length<popSize){
+      console.log("your population is too small!");
+      this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
+    }
+    if(population.getIndividuals().length>popSize){
+      console.log("your population is too big! Weird!")
+      this.removeAnIndividualAtRandomFromPopulation();
+    }
+  });
+  //can't do a while loop instead of an if statement above, because I don't think the addRandomIndividualGivenPopAlleleFrequencies emits in time to ever be falsified by the while statement?
+  this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
+    if(population.getIndividuals().length<popSize){
+      console.log("your population is too small!");
+      this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
+    }
+    if(population.getIndividuals().length>popSize){
+      console.log("your population is too big! Weird!")
+      this.removeAnIndividualAtRandomFromPopulation();
+    }
+  });
+}
+
+removeAnIndividualAtRandomFromPopulation(){
+  //TODO flesh this out
+}
+
+addRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
+  //TODO I am not 100% convinced that this works as expected
+  // console.log(alleleFrequencies);
+  let randomNumberBetween0And1 = Math.random();
+  let cumulativeProbability = 0;
+  let allele1 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  let allele2 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  for(let i = 0; i<alleleFrequencies.length; i++){
+    // console.log(cumulativeProbability);
+    // console.log(cumulativeProbability + alleleFrequencies[i]);
+    if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+    //if the random number falls in this probability space
+    allele1 = alleleNames[i];
+    // console.log(allele1);
+  }
+  cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+
+randomNumberBetween0And1 = Math.random();
+// console.log(randomNumberBetween0And1);
+cumulativeProbability = 0;
+for(let i = 0; i<alleleFrequencies.length; i++){
+  // console.log(cumulativeProbability);
+  // console.log(cumulativeProbability + alleleFrequencies[i]);
+  if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+  //if the random number falls in this probability space
+  // console.log("this should also only happen once");
+  allele2 = alleleNames[i];
+  cumulativeProbability += alleleFrequencies[i];
+  // console.log(allele2);
+}
+cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+let newIndividual: Organism = this.individualGenerator.makeIndividual(allele1, allele2);
+this.addOrganismToPopulation(newIndividual);
+}
+
+addOrganismToPopulation(organism: Organism){
+  this.currentPopulationSource.pipe(take(1))
+  .subscribe((population: Population) => {
+    if(population.getIndividuals()){
+      this.populationWithPotentiallyNewIndividual = new Population([...population.getIndividuals(), organism]);
+    } else {
+      this.populationWithPotentiallyNewIndividual = new Population([organism]);
+    }
+    this.currentPopulationSource.next(this.populationWithPotentiallyNewIndividual);
+  });
+}
+
+calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){
+  let alleleOfInterestCount = 0;
+  if(doYouWantNewGeneration){
+    //TODO do this for new generation
+    return Observable.create(obs => {
+    this.newGenerationPopulationSource.pipe(take(1))
+    .subscribe((population: Population) => {
+      let individuals = population.getIndividuals();
+      let popSize = individuals.length;
+      individuals.forEach(individual =>{
+        let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+        let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+        if (allele1 === alleleName){alleleOfInterestCount++;}
+        if (allele2 === alleleName){alleleOfInterestCount++;}
+      });
+      obs.next(alleleOfInterestCount/(2*popSize));
+    });
+  });
+} else{
+  return Observable.create(obs =>{
     this.currentPopulationSource.pipe(take(1))
     .subscribe((population: Population) => {
-      if(population.getIndividuals()){
-        this.populationWithPotentiallyNewIndividual = new Population([...population.getIndividuals(), organism]);
-      } else {
-        this.populationWithPotentiallyNewIndividual = new Population([organism]);
-      }
-      this.currentPopulationSource.next(this.populationWithPotentiallyNewIndividual);
+      let individuals = population.getIndividuals();
+      let popSize = individuals.length;
+      individuals.forEach(individual =>{
+        let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+        let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+        if (allele1 === alleleName){alleleOfInterestCount++;}
+        if (allele2 === alleleName){alleleOfInterestCount++;}
+      });
+      obs.next(alleleOfInterestCount/(2*popSize));
     });
-  }
+  });
 
-  calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){
-    let alleleOfInterestCount = 0;
-    if(doYouWantNewGeneration){
-      //TODO do this for new generation
-      return Observable.create(obs => {
-        this.newGenerationPopulationSource.pipe(take(1))
-        .subscribe((population: Population) => {
-          let individuals = population.getIndividuals();
-          let popSize = individuals.length;
-          individuals.forEach(individual =>{
-            let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
-            let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
-            if (allele1 === alleleName){alleleOfInterestCount++;}
-            if (allele2 === alleleName){alleleOfInterestCount++;}
-          });
-          obs.next(alleleOfInterestCount/(2*popSize));
-        });
-      });
-    } else{
-      return Observable.create(obs =>{
-      this.currentPopulationSource.pipe(take(1))
-      .subscribe((population: Population) => {
-        let individuals = population.getIndividuals();
-        let popSize = individuals.length;
-        individuals.forEach(individual =>{
-          let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
-          let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
-          if (allele1 === alleleName){alleleOfInterestCount++;}
-          if (allele2 === alleleName){alleleOfInterestCount++;}
-        });
-        obs.next(alleleOfInterestCount/(2*popSize));
-      });
-      });
-
-    }
-  }
+}
+}
 }
