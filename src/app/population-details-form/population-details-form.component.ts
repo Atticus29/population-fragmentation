@@ -19,6 +19,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   private displayQuestions: boolean = false;
   private displayLizards: boolean = false;
   private focusOnQuestion: boolean = false;
+  private disablePopulationGenerationForm: boolean = false;
 
   @ViewChild('questions-div') questionElement: ElementRef;
 
@@ -47,9 +48,16 @@ export class PopulationDetailsFormComponent implements OnInit {
     //TODO accommodate fragments
     this.popManager.clearPopulation();
     this.popManager.generatePopulation(blueAlleleFreq, greenAlleleFreq, magentaAlleleFreq, popsize);
-    this.displayLizards = !this.displayLizards;
-    this.displayQuestions = !this.displayQuestions;
+    this.displayLizards = true;
+    this.displayQuestions = !this.displayQuestions; //TODO maybe true
+    this.disablePopulationGenerationForm = true;
     this.focusOnQuestion = !this.focusOnQuestion;
+  }
+
+  clearPop(){
+    this.displayLizards = false;
+    this.disablePopulationGenerationForm = false;
+    this.popManager.clearPopulation();
   }
 
   //TODO improve this

@@ -1,5 +1,5 @@
 <div class="example-container">
-  <form materialize class="example-form" [formGroup]="userInputFG">
+  <form materialize class="example-form" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
@@ -24,12 +24,13 @@
         </mat-form-field>
       </div>
       <div class="col m1 s1">
-        <button mat-icon-button color="primary" (click)="processForm()">Generate Population 
-          <mat-icon aria-label="Example icon-button with a heart icon">send</mat-icon>
+        <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Population
         </button>
       </div>
     </div>
   </form>
+  <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population
+  </button>
   <div id="lizard-display-div" *ngIf="displayLizards">
     <app-lizard-display></app-lizard-display>
   </div>
