@@ -1,42 +1,38 @@
-<div class="example-container">
-  <form materialize class="example-form" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
-    <div class="row">
-      <div class="col m1 s1">
-        <mat-form-field>
-          <input matInput placeholder="Population Size" value="10" required formControlName="popsize">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum">
-        </mat-form-field>
-      </div>
-      <div class="col m1 s1">
-        <mat-form-field>
-          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq">
-        </mat-form-field>
-      </div>
-      <div class="col m1 s1">
-        <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Population
-        </button>
-      </div>
+<form materialize class="example-form" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
+  <div class="row">
+    <div class="col m1 s1">
+      <mat-form-field>
+        <input matInput placeholder="Population Size" value="10" required formControlName="popsize">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Number of generations" value="10" required formControlName="genNum">
+      </mat-form-field>
     </div>
-  </form>
-  <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population
-  </button>
-  <div id="lizard-display-div" *ngIf="displayLizards">
-    <app-lizard-display></app-lizard-display>
+    <div class="col m1 s1">
+      <mat-form-field>
+        <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq">
+      </mat-form-field>
+    </div>
+    <div class="col m1 s1">
+      <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Population
+      </button>
+    </div>
   </div>
-  <div id="questions-div">
-    <div *ngIf="displayQuestions" [appFocus]="focusOnQuestion">
-        <app-questions></app-questions>
-    </div>
+</form>
+<button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population
+</button>
+<app-lizard-display *ngIf="displayLizards"></app-lizard-display>
+<div id="questions-div">
+  <div *ngIf="displayQuestions" [appFocus]="focusOnQuestion">
+    <app-questions></app-questions>
   </div>
 </div>

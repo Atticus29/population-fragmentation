@@ -25,12 +25,12 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
-      popsize: ['10', Validators.required],
-      fragNum: ['1', Validators.required],
-      genNum:  ['10', Validators.required],
-      greenAlleleFreq: ['0.33', Validators.required],
-      blueAlleleFreq: ['0.33', Validators.required],
-      magentaAlleleFreq: ['0.34', Validators.required]
+      popsize: ['10', Validators.required], //, Validators.max(1000)
+      fragNum: ['1', Validators.required],//, Validators.max(1000)
+      genNum:  ['10', Validators.required],//, Validators.max(1000)
+      greenAlleleFreq: ['0.33', Validators.required], //, Validators.max(1), Validators.min(0)
+      blueAlleleFreq: ['0.33', Validators.required],//, Validators.max(1), Validators.min(0)
+      magentaAlleleFreq: ['0.34', Validators.required] //, Validators.max(1), Validators.min(0)
     })
   }
 
