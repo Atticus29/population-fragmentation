@@ -18,7 +18,7 @@ export class Organism {
   //   return this.matedStatus;
   // }
 
-  mate(){
+  designateAsMated(){
     this.matedStatus = true;
   }
 

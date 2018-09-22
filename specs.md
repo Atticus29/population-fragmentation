@@ -1,8 +1,11 @@
 # Bugs
 
 ## High Priority
-- [ ] No mated pair model has been generated for mate component to use
-- [ ] appMated directive has been implemented but the styling has not and nothing has been tested
+- [ ] improve styling of appMated directive
+- [ ] app-focus directive should point to top of draggles or to questions?
+- [ ] make the draw thing scale by %, rather than having pixels everywhere
+- [x] appMated directive has been implemented but the styling has not and nothing has been tested
+- [x] No mated pair model has been generated for mate component to use
 - [x] Dynamically generated canvas elements can't be targeted by the drawLizard() method, making the lizard rendering impossible currently
 - [x] Pet names require() not working in population-generation service
 - [x] Shifting focus to the questions div upon click of the form button doesn't work
