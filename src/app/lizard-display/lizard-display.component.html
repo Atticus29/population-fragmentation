@@ -1,4 +1,4 @@
-<mat-card *ngFor="let individual of individuals; let i=index">
+<mat-card *ngFor="let individual of individuals; let i=index" [appMated]="{{individual.isMated()}}">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{individual.getOrganismName()}}</mat-card-title>
@@ -24,3 +24,5 @@
   <mat-card-actions>
   </mat-card-actions>
 </mat-card>
+<button mat-raised-button color="primary" (click)="pickTwoToMateAndOpenMatingComponentIfClosed()" class="uniform-length-button" >Designate a Random Pair to Mate
+</button>

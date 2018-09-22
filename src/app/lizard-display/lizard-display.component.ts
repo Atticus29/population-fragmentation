@@ -18,6 +18,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
   private individuals: Array<Organism>;
   private genotypeTest: Genotype;
+  priavte openMatingComponent: boolean = false;
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
@@ -55,5 +56,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     for(let i = 0; i<canvasArray.length; i++){
       this.ds.drawLizard(canvasArray[i], this.individuals[i].getGeneByName("spot color").getGenotype());
     }
+  }
+
+  pickTwoToMateAndOpenMatingComponentIfClosed(){
+    this.openMatingComponent = true;
   }
 }

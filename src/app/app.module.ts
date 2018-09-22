@@ -54,6 +54,7 @@ import { DiceComponent } from './dice/dice.component';
 import { PaymentComponent } from './payment/payment.component';
 import { FocusDirective } from './focus.directive';
 import { DisplayTableComponent } from './display-table/display-table.component';
+import { MatedDirective } from './mated.directive';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DisplayTableComponent } from './display-table/display-table.component';
     DiceComponent,
     PaymentComponent,
     FocusDirective,
-    DisplayTableComponent
+    DisplayTableComponent,
+    MatedDirective
   ],
   imports: [
     BrowserModule,
