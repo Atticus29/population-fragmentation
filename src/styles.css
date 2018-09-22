@@ -1,9 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-mat-card{
-    display: inline-block;
-    width: 20%;
-    margin: 20px;
-    vertical-align: top;
-}

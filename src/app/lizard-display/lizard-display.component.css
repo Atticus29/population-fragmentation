@@ -2,6 +2,9 @@ li {
   list-style: none;
 }
 
-/* mat-card{
-  width: fit-content;
-} */
+mat-card{
+    display: inline-block;
+    width: fit-content;
+    margin: 20px;
+    vertical-align: top;
+}

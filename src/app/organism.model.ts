@@ -4,7 +4,7 @@ import { Gene } from './gene.model';
 export class Organism {
   //Assume diploid for now
   private organismId: string;
-  private matedStatus: boolean;
+  matedStatus: boolean;
 
   constructor(public organismName: string, public genes:Array<Gene>) {
     this.matedStatus = false;
@@ -14,9 +14,9 @@ export class Organism {
     return this.organismName;
   }
 
-  isMated(): boolean{
-    return this.matedStatus;
-  }
+  // isMated(): boolean{
+  //   return this.matedStatus;
+  // }
 
   mate(){
     this.matedStatus = true;

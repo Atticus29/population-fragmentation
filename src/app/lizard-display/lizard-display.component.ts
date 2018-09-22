@@ -18,7 +18,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
   private individuals: Array<Organism>;
   private genotypeTest: Genotype;
-  priavte openMatingComponent: boolean = false;
+  private openMatingComponent: boolean = false;
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 

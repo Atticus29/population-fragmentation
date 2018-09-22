@@ -1,5 +1,17 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+mat-card{
+    background-color: red;
+    display: inline-block;
+    width: 20%;
+    margin: 20px;
+    vertical-align: top;
+}
+
+.no-longer-eligible{
+  background-color: red;
+}
+
 .uniform-length-button{
   width: 150 px;
 }

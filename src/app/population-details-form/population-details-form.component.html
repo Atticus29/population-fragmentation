@@ -30,6 +30,7 @@
 </form>
 <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population
 </button>
+<br>
 <app-lizard-display *ngIf="displayLizards"></app-lizard-display>
 <div id="questions-div">
   <div *ngIf="displayQuestions" [appFocus]="focusOnQuestion">

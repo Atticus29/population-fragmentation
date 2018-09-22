@@ -11,6 +11,7 @@ export class MatedDirective {
     // console.log(this.isFocused);
     if (this.isMated) {
       console.log("isMated go here in MatedDirective");
+      this.renderer.setElementClass(this.hostElement.nativeElement, 'no-longer-eligible',true);
       //TODO fleshout styling change
       // this.renderer.invokeElementMethod(this.hostElement.nativeElement, 'scrollIntoView');
     }
