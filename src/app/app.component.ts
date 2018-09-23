@@ -8,9 +8,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
   private displayLizards: boolean = false;
+  private displayQuestions: boolean = false;
   setDisplayLizards(shouldLizardsDisplay: boolean){
     console.log("hi there!");
     console.log(shouldLizardsDisplay);
     this.displayLizards = shouldLizardsDisplay;
+  }
+
+  setDisplayQuestions(shouldQuestionsDisplay: boolean){
+    this.displayQuestions = shouldQuestionsDisplay;
   }
 }

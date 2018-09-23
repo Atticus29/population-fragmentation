@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="mat-app-background basic-container">
   <div class="row">
-    <app-population-details-form (displayLizardsEmitter)="setDisplayLizards($event)"></app-population-details-form>
+    <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)"></app-population-details-form>
   </div>
   <div class="row">
     <div class="col s6 m6">
@@ -11,11 +11,9 @@
       <app-mate *ngIf="openMatingComponent"></app-mate>
     </div> -->
   </div>
-  <!-- <div id="questions-div" class="row">
-    <div *ngIf="displayQuestions">
-      <app-questions></app-questions>
-    </div>
-  </div> -->
+  <div id="questions-div" class="row">
+    <app-questions *ngIf="displayQuestions" [appFocus]="displayQuestions"></app-questions>
+  </div>
   <div class="row">
     <!-- <app-display-table></app-display-table> -->
   </div>
