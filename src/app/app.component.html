@@ -8,9 +8,7 @@
       <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
     </div>
     <div class="col s6 m6">
-      <!-- <app-lizard-display></app-lizard-display> -->
-      <p>Hi Mark</p>
-      <!-- <app-mate *ngIf="displayMatings"></app-mate> -->
+      <app-matings-display *ngIf="displayMatings"></app-matings-display>
     </div>
   </div>
   <div id="questions-div" class="row">

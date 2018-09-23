@@ -8,4 +8,11 @@ export class MatedPair {
     this.individual2 = individual2;
   }
 
+  getIndividual1(): Organism{
+    return this.individual1;
+  }
+
+  getIndividual2(): Organism{
+    return this.individual2;
+  }
 }

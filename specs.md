@@ -1,10 +1,11 @@
 # Bugs
 
 ## High Priority
-- [ ] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
-    - [ ] <app-mate> isn't working
-- [ ] app-focus directive should point to top of draggles or to questions?
-- [ ] make the draw thing scale by %, rather than having pixels everywhere
+- [ ] Grid layout in app.component.html is not working
+- [ ] Form doesn't validate
+- [ ] Form doesn't check for invalid allele frequency entries
+- [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
+- [x] <app-mate> isn't working
 - [x] improve styling of appMated directive
 - [x] appMated directive has been implemented but the styling has not and nothing has been tested
 - [x] No mated pair model has been generated for mate component to use
@@ -15,14 +16,14 @@
     - [x] Add a generateSingleIndividualGivenAlleleFrequencies
 - [x] When you enter 5 individuals, six are generated
 - [x] You need to click twice to re-seed population (maybe change to disabling generate population button until you hit clear population button?)
-- [ ] Form doesn't validate
-- [ ] Form doesn't check for invalid allele frequency entries
 
 
 ## Low Priority
-- [ ] Grid layout for angular material not working well to display the draggle cards
+- [ ] make the draw thing scale by %, rather than having pixels everywhere
+- [ ] app-focus directive should point to top of draggles or to questions?
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
+- [x] Grid layout for angular material not working well to display the draggle cards
 
 # Specs
 
@@ -37,12 +38,10 @@
 	- [x] Lizard names are displayed
 	- [x] Lizard alleles are displayed for each individual
   - [ ] Each lizard has a unique name
-- [ ] When user submits form, they see a individuals with GENOTYPE frequencies roughly equal to those of a HWE population with the given allele frequencies
-
+- [x] When user submits form, they see a individuals with GENOTYPE frequencies roughly equal to those of a HWE population with the given allele frequencies
 - [x] User is asked to calculate expected genotype frequencies
 - [x] User is asked whether the calculated frequencies match the observed (they should)
 - [ ] Users can see a table of allele frequency for each generation
-
 - [ ] Users can roll a die of size N (where N is number of individuals in certain subpopulation)
 - [ ] Mated pairs are displayed
 - [ ] Gametes of each individual are displayed
