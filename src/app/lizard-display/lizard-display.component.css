@@ -8,3 +8,11 @@ mat-card{
     margin: 20px;
     vertical-align: top;
 }
+
+.mat-card.no-longer-eligible{
+  background-color: #696972;
+}
+
+.no-longer-eligible.special-canvas{
+  background-color: lightgrey;
+}

@@ -4,7 +4,7 @@
     <mat-card-title>{{individual.getOrganismName()}}</mat-card-title>
     <mat-card-subtitle>A Draggle</mat-card-subtitle>
   </mat-card-header>
-  <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
+  <canvas class="special-canvas" #canvases width="200" height="200" style="border:1px solid #c3c3c3;" [appMated]="individual.matedStatus">
     Your browser does not support the canvas element.
   </canvas>
   <mat-card-content>
