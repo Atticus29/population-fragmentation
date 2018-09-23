@@ -9,6 +9,8 @@ export class AppComponent {
   title = 'app';
   private displayLizards: boolean = false;
   setDisplayLizards(shouldLizardsDisplay: boolean){
+    console.log("hi there!");
+    console.log(shouldLizardsDisplay);
     this.displayLizards = shouldLizardsDisplay;
   }
 }
