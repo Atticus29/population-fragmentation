@@ -1,4 +1,4 @@
-import { OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren } from '@angular/core';
+import { OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
 import { DrawingService } from '../drawing.service';
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
@@ -16,9 +16,12 @@ import { take } from 'rxjs/operators';
 })
 export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
+
   private individuals: Array<Organism>;
   private genotypeTest: Genotype;
+
   private openMatingComponent: boolean = false;
+  @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
@@ -60,5 +63,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   pickTwoToMateAndOpenMatingComponentIfClosed(){
     this.openMatingComponent = true;
+    this.openMatingComponentEmitter.emit(this.openMatingComponent);
   }
 }

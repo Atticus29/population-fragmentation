@@ -14,9 +14,9 @@ export class MateComponent implements OnInit {
   constructor(private popManager: PopulationManagerService) { }
 
   ngOnInit() {
-    this.popManager.currentPopulation.subscribe((population: Population) =>{
-      //TODO do things with mated pairs??
-    });
+    // this.popManager.currentPopulation.subscribe((population: Population) =>{
+    //   //TODO do things with mated pairs??
+    // });
   }
 
 }

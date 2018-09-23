@@ -9,13 +9,18 @@ export class AppComponent {
   title = 'app';
   private displayLizards: boolean = false;
   private displayQuestions: boolean = false;
+  private displayMatings: boolean = false;
   setDisplayLizards(shouldLizardsDisplay: boolean){
-    console.log("hi there!");
-    console.log(shouldLizardsDisplay);
     this.displayLizards = shouldLizardsDisplay;
   }
 
   setDisplayQuestions(shouldQuestionsDisplay: boolean){
     this.displayQuestions = shouldQuestionsDisplay;
+  }
+
+  setMatingDisplay(shouldMatingsDisplay: boolean){
+    console.log("got here!!");
+    console.log(shouldMatingsDisplay);
+    this.displayMatings = shouldMatingsDisplay;
   }
 }

@@ -5,18 +5,19 @@
   </div>
   <div class="row">
     <div class="col s6 m6">
-      <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion"></app-lizard-display>
+      <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
     </div>
-    <!-- <div class="col s6 m6">
-      <app-mate *ngIf="openMatingComponent"></app-mate>
-    </div> -->
+    <div class="col s6 m6">
+      <!-- <app-mate *ngIf="displayMatings"></app-mate> -->
+    </div>
   </div>
   <div id="questions-div" class="row">
     <app-questions *ngIf="displayQuestions" [appFocus]="displayQuestions"></app-questions>
   </div>
   <div class="row">
-    <!-- <app-display-table></app-display-table> -->
+    <app-display-table></app-display-table>
   </div>
 </div>
 <div class="test-div">
+  <app-mate></app-mate>
 </div>
