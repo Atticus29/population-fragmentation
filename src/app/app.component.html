@@ -10,7 +10,7 @@
     <div class="col s6 m6">
       <!-- <app-lizard-display></app-lizard-display> -->
       <p>Hi Mark</p>
-      <app-mate *ngIf="displayMatings"></app-mate>
+      <!-- <app-mate *ngIf="displayMatings"></app-mate> -->
     </div>
   </div>
   <div id="questions-div" class="row">
@@ -22,5 +22,5 @@
 </div>
 <div class="test-div">
   <p>Hi Mark!</p>
-  <app-mate></app-mate>
+  <app-matings-display *ngIf="displayMatings"></app-matings-display>
 </div>

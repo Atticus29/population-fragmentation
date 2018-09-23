@@ -2,6 +2,7 @@
 
 ## High Priority
 - [ ] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
+    - [ ] <app-mate> isn't working
 - [ ] app-focus directive should point to top of draggles or to questions?
 - [ ] make the draw thing scale by %, rather than having pixels everywhere
 - [x] improve styling of appMated directive
