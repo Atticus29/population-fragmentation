@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  private displayLizards: boolean = false;
+  setDisplayLizards(shouldLizardsDisplay: boolean){
+    this.displayLizards = shouldLizardsDisplay;
+  }
 }

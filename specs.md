@@ -1,9 +1,10 @@
 # Bugs
 
 ## High Priority
-- [ ] improve styling of appMated directive
+- [ ] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [ ] app-focus directive should point to top of draggles or to questions?
 - [ ] make the draw thing scale by %, rather than having pixels everywhere
+- [x] improve styling of appMated directive
 - [x] appMated directive has been implemented but the styling has not and nothing has been tested
 - [x] No mated pair model has been generated for mate component to use
 - [x] Dynamically generated canvas elements can't be targeted by the drawLizard() method, making the lizard rendering impossible currently

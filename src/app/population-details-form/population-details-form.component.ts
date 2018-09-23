@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
@@ -16,12 +16,15 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
-  private displayQuestions: boolean = false;
-  private displayLizards: boolean = false;
   private focusOnQuestion: boolean = false;
   private disablePopulationGenerationForm: boolean = false;
 
-  @ViewChild('questions-div') questionElement: ElementRef;
+  private displayQuestions: boolean = false;
+  @Output() displayQuestionsEmitter = new EventEmitter<boolean>();
+  private displayLizards: boolean = false;
+  @Output() displayLizardsEmitter = new EventEmitter<boolean>();
+  private openMatingComponent: boolean = false;
+  @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
@@ -52,13 +55,16 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.popManager.clearPopulation();
     this.popManager.generatePopulation(+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq, +popsize);
     this.displayLizards = true;
+    this.displayLizardsEmitter.emit(this.displayLizards);
     this.displayQuestions = !this.displayQuestions; //TODO maybe true
+    this.displayQuestionsEmitter.emit(this.displayQuestions);
     this.disablePopulationGenerationForm = true;
     this.focusOnQuestion = !this.focusOnQuestion;
   }
 
   clearPop(){
     this.displayLizards = false;
+    this.displayLizardsEmitter.emit(this.displayLizards);
     this.disablePopulationGenerationForm = false;
     this.popManager.clearPopulation();
   }
