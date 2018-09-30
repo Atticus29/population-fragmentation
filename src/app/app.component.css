@@ -8,6 +8,13 @@ mat-card{
     vertical-align: top;
 }
 
+/* mat-grid-tile{
+  display: inline-block;
+  width: 20%;
+  margin: 20px;
+  vertical-align: top;
+} */
+
 /* .no-longer-eligible{
   background-color: red;
 } */
