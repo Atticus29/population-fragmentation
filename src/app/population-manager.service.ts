@@ -33,7 +33,29 @@ export class PopulationManagerService {
     });
   }
 
-  allPossibleCases(arr) {
+  getScrambledPopulation(){
+    return Observable.create(obs => {
+      this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
+        let individuals = population.getIndividuals();
+        console.log("before");
+        console.log(individuals);
+        let shuffledIndividuals = this.shuffle(individuals);
+        console.log("after");
+        console.log(shuffledIndividuals);
+        obs.next(shuffledIndividuals);
+      });
+    });
+  }
+
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  allPossibleCases(arr) { //TODO combination stuff
     if (arr.length == 1) {
       return arr[0];
     } else {

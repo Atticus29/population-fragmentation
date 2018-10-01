@@ -20,7 +20,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
-  private openMatingComponent: boolean = false;
+  private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
@@ -61,8 +61,15 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  pickTwoToMateAndOpenMatingComponentIfClosed(){
-    this.openMatingComponent = true;
-    this.openMatingComponentEmitter.emit(this.openMatingComponent);
+  pickTwoToMate(){
+    console.log("go to pickTwoToMate");
+    this.popManager.getScrambledPopulation().pipe(take(1)).subscribe(results =>{
+      //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array and change their canvas directive
+    });
+  }
+
+  openMatingComponent(){
+    this.isMatingComponentOpen = true;
+    this.openMatingComponentEmitter.emit(this.isMatingComponentOpen);
   }
 }
