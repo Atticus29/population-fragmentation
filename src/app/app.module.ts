@@ -56,6 +56,7 @@ import { FocusDirective } from './focus.directive';
 import { DisplayTableComponent } from './display-table/display-table.component';
 import { MatedDirective } from './mated.directive';
 import { MatingsDisplayComponent } from './matings-display/matings-display.component';
+import { IntroductionComponent } from './introduction/introduction.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MatingsDisplayComponent } from './matings-display/matings-display.compo
     FocusDirective,
     DisplayTableComponent,
     MatedDirective,
-    MatingsDisplayComponent
+    MatingsDisplayComponent,
+    IntroductionComponent
   ],
   imports: [
     BrowserModule,

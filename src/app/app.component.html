@@ -1,6 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="mat-app-background basic-container" [appFocus]="true">
   <mat-horizontal-stepper [linear]="isLinear">
+    <mat-step label="Introduction">
+      <app-introduction></app-introduction>
+    </mat-step>
     <mat-step label="Create Population">
       <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)"></app-population-details-form>
     </mat-step>
