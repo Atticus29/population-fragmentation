@@ -38,6 +38,10 @@ export class PopulationDetailsFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    let alleleNameCombos = this.popManager.allGenotypes(new Array<string>("blue", "green", "magenta"),2);
+    console.log(alleleNameCombos);
+    let combinations = this.popManager.allGenotypes(new Array<number>(0.33, 0.33, 0.34),2);
+    console.log(combinations);
   }
 
   getValues(){
@@ -48,9 +52,9 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-    console.log(blueAlleleFreq);
-    console.log(greenAlleleFreq);
-    console.log(magentaAlleleFreq);
+    // console.log(blueAlleleFreq);
+    // console.log(greenAlleleFreq);
+    // console.log(magentaAlleleFreq);
     //TODO accommodate fragments
     this.popManager.clearPopulation();
     this.popManager.generatePopulation(+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq, +popsize);

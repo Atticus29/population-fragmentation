@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Organism } from './organism.model';
 import { Population } from './population.model';
+import { Metapopulation } from './metapopulation.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
@@ -9,13 +10,18 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
-  //TODO accommodate different generations!
+  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  currentMetaPopulation = this.currentMetapopulationSource.asObservable();
+
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
+
+  //TODO accommodate different generations!
   private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   newGenerationPopulation = this.currentPopulationSource.asObservable();
   private generationsSouce: BehaviorSubject<Population[]> = new BehaviorSubject<Population[]>(new Array<Population>());
   generations = this.generationsSouce.asObservable();
+
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
@@ -48,6 +54,7 @@ export class PopulationManagerService {
   }
 
   shuffle(a) {
+    //TODO this currently does not work as expected
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
@@ -55,25 +62,57 @@ export class PopulationManagerService {
     return a;
   }
 
-  allPossibleCases(arr) { //TODO combination stuff
-    if (arr.length == 1) {
-      return arr[0];
-    } else {
-      var result = [];
-      var allCasesOfRest = this.allPossibleCases(arr.slice(1));  // recur with the rest of array
-      for (var i = 0; i < allCasesOfRest.length; i++) {
-        for (var j = 0; j < arr[0].length; j++) {
-          result.push(arr[0][j] + allCasesOfRest[i]);
-        }
-      }
-      return result;
-    }
+  allGenotypes(set, ploidy){
+    let allGenotypes = this.allHomozygousCases(set, ploidy);
+    allGenotypes = allGenotypes.concat(this.allHeterozygousCases(set, ploidy));
+    return allGenotypes;
+  }
+
+  allHomozygousCases(set, ploidy){
+    let homozgousGenotypes = [];
+    set.forEach(setMember =>{
+      homozgousGenotypes.push([setMember, setMember]);
+    })
+    return homozgousGenotypes;
+  }
+
+  allHeterozygousCases(set, ploidy) { //stolen from https://gist.github.com/axelpale/3118596
+	var i, j, combs, head, tailcombs;
+	if (ploidy > set.length || ploidy <= 0) {
+		return [];
+	}
+	if (ploidy == set.length) {
+		return [set];
+	}
+	if (ploidy == 1) {
+		combs = [];
+		for (i = 0; i < set.length; i++) {
+			combs.push([set[i]]);
+		}
+		return combs;
+	}
+	combs = [];
+	for (i = 0; i < set.length - ploidy + 1; i++) {
+		head = set.slice(i, i + 1);
+		tailcombs = this.allHeterozygousCases(set.slice(i + 1), ploidy - 1);
+		for (j = 0; j < tailcombs.length; j++) {
+			combs.push(head.concat(tailcombs[j]));
+		}
+	}
+	return combs;
+
   }
 
   testMethod(){
     var allArrays = [['blue', 'green', 'magenta'],['blue', 'green', 'magenta']]
-    let results = this.allPossibleCases(allArrays);
+    let results = this.allHeterozygousCases(allArrays,2);
     console.log(results);
+  }
+
+  generateMetaPopulation(alleleFrequencies: Array<number>, popSize: number, fragNum: number){
+    for(let i = 0; i < fragNum; i++){
+      // let subpopulation = new Population();
+    }
   }
 
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
