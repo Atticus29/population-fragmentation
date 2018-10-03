@@ -103,16 +103,51 @@ export class PopulationManagerService {
 
   }
 
-  testMethod(){
-    var allArrays = [['blue', 'green', 'magenta'],['blue', 'green', 'magenta']]
-    let results = this.allHeterozygousCases(allArrays,2);
-    console.log(results);
+
+  generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
+    let metaPopulation = new Metapopulation([]);
+    for(let i = 0; i < fragNum; i++){
+      let subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, popSize/fragNum);
+      console.log("hi hi hi");
+      console.log(subpopulation);
+      metaPopulation.addSubpopulation(subpopulation);
+    }
+    this.currentMetapopulationSource.next(metaPopulation);
   }
 
-  generateMetaPopulation(alleleFrequencies: Array<number>, popSize: number, fragNum: number){
-    for(let i = 0; i < fragNum; i++){
-      // let subpopulation = new Population();
+  generateSubpopulation(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
+    //TODO flesh out
+    let subPopulation = new Population([]);
+    let alleleNameCombos = this.allGenotypes(alleleNames, 2);
+    let allelicCombos = this.allGenotypes(alleleFrequencies, 2);
+    for(let j = 0; j < alleleNameCombos.length; j++){
+      if(allelicCombos[j][0] === allelicCombos[j][1]){
+        let homozygoteCount = allelicCombos[j][0] * allelicCombos[j][1] * subpopSize;
+        for(let k = 0; k < homozygoteCount; k++){
+          let individual = this.individualGenerator.makeIndividual(alleleNameCombos[j][0], alleleNameCombos[j][1]);
+          subPopulation.addIndividual(individual);
+        }
+      } else {
+        let heterozygoteCount = 2 * allelicCombos[j][0] * allelicCombos[j][1] * subpopSize;
+        for (let l = 0; l<heterozygoteCount; l++){
+          let individual = this.individualGenerator.makeIndividual(alleleNameCombos[j][0], alleleNameCombos[j][1]);
+          subPopulation.addIndividual(individual);
+        }
+      }
     }
+    return subPopulation;
+  }
+
+  addOrganismToSubpopulation(organism: Organism, subPopulationSource: BehaviorSubject<Population>){
+    // this.currentPopulationSource.pipe(take(1))
+    // .subscribe((population: Population) => {
+    //   if(population.getIndividuals()){
+    //     this.populationWithPotentiallyNewIndividual = new Population([...population.getIndividuals(), organism]);
+    //   } else {
+    //     this.populationWithPotentiallyNewIndividual = new Population([organism]);
+    //   }
+    //   this.currentPopulationSource.next(this.populationWithPotentiallyNewIndividual);
+    // });
   }
 
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){

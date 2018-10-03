@@ -7,6 +7,7 @@ import { Organism } from '../organism.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -42,6 +43,12 @@ export class PopulationDetailsFormComponent implements OnInit {
     console.log(alleleNameCombos);
     let combinations = this.popManager.allGenotypes(new Array<number>(0.33, 0.33, 0.34),2);
     console.log(combinations);
+
+    this.popManager.generateMetaPopulation(new Array<number>(0.33, 0.33, 0.34), new Array<string>("blue", "green", "magenta"), 10, 2);
+
+    this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(results =>{
+      console.log(results);
+    });
   }
 
   getValues(){
