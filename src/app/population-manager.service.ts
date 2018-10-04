@@ -107,16 +107,16 @@ export class PopulationManagerService {
   generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
     let metaPopulation = new Metapopulation([]);
     for(let i = 0; i < fragNum; i++){
-      let subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, popSize/fragNum);
-      console.log("hi hi hi");
-      console.log(subpopulation);
+      //rounds down subpopulations to the same number
+      console.log(Math.floor(popSize/fragNum));
+      let subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum));
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
+    //TODO add to generations somehow (maybe change generations or make a new generations that tracks metapopulations instead of populations)
   }
 
-  generateSubpopulation(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
-    //TODO flesh out
+    generateSubpopulation(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
     let subPopulation = new Population([]);
     let alleleNameCombos = this.allGenotypes(alleleNames, 2);
     let allelicCombos = this.allGenotypes(alleleFrequencies, 2);
@@ -134,6 +134,15 @@ export class PopulationManagerService {
           subPopulation.addIndividual(individual);
         }
       }
+    }
+    while(subPopulation.getIndividuals().length>subpopSize){
+      // console.log("subpop too big!");
+      subPopulation = this.removeAnIndividualAtRandomFromGivenPopulation(subPopulation);
+    }
+    while(subPopulation.getIndividuals().length<subpopSize){
+      // console.log("subpop too small!");
+      let newIndividual = this.generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies, alleleNames);
+      subPopulation.addIndividual(newIndividual);
     }
     return subPopulation;
   }
@@ -225,6 +234,41 @@ removeAnIndividualAtRandomFromPopulation(){
     let newPopulation: Population = new Population(newIndividualArray);
     this.currentPopulationSource.next(newPopulation);
   });
+}
+
+removeAnIndividualAtRandomFromGivenPopulation(population: Population): Population{
+    let randomIndex = Math.floor(Math.random()*population.getIndividuals().length) + 1;
+    let newIndividualArray: Array<Organism> = population.getIndividuals();
+    newIndividualArray.splice(randomIndex,1);
+    let newPopulation: Population = new Population(newIndividualArray);
+    return newPopulation;
+}
+
+generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
+  //TODO I am not 100% convinced that this works as expected
+  let randomNumberBetween0And1 = Math.random();
+  let cumulativeProbability = 0;
+  let allele1 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  let allele2 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  for(let i = 0; i<alleleFrequencies.length; i++){
+    if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+    //if the random number falls in this probability space
+    allele1 = alleleNames[i];
+  }
+  cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+randomNumberBetween0And1 = Math.random();
+cumulativeProbability = 0;
+for(let i = 0; i<alleleFrequencies.length; i++){
+  if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+  //if the random number falls in this probability space
+  allele2 = alleleNames[i];
+  cumulativeProbability += alleleFrequencies[i];
+}
+cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+let newIndividual: Organism = this.individualGenerator.makeIndividual(allele1, allele2);
+return newIndividual;
 }
 
 addRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
