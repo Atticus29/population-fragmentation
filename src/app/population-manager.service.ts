@@ -32,7 +32,7 @@ export class PopulationManagerService {
     let metaPopulation = new Metapopulation([]);
     for(let i = 0; i < fragNum; i++){
       //rounds down subpopulations to the same number
-      let subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum));
+      let subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum)); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
