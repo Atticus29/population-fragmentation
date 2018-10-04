@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Population Size" value="10" required formControlName="popsize">
+          <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize">
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
@@ -24,7 +24,7 @@
         </mat-form-field>
       </div>
       <div class="col m1 s1">
-        <button matStepperNext mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Population
+        <button matStepperNext mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
         </button>
       </div>
     </div>

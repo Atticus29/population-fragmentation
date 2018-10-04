@@ -32,7 +32,7 @@ export class PopulationManagerService {
     let metaPopulation = new Metapopulation([]);
     for(let i = 0; i < fragNum; i++){
       //rounds down subpopulations to the same number
-      let subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum));
+      let subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum));
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
@@ -41,7 +41,17 @@ export class PopulationManagerService {
     });
   }
 
+  generateSubpopulationUsingProbability(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
+    let subPopulation = new Population([]);
+    while(subPopulation.getIndividuals().length<subpopSize){
+      let newIndividual = this.generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies, alleleNames);
+      subPopulation.addIndividual(newIndividual);
+    }
+    return subPopulation;
+  }
+
   generateSubpopulation(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
+  //TODO figure out why this is biasing towards the first nonzero allele
   let subPopulation = new Population([]);
   let alleleNameCombos = this.allGenotypes(alleleNames, 2);
   let allelicCombos = this.allGenotypes(alleleFrequencies, 2);

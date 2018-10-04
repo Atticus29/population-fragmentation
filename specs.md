@@ -29,6 +29,7 @@
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 - [x] Grid layout for angular material not working well to display the draggle cards
+- [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
 
 # Specs
 
