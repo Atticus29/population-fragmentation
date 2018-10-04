@@ -41,7 +41,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   ngOnInit() {
     // let alleleNameCombos = this.popManager.allGenotypes(new Array<string>("blue", "green", "magenta"),2);
     // let combinations = this.popManager.allGenotypes(new Array<number>(0.9, 0.1, 0),2);
-    this.popManager.generateMetaPopulation(new Array<number>(0.7, 0.1, 0.2), new Array<string>("blue", "green", "magenta"), 20, 2);
+    this.popManager.generateMetaPopulation(new Array<number>(0.7, 0.1, 0.2), new Array<string>("blue", "green", "magenta"), 10, 2);
     this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(results =>{
       let subpopIndivids1 = results.getSubpopulations()[0].getIndividuals();
       subpopIndivids1.forEach(organism =>{

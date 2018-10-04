@@ -4,6 +4,8 @@
 - [ ] Grid layout in app.component.html is not working
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries
+- [ ] generateMetaPopulation doesn't handle small population sizes or large fragments well
+- [ ] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)
 - [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [x] <app-mate> isn't working
 - [x] improve styling of appMated directive
