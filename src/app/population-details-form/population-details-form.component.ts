@@ -42,16 +42,26 @@ export class PopulationDetailsFormComponent implements OnInit {
     // let alleleNameCombos = this.popManager.allGenotypes(new Array<string>("blue", "green", "magenta"),2);
     // let combinations = this.popManager.allGenotypes(new Array<number>(0.9, 0.1, 0),2);
     this.popManager.generateMetaPopulation(new Array<number>(0.7, 0.1, 0.2), new Array<string>("blue", "green", "magenta"), 10, 2);
-    this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(results =>{
-      let subpopIndivids1 = results.getSubpopulations()[0].getIndividuals();
-      subpopIndivids1.forEach(organism =>{
-        console.log(organism.getGeneByName("spot color").getGenotype());
+    this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
+      metapopulations.forEach(metapopulation =>{
+        metapopulation.getSubpopulations().forEach(subpopulation =>{
+          console.log("new subpopulation!");
+          let subpopIndivids = subpopulation.getIndividuals();
+          subpopIndivids.forEach(organism =>{
+            console.log(organism.getGeneByName("spot color").getGenotype());
+          });
+        });
       });
-      console.log("2");
-      let subpopIndivids2 = results.getSubpopulations()[1].getIndividuals();
-      subpopIndivids2.forEach(organism =>{
-        console.log(organism.getGeneByName("spot color").getGenotype());
-      });
+
+      // let subpopIndivids1 = results.getSubpopulations()[0].getIndividuals();
+      // subpopIndivids1.forEach(organism =>{
+      //   console.log(organism.getGeneByName("spot color").getGenotype());
+      // });
+      // console.log("2");
+      // let subpopIndivids2 = results.getSubpopulations()[1].getIndividuals();
+      // subpopIndivids2.forEach(organism =>{
+      //   console.log(organism.getGeneByName("spot color").getGenotype());
+      // });
     });
   }
 
