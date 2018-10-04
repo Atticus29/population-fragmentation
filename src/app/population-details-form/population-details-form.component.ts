@@ -45,23 +45,13 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
       metapopulations.forEach(metapopulation =>{
         metapopulation.getSubpopulations().forEach(subpopulation =>{
-          console.log("new subpopulation!");
+          // console.log("new subpopulation!");
           let subpopIndivids = subpopulation.getIndividuals();
           subpopIndivids.forEach(organism =>{
-            console.log(organism.getGeneByName("spot color").getGenotype());
+            // console.log(organism.getGeneByName("spot color").getGenotype());
           });
         });
       });
-
-      // let subpopIndivids1 = results.getSubpopulations()[0].getIndividuals();
-      // subpopIndivids1.forEach(organism =>{
-      //   console.log(organism.getGeneByName("spot color").getGenotype());
-      // });
-      // console.log("2");
-      // let subpopIndivids2 = results.getSubpopulations()[1].getIndividuals();
-      // subpopIndivids2.forEach(organism =>{
-      //   console.log(organism.getGeneByName("spot color").getGenotype());
-      // });
     });
   }
 
@@ -73,12 +63,9 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-    // console.log(blueAlleleFreq);
-    // console.log(greenAlleleFreq);
-    // console.log(magentaAlleleFreq);
     //TODO accommodate fragments
-    this.popManager.clearPopulation();
-    this.popManager.generatePopulation(+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq, +popsize);
+    this.popManager.clearMetaPopulation();
+    this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
     this.displayLizards = true;
     this.displayLizardsEmitter.emit(this.displayLizards);
     this.displayQuestions = !this.displayQuestions; //TODO maybe true

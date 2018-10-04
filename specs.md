@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [ ] Grid layout in app.component.html is not working
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries

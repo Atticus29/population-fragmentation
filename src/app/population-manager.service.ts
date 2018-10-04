@@ -78,6 +78,13 @@ export class PopulationManagerService {
     this.generationsSouce.next(emptyGenerations);
   }
 
+  clearMetaPopulation(){
+    let emptyMetapopulation = new Metapopulation([]);
+    let emptyMetapopulationGenerations = new Array<Metapopulation>();
+    this.currentMetapopulationSource.next(emptyMetapopulation);
+    this.metapopulationGenerationsSouce.next(emptyMetapopulationGenerations);
+  }
+
   addToGenerations(population: Population){
     this.generationsSouce.pipe(take(1)).subscribe((populations: Array<Population>)=>{
       populations.push(population);
@@ -319,7 +326,7 @@ addOrganismToPopulation(organism: Organism){
   });
 }
 
-calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){
+calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){ //TODO accommodate different behaviorSubjects!
   let alleleOfInterestCount = 0;
   if(doYouWantNewGeneration){
     //TODO do this for new generation
