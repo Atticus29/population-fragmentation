@@ -13,7 +13,6 @@ export class MatingsDisplayComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("hi mark fisher");
   }
 
 }

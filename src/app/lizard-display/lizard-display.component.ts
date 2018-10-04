@@ -30,7 +30,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
         this.subpopulations = metapopulation.getSubpopulations();
-        console.log(this.subpopulations);
+        // console.log(this.subpopulations);
       });
 
       this.popManager.calculateAlleleFrequency("blue", false).subscribe(result =>{
@@ -65,22 +65,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       for(let j = 0; j<currentSubpopulation.getIndividuals().length; j++){
         let currentIndividual = currentSubpopulation.getIndividuals()[j];
         let canvasNum = (i)*currentSubpopulation.getIndividuals().length + j;
-        console.log("canvasNum");
-        console.log(canvasNum);
         this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype());
       }
     }
-    // for(let i = 0; i<canvasArray.length; i++){
-    //   console.log(i);
-    //   //TODO fix
-    //   this.subpopulations.forEach(subpopulation =>{
-    //     let individuals = subpopulation.getIndividuals();
-    //     individuals.forEach(individual =>{
-    //       // console.log(individual.getGeneByName("spot color").getGenotype());
-    //       this.ds.drawLizard(canvasArray[i], individual.getGeneByName("spot color").getGenotype());
-    //     });
-    //   });
-    // }
   }
 
   pickTwoToMate(){

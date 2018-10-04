@@ -32,7 +32,6 @@ export class PopulationManagerService {
     let metaPopulation = new Metapopulation([]);
     for(let i = 0; i < fragNum; i++){
       //rounds down subpopulations to the same number
-      console.log(Math.floor(popSize/fragNum));
       let subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum));
       metaPopulation.addSubpopulation(subpopulation);
     }

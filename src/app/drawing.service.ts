@@ -68,8 +68,6 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasRef: ElementRef, genotype: Genotype){
-  console.log("drawLizard happened");
-  console.log(canvasRef);
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef,"black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef,"black", true);
