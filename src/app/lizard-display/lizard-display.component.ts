@@ -30,24 +30,23 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
         this.subpopulations = metapopulation.getSubpopulations();
+        for(let i = 0; i<this.subpopulations.length; i++){
+          console.log("subpopulation " + i.toString());
+          let subpopulation = this.subpopulations[i];
+          let blueAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("blue", subpopulation);
+          console.log("blue");
+          console.log(blueAlleleFreq);
+          let greenAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("green", subpopulation);
+          console.log("green");
+          console.log(greenAlleleFreq);
+          let magentaAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("magenta", subpopulation);
+          console.log("magenta");
+          console.log(magentaAlleleFreq);
+        }
+        // this.subpopulations.forEach(subpopulation =>{
+        //
+        // });
         // console.log(this.subpopulations);
-      });
-
-      this.popManager.calculateAlleleFrequency("blue", false).subscribe(result =>{
-        //TODO fix
-        // console.log(result);
-      });
-
-      this.popManager.calculateAlleleFrequency("green", false).subscribe(result =>{
-        // console.log(result);
-      });
-
-      this.popManager.calculateAlleleFrequency("magenta", false).subscribe(result =>{
-        // console.log(result);
-      });
-
-      this.popManager.generations.pipe(take(1)).subscribe(results=>{
-        // console.log(results);
       });
 
       //TODO for future more interesting color support, work on this and the color-name service

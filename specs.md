@@ -1,7 +1,6 @@
 # Bugs
 
 ## High Priority
-- [ ] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [ ] Grid layout in app.component.html is not working
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries
@@ -9,6 +8,7 @@
     - [ ] E.g., popSize 1 frag 2 (see form validation)
     - [ ] E.g., popSize 2 frag 2 (always blue blue homozygotes)
 - [ ] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)
+- [x] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [x] <app-mate> isn't working
 - [x] improve styling of appMated directive

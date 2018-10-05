@@ -31,8 +31,14 @@ export class PopulationManagerService {
   generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
     let metaPopulation = new Metapopulation([]);
     for(let i = 0; i < fragNum; i++){
+      let subpopulation = null;
       //rounds down subpopulations to the same number
-      let subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, Math.floor(popSize/fragNum)); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+      let fragPopSize = Math.floor(popSize/fragNum);
+      if(fragNum < 10){
+        subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+      } else{
+        subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+      }
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
@@ -335,7 +341,20 @@ addOrganismToPopulation(organism: Organism){
   });
 }
 
-calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){ //TODO accommodate different behaviorSubjects!
+calculatePopulationAlleleFrequency(alleleName: string, populationOfInterest: Population): number{
+  let alleleOfInterestCount = 0;
+  let individuals = populationOfInterest.getIndividuals();
+  let popSize = individuals.length;
+  individuals.forEach(individual =>{
+    let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+    let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+    if (allele1 === alleleName){alleleOfInterestCount++;}
+    if (allele2 === alleleName){alleleOfInterestCount++;}
+  });
+  return(alleleOfInterestCount/(2*popSize));
+}
+
+calculateAlleleFrequencyOfSource(alleleName: string, doYouWantNewGeneration: boolean){ //TODO accommodate different behaviorSubjects!
   let alleleOfInterestCount = 0;
   if(doYouWantNewGeneration){
     //TODO do this for new generation
