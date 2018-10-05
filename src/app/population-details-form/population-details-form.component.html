@@ -3,7 +3,11 @@
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize">
+          <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number">
+          <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
+            <div *ngIf="f.popsize.errors.required">Population Size is required</div>
+            <div *ngIf="f.popsize.errors.min">Population Size is too small</div>
+          </div>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
@@ -23,12 +27,23 @@
           <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq">
         </mat-form-field>
       </div>
-      <div class="col m1 s1">
-        <button matStepperNext mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
-        </button>
-      </div>
+    <div class="col m1 s1">
+      <button mat-raised-button color="primary" (click)="processForm(stepper)" class="uniform-length-button">Generate Random Population Based on These Parameters
+      </button>
     </div>
-  </form>
+  </div>
+</form>
+<div class="temp">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step label="Introduction">
+      <p>Step 1</p>
+      <button (click)="processForm(stepper)" name="button">Testing</button>
+    </mat-step>
+    <mat-step label="Create Population">
+      <p>Step 2</p>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
 </div>
 <div class="row">
   <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population

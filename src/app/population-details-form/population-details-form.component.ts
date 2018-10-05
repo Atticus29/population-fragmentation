@@ -8,6 +8,7 @@ import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { MatStepper } from '@angular/material';
 
 
 @Component({
@@ -17,8 +18,15 @@ import { take } from 'rxjs/operators';
 })
 export class PopulationDetailsFormComponent implements OnInit {
   private userInputFG: FormGroup;
+  private submitted: boolean = false;
   private focusOnQuestion: boolean = false;
   private disablePopulationGenerationForm: boolean = false;
+  private popsize: number = 1;
+  private fragNum: number = 1;
+  private genNum: number = 1;
+  private greenAlleleFreq: number = 0.8;
+  private blueAlleleFreq: number = 0.1;
+  private magentaAlleleFreq: number = 0.1;
 
   private displayQuestions: boolean = false;
   @Output() displayQuestionsEmitter = new EventEmitter<boolean>();
@@ -29,12 +37,12 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
-      popsize: ['10', Validators.required], //, Validators.max(1000)
-      fragNum: ['1', Validators.required],//, Validators.max(1000)
-      genNum:  ['10', Validators.required],//, Validators.max(1000)
-      greenAlleleFreq: ['0.33', Validators.required], //, Validators.max(1), Validators.min(0)
-      blueAlleleFreq: ['0.33', Validators.required],//, Validators.max(1), Validators.min(0)
-      magentaAlleleFreq: ['0.34', Validators.required] //, Validators.max(1), Validators.min(0)
+      popsize: ['10', [Validators.required, Validators.min(1)]], //, Validators.max(1000)
+      fragNum: ['1', [Validators.required, Validators.max(1000)]],//, Validators.max(1000)
+      genNum:  ['10', [Validators.required, Validators.max(1000)]],//, Validators.max(1000)
+      greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
+      blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
+      magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
     })
   }
 
@@ -61,15 +69,34 @@ export class PopulationDetailsFormComponent implements OnInit {
     });
   }
 
+  get f() { return this.userInputFG.controls; }
+
   getValues(){
     let result = this.userInputFG.value;
     return result;
   }
 
-  processForm(){
+  processForm(stepper: MatStepper){
+    this.submitted = true;
+    if(this.userInputFG.invalid){
+      console.log("invalid!");
+      return;
+    }
+    if(this.userInputFG.valid){
+      console.log("valid!");
+      stepper.next();
+      // return;
+    }
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
     //TODO accommodate fragments
+    this.popsize = popsize;
+    this.fragNum = fragNum;
+    this.genNum = genNum;
+    this.greenAlleleFreq = greenAlleleFreq;
+    this.blueAlleleFreq = blueAlleleFreq;
+    this.magentaAlleleFreq = magentaAlleleFreq;
+    console.log(popsize.invalid);
     this.popManager.clearMetaPopulation();
     this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
     this.displayLizards = true;
@@ -89,7 +116,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   //TODO improve this
   // getErrorMessage() {
-  //   return this.popsize.hasError('required') ? 'You must enter a value' :
+  //   return popsize.hasError('required') ? 'You must enter a value' :
   //       this.popsize.hasError('small') ? 'Number too small' :
   //           '';
   // }
