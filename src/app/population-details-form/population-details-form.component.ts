@@ -8,7 +8,6 @@ import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { MatStepper } from '@angular/material';
 
 
 @Component({
@@ -34,6 +33,8 @@ export class PopulationDetailsFormComponent implements OnInit {
   @Output() displayLizardsEmitter = new EventEmitter<boolean>();
   private openMatingComponent: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
+  private takeNextStep: boolean = false;
+  @Output() takeNextStepEmitter = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
     this.userInputFG = this.fb.group({
@@ -76,7 +77,7 @@ export class PopulationDetailsFormComponent implements OnInit {
     return result;
   }
 
-  processForm(stepper: MatStepper){
+  processForm(){
     //TODO emit to parent to possibly prevent stepper
     //TODO summing to 1 for allele frequencies still an issue
     this.submitted = true;
@@ -86,7 +87,9 @@ export class PopulationDetailsFormComponent implements OnInit {
     }
     if(this.userInputFG.valid){
       console.log("valid!");
-      stepper.next();
+      this.takeNextStep = true;
+      this.takeNextStepEmitter.emit(this.takeNextStep);
+      // stepper.next();
       // return;
     }
     let result = this.getValues();

@@ -56,17 +56,6 @@
     </div>
   </div>
 </form>
-<div class="temp">
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step label="Introduction">
-      <p>Step 1</p>
-      <button (click)="processForm(stepper)" name="button">Testing</button>
-    </mat-step>
-    <mat-step label="Create Population">
-      <p>Step 2</p>
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
 </div>
 <div class="row">
   <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population

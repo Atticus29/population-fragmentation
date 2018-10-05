@@ -5,7 +5,7 @@
       <app-introduction></app-introduction>
     </mat-step>
     <mat-step label="Create Population">
-      <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)"></app-population-details-form>
+      <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)" (takeNextStepEmitter)="takeNextStep($event, stepperMain)"></app-population-details-form>
     </mat-step>
     <mat-step label="Inspect Population and Answer Questions">
       <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>

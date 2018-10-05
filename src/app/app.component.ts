@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatStepper } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -22,5 +23,9 @@ export class AppComponent {
     console.log("got here!!");
     console.log(shouldMatingsDisplay);
     this.displayMatings = shouldMatingsDisplay;
+  }
+
+  takeNextStep(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
+    stepperMain.next();
   }
 }
