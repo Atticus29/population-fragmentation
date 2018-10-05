@@ -4,32 +4,55 @@
       <div class="col m1 s1">
         <mat-form-field>
           <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number">
-          <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
-            <div *ngIf="f.popsize.errors.required">Population Size is required</div>
-            <div *ngIf="f.popsize.errors.min">Population Size is too small</div>
-          </div>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum">
+          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum">
+          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number">
         </mat-form-field>
       </div>
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq">
+          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.greenAlleleFreq.errors}" type="number">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq">
+          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.blueAlleleFreq.errors}" type="number">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq">
+          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.magentaAlleleFreq.errors}" type="number">
         </mat-form-field>
       </div>
     <div class="col m1 s1">
       <button mat-raised-button color="primary" (click)="processForm(stepper)" class="uniform-length-button">Generate Random Population Based on These Parameters
       </button>
+      <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
+        <div *ngIf="f.popsize.errors.required">Population Size is required</div>
+        <div *ngIf="f.popsize.errors.min">Population Size is too small</div>
+      </div>
+      <div *ngIf="submitted && f.fragNum.errors" class="invalid-feedback">
+        <div *ngIf="f.fragNum.errors.required">Number of fragments required</div>
+        <div *ngIf="f.fragNum.errors.min">Number of fragments is too small</div>
+      </div>
+      <div *ngIf="submitted && f.genNum.errors" class="invalid-feedback">
+        <div *ngIf="f.genNum.errors.required">Number of generations required</div>
+        <div *ngIf="f.genNum.errors.min">Number of generations is too small</div>
+      </div>
+      <div *ngIf="submitted && f.greenAlleleFreq.errors" class="invalid-feedback">
+        <div *ngIf="f.greenAlleleFreq.errors.required">Allele frequencies required</div>
+        <div *ngIf="f.greenAlleleFreq.errors.min">Allele frequency must be 0 or greater</div>
+        <div *ngIf="f.greenAlleleFreq.errors.max">Allele frequency must be 1 or less</div>
+      </div>
+      <div *ngIf="submitted && f.blueAlleleFreq.errors" class="invalid-feedback">
+        <div *ngIf="f.blueAlleleFreq.errors.required">Allele frequencies required</div>
+        <div *ngIf="f.blueAlleleFreq.errors.min">Allele frequency must be 0 or greater</div>
+        <div *ngIf="f.blueAlleleFreq.errors.max">Allele frequency must be 1 or less</div>
+      </div>
+      <div *ngIf="submitted && f.magentaAlleleFreq.errors" class="invalid-feedback">
+        <div *ngIf="f.magentaAlleleFreq.errors.required">Allele frequencies required</div>
+        <div *ngIf="f.magentaAlleleFreq.errors.min">Allele frequency must be 0 or greater</div>
+        <div *ngIf="f.magentaAlleleFreq.errors.max">Allele frequency must be 1 or less</div>
+      </div>
     </div>
   </div>
 </form>
