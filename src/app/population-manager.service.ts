@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Organism } from './organism.model';
 import { Population } from './population.model';
+import { Metapopulation } from './metapopulation.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
@@ -9,21 +10,94 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
-  //TODO accommodate different generations!
+  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  currentMetaPopulation = this.currentMetapopulationSource.asObservable();
+
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
+
+  //TODO accommodate different generations!
   private newGenerationPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   newGenerationPopulation = this.currentPopulationSource.asObservable();
   private generationsSouce: BehaviorSubject<Population[]> = new BehaviorSubject<Population[]>(new Array<Population>());
   generations = this.generationsSouce.asObservable();
+
+  private metapopulationGenerationsSouce: BehaviorSubject<Metapopulation[]> = new BehaviorSubject<Metapopulation[]>(new Array<Metapopulation>());
+  metapopulationGenerations = this.metapopulationGenerationsSouce.asObservable();
+
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
+
+  generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
+    let metaPopulation = new Metapopulation([]);
+    for(let i = 0; i < fragNum; i++){
+      let subpopulation = null;
+      //rounds down subpopulations to the same number
+      let fragPopSize = Math.floor(popSize/fragNum);
+      if(fragNum < 10){
+        subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+      } else{
+        subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+      }
+      metaPopulation.addSubpopulation(subpopulation);
+    }
+    this.currentMetapopulationSource.next(metaPopulation);
+    this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{
+      this.addToMetapopulationGenerations(metapopulation);
+    });
+  }
+
+  generateSubpopulationUsingProbability(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
+    let subPopulation = new Population([]);
+    while(subPopulation.getIndividuals().length<subpopSize){
+      let newIndividual = this.generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies, alleleNames);
+      subPopulation.addIndividual(newIndividual);
+    }
+    return subPopulation;
+  }
+
+  generateSubpopulation(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
+  //TODO figure out why this is biasing towards the first nonzero allele
+  let subPopulation = new Population([]);
+  let alleleNameCombos = this.allGenotypes(alleleNames, 2);
+  let allelicCombos = this.allGenotypes(alleleFrequencies, 2);
+  for(let j = 0; j < alleleNameCombos.length; j++){
+    if(allelicCombos[j][0] === allelicCombos[j][1]){
+      let homozygoteCount = allelicCombos[j][0] * allelicCombos[j][1] * subpopSize;
+      for(let k = 0; k < homozygoteCount; k++){
+        let individual = this.individualGenerator.makeIndividual(alleleNameCombos[j][0], alleleNameCombos[j][1]);
+        subPopulation.addIndividual(individual);
+      }
+    } else {
+      let heterozygoteCount = 2 * allelicCombos[j][0] * allelicCombos[j][1] * subpopSize;
+      for (let l = 0; l<heterozygoteCount; l++){
+        let individual = this.individualGenerator.makeIndividual(alleleNameCombos[j][0], alleleNameCombos[j][1]);
+        subPopulation.addIndividual(individual);
+      }
+    }
+  }
+  while(subPopulation.getIndividuals().length>subpopSize){
+    subPopulation = this.removeAnIndividualAtRandomFromGivenPopulation(subPopulation);
+  }
+  while(subPopulation.getIndividuals().length<subpopSize){
+    let newIndividual = this.generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies, alleleNames);
+    subPopulation.addIndividual(newIndividual);
+  }
+  return subPopulation;
+}
 
   clearPopulation(){
     let emptyPopulation = new Population([]);
     let emptyGenerations = new Array<Population>();
     this.currentPopulationSource.next(emptyPopulation);
     this.generationsSouce.next(emptyGenerations);
+  }
+
+  clearMetaPopulation(){
+    let emptyMetapopulation = new Metapopulation([]);
+    let emptyMetapopulationGenerations = new Array<Metapopulation>();
+    this.currentMetapopulationSource.next(emptyMetapopulation);
+    this.metapopulationGenerationsSouce.next(emptyMetapopulationGenerations);
   }
 
   addToGenerations(population: Population){
@@ -33,12 +107,20 @@ export class PopulationManagerService {
     });
   }
 
+  addToMetapopulationGenerations(metapopulation: Metapopulation){
+    this.metapopulationGenerationsSouce.pipe(take(1)).subscribe((metapopulations: Array<Metapopulation>)=>{
+      metapopulations.push(metapopulation);
+      this.metapopulationGenerationsSouce.next(metapopulations);
+    });
+  }
+
   getScrambledPopulation(){
     return Observable.create(obs => {
       this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
         let individuals = population.getIndividuals();
         console.log("before");
         console.log(individuals);
+        //TODO fix this
         let shuffledIndividuals = this.shuffle(individuals);
         console.log("after");
         console.log(shuffledIndividuals);
@@ -48,6 +130,7 @@ export class PopulationManagerService {
   }
 
   shuffle(a) {
+    //TODO this currently does not work as expected
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
@@ -55,25 +138,44 @@ export class PopulationManagerService {
     return a;
   }
 
-  allPossibleCases(arr) { //TODO combination stuff
-    if (arr.length == 1) {
-      return arr[0];
-    } else {
-      var result = [];
-      var allCasesOfRest = this.allPossibleCases(arr.slice(1));  // recur with the rest of array
-      for (var i = 0; i < allCasesOfRest.length; i++) {
-        for (var j = 0; j < arr[0].length; j++) {
-          result.push(arr[0][j] + allCasesOfRest[i]);
-        }
-      }
-      return result;
-    }
+  allGenotypes(set, ploidy){
+    let allGenotypes = this.allHomozygousCases(set, ploidy);
+    allGenotypes = allGenotypes.concat(this.allHeterozygousCases(set, ploidy));
+    return allGenotypes;
   }
 
-  testMethod(){
-    var allArrays = [['blue', 'green', 'magenta'],['blue', 'green', 'magenta']]
-    let results = this.allPossibleCases(allArrays);
-    console.log(results);
+  allHomozygousCases(set, ploidy){
+    let homozgousGenotypes = [];
+    set.forEach(setMember =>{
+      homozgousGenotypes.push([setMember, setMember]);
+    })
+    return homozgousGenotypes;
+  }
+
+  allHeterozygousCases(set, ploidy) { //stolen from https://gist.github.com/axelpale/3118596
+	var i, j, combs, head, tailcombs;
+	if (ploidy > set.length || ploidy <= 0) {
+		return [];
+	}
+	if (ploidy == set.length) {
+		return [set];
+	}
+	if (ploidy == 1) {
+		combs = [];
+		for (i = 0; i < set.length; i++) {
+			combs.push([set[i]]);
+		}
+		return combs;
+	}
+	combs = [];
+	for (i = 0; i < set.length - ploidy + 1; i++) {
+		head = set.slice(i, i + 1);
+		tailcombs = this.allHeterozygousCases(set.slice(i + 1), ploidy - 1);
+		for (j = 0; j < tailcombs.length; j++) {
+			combs.push(head.concat(tailcombs[j]));
+		}
+	}
+	return combs;
   }
 
   generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
@@ -153,6 +255,41 @@ removeAnIndividualAtRandomFromPopulation(){
   });
 }
 
+removeAnIndividualAtRandomFromGivenPopulation(population: Population): Population{
+    let randomIndex = Math.floor(Math.random()*population.getIndividuals().length) + 1;
+    let newIndividualArray: Array<Organism> = population.getIndividuals();
+    newIndividualArray.splice(randomIndex,1);
+    let newPopulation: Population = new Population(newIndividualArray);
+    return newPopulation;
+}
+
+generateRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
+  //TODO I am not 100% convinced that this works as expected
+  let randomNumberBetween0And1 = Math.random();
+  let cumulativeProbability = 0;
+  let allele1 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  let allele2 = "errorInAddRandomIndividualGivenPopAlleleFrequencies";
+  for(let i = 0; i<alleleFrequencies.length; i++){
+    if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+    //if the random number falls in this probability space
+    allele1 = alleleNames[i];
+  }
+  cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+randomNumberBetween0And1 = Math.random();
+cumulativeProbability = 0;
+for(let i = 0; i<alleleFrequencies.length; i++){
+  if(randomNumberBetween0And1 >= cumulativeProbability && randomNumberBetween0And1 <= cumulativeProbability+alleleFrequencies[i]){
+  //if the random number falls in this probability space
+  allele2 = alleleNames[i];
+  cumulativeProbability += alleleFrequencies[i];
+}
+cumulativeProbability = cumulativeProbability + alleleFrequencies[i];
+}
+let newIndividual: Organism = this.individualGenerator.makeIndividual(allele1, allele2);
+return newIndividual;
+}
+
 addRandomIndividualGivenPopAlleleFrequencies(alleleFrequencies: Array<number>, alleleNames: Array<string>){
   //TODO generalize to different populationSources
   //TODO I am not 100% convinced that this works as expected
@@ -204,7 +341,20 @@ addOrganismToPopulation(organism: Organism){
   });
 }
 
-calculateAlleleFrequency(alleleName: string, doYouWantNewGeneration: boolean){
+calculatePopulationAlleleFrequency(alleleName: string, populationOfInterest: Population): number{
+  let alleleOfInterestCount = 0;
+  let individuals = populationOfInterest.getIndividuals();
+  let popSize = individuals.length;
+  individuals.forEach(individual =>{
+    let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+    let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+    if (allele1 === alleleName){alleleOfInterestCount++;}
+    if (allele2 === alleleName){alleleOfInterestCount++;}
+  });
+  return(alleleOfInterestCount/(2*popSize));
+}
+
+calculateAlleleFrequencyOfSource(alleleName: string, doYouWantNewGeneration: boolean){ //TODO accommodate different behaviorSubjects!
   let alleleOfInterestCount = 0;
   if(doYouWantNewGeneration){
     //TODO do this for new generation

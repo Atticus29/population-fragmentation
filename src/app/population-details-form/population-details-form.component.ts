@@ -7,6 +7,7 @@ import { Organism } from '../organism.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -38,6 +39,26 @@ export class PopulationDetailsFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    let alleleFrequecies = new Array<number>(0.7, 0.1, 0.2);
+    let alleleNames = new Array<string>("blue", "green", "magenta");
+    // let alleleNameCombos = this.popManager.allGenotypes(new Array<string>("blue", "green", "magenta"),2);
+    // let combinations = this.popManager.allGenotypes(new Array<number>(0.9, 0.1, 0),2);
+    this.popManager.generateMetaPopulation(alleleFrequecies, alleleNames , 1, 2);
+    this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
+      metapopulations.forEach(metapopulation =>{
+        metapopulation.getSubpopulations().forEach(subpopulation =>{
+          alleleNames.forEach(alleleName =>{
+            let alleleFreq = this.popManager.calculatePopulationAlleleFrequency(alleleName, subpopulation);
+            // console.log(alleleName + " " + alleleFreq.toString());
+          });
+          // console.log("new subpopulation!");
+          let subpopIndivids = subpopulation.getIndividuals();
+          subpopIndivids.forEach(organism =>{
+            // console.log(organism.getGeneByName("spot color").getGenotype());
+          });
+        });
+      });
+    });
   }
 
   getValues(){
@@ -48,12 +69,9 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-    console.log(blueAlleleFreq);
-    console.log(greenAlleleFreq);
-    console.log(magentaAlleleFreq);
     //TODO accommodate fragments
-    this.popManager.clearPopulation();
-    this.popManager.generatePopulation(+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq, +popsize);
+    this.popManager.clearMetaPopulation();
+    this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
     this.displayLizards = true;
     this.displayLizardsEmitter.emit(this.displayLizards);
     this.displayQuestions = !this.displayQuestions; //TODO maybe true

@@ -3,6 +3,7 @@ import { DrawingService } from '../drawing.service';
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
 import { Organism } from '../organism.model';
+import { Population } from '../population.model';
 import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
@@ -17,7 +18,8 @@ import { take } from 'rxjs/operators';
 export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
 
-  private individuals: Array<Organism>;
+  private subpopulations: Array<Population>;
+  // private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
   private isMatingComponentOpen: boolean = false;
@@ -26,25 +28,25 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
 
   ngOnInit() {
-      this.popManager.currentPopulation.pipe(take(1)).subscribe(results =>{
-        this.individuals = results.getIndividuals();
-      });
-      this.popManager.testMethod();
-
-      this.popManager.calculateAlleleFrequency("blue", false).subscribe(result =>{
-        console.log(result);
-      });
-
-      this.popManager.calculateAlleleFrequency("green", false).subscribe(result =>{
-        console.log(result);
-      });
-
-      this.popManager.calculateAlleleFrequency("magenta", false).subscribe(result =>{
-        console.log(result);
-      });
-
-      this.popManager.generations.pipe(take(1)).subscribe(results=>{
-        console.log(results);
+      this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+        this.subpopulations = metapopulation.getSubpopulations();
+        for(let i = 0; i<this.subpopulations.length; i++){
+          console.log("subpopulation " + i.toString());
+          let subpopulation = this.subpopulations[i];
+          let blueAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("blue", subpopulation);
+          console.log("blue");
+          console.log(blueAlleleFreq);
+          let greenAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("green", subpopulation);
+          console.log("green");
+          console.log(greenAlleleFreq);
+          let magentaAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("magenta", subpopulation);
+          console.log("magenta");
+          console.log(magentaAlleleFreq);
+        }
+        // this.subpopulations.forEach(subpopulation =>{
+        //
+        // });
+        // console.log(this.subpopulations);
       });
 
       //TODO for future more interesting color support, work on this and the color-name service
@@ -56,8 +58,14 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
     let canvasArray = this.canvases.toArray();
-    for(let i = 0; i<canvasArray.length; i++){
-      this.ds.drawLizard(canvasArray[i], this.individuals[i].getGeneByName("spot color").getGenotype());
+    for(let i = 0; i<this.subpopulations.length; i++){
+      //assumes subpopulations MUST be equal size TODO improve this
+      let currentSubpopulation = this.subpopulations[i];
+      for(let j = 0; j<currentSubpopulation.getIndividuals().length; j++){
+        let currentIndividual = currentSubpopulation.getIndividuals()[j];
+        let canvasNum = (i)*currentSubpopulation.getIndividuals().length + j;
+        this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype());
+      }
     }
   }
 

@@ -91,6 +91,8 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype){
   // let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
   // this.drawArc(77, 95, 3, 0, 2*Math.PI, canvasRef, colorArray[Math.floor(Math.random()*colorArray.length)], true);
 
+  // console.log(genotype.getAllele1());
+  // console.log(genotype.getAllele2());
   this.drawArc(60, 101, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
   this.drawArc(85, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
   this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);

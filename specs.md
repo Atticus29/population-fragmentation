@@ -4,6 +4,11 @@
 - [ ] Grid layout in app.component.html is not working
 - [ ] Form doesn't validate
 - [ ] Form doesn't check for invalid allele frequency entries
+- [ ] generateMetaPopulation doesn't handle small population sizes or large fragments well
+    - [ ] E.g., popSize 1 frag 2 (see form validation)
+    - [ ] E.g., popSize 2 frag 2 (always blue blue homozygotes)
+- [ ] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)
+- [x] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [x] <app-mate> isn't working
 - [x] improve styling of appMated directive
@@ -24,6 +29,7 @@
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 - [x] Grid layout for angular material not working well to display the draggle cards
+- [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
 
 # Specs
 
