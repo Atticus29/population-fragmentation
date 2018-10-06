@@ -129,7 +129,7 @@ export class PopulationManagerService {
     });
   }
 
-  shuffle(a) {
+  shuffle(a: any[]) {
     //TODO this currently does not work as expected
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

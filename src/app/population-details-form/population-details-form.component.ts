@@ -75,6 +75,9 @@ export class PopulationDetailsFormComponent implements OnInit {
           });
           // console.log("new subpopulation!");
           let subpopIndivids = subpopulation.getIndividuals();
+          let scrambled = this.popManager.shuffle(subpopIndivids);
+          console.log(subpopIndivids);
+          console.log(scrambled);
           subpopIndivids.forEach(organism =>{
             // console.log(organism.getGeneByName("spot color").getGenotype());
           });
@@ -95,10 +98,8 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   popSizeBigEnoughForFrag(fg: FormGroup){
     if(+fg.value.popsize >= +fg.value.fragNum){
-      console.log("good to go");
       return null;
     } else{
-      console.log("not enough individuals to split up");
       return {popSizeVsFragNumMismatchError: true};
     }
   }
@@ -112,11 +113,9 @@ export class PopulationDetailsFormComponent implements OnInit {
     //TODO summing to 1 for allele frequencies still an issue
     this.submitted = true;
     if(this.userInputFG.invalid){
-      console.log("invalid!");
       return;
     }
     if(this.userInputFG.valid){
-      console.log("valid!");
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
     }
@@ -129,7 +128,6 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.greenAlleleFreq = greenAlleleFreq;
     this.blueAlleleFreq = blueAlleleFreq;
     this.magentaAlleleFreq = magentaAlleleFreq;
-    console.log(popsize.invalid);
     this.popManager.clearMetaPopulation();
     this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
     this.displayLizards = true;
@@ -139,19 +137,11 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.disablePopulationGenerationForm = true;
     this.focusOnQuestion = !this.focusOnQuestion;
   }
-
+  
   clearPop(){
     this.displayLizards = false;
     this.displayLizardsEmitter.emit(this.displayLizards);
     this.disablePopulationGenerationForm = false;
     this.popManager.clearPopulation();
   }
-
-  //TODO improve this
-  // getErrorMessage() {
-  //   return popsize.hasError('required') ? 'You must enter a value' :
-  //       this.popsize.hasError('small') ? 'Number too small' :
-  //           '';
-  // }
-
 }
