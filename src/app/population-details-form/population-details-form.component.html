@@ -3,15 +3,18 @@
     <div class="row">
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number">
+          <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
+          <mat-error>Population too small to split into that many fragments</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number">
+          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
+          <!-- <mat-error>Population too small to split into that many fragments</mat-error> -->
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number">
         </mat-form-field>
       </div>
+      <br>
       <div class="col m1 s1">
         <mat-form-field>
           <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.greenAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">

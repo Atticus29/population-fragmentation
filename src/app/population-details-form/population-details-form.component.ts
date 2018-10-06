@@ -30,8 +30,15 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return this.defaultErrorStateMatcher.isErrorState(control, form) ||
-        !!(form.invalid && (control.touched || (form && form.submitted)));
+      // return this.defaultErrorStateMatcher.isErrorState(control, form) ||
+      //   !!(form.invalid && (control.touched || (form && form.submitted)));
+      return(+this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq != 1);
+    }
+  }
+
+  errorPopSizeMatcher = {
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
+      return (+this.userInputFG.value.popsize < +this.userInputFG.value.fragNum);
     }
   }
 
@@ -52,14 +59,12 @@ export class PopulationDetailsFormComponent implements OnInit {
       greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
       blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
       magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
-    },{validator: this.sumToOne})
+    },{validator: [this.sumToOne, this.popSizeBigEnoughForFrag]})
   }
 
   ngOnInit() {
     let alleleFrequecies = new Array<number>(0.7, 0.1, 0.2);
     let alleleNames = new Array<string>("blue", "green", "magenta");
-    // let alleleNameCombos = this.popManager.allGenotypes(new Array<string>("blue", "green", "magenta"),2);
-    // let combinations = this.popManager.allGenotypes(new Array<number>(0.9, 0.1, 0),2);
     this.popManager.generateMetaPopulation(alleleFrequecies, alleleNames , 1, 2);
     this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
       metapopulations.forEach(metapopulation =>{
@@ -82,11 +87,19 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   sumToOne(fg: FormGroup){
     if(+fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq == 1){
-      console.log("sums to 1!!");
       return null;
     } else{
-      console.log("doesn't sum to 1!");
-      return {magentaAlleleFreq: true};
+      return {alleleFrequencySumError: true};
+    }
+  }
+
+  popSizeBigEnoughForFrag(fg: FormGroup){
+    if(+fg.value.popsize >= +fg.value.fragNum){
+      console.log("good to go");
+      return null;
+    } else{
+      console.log("not enough individuals to split up");
+      return {popSizeVsFragNumMismatchError: true};
     }
   }
 
