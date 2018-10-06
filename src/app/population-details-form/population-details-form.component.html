@@ -14,13 +14,14 @@
       </div>
       <div class="col m1 s1">
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.greenAlleleFreq.errors}" type="number">
+          <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.greenAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
+          <mat-error>Allele frequencies must sum to 1</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.blueAlleleFreq.errors}" type="number">
+          <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.blueAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.magentaAlleleFreq.errors}" type="number">
+          <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.magentaAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
         </mat-form-field>
       </div>
     <div class="col m1 s1">

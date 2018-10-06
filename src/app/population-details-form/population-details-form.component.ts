@@ -1,13 +1,14 @@
 import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validators,NgForm,ValidationErrors} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import { Organism } from '../organism.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { take } from 'rxjs/operators';
+import {ErrorStateMatcher} from '@angular/material';
 
 
 @Component({
@@ -27,6 +28,13 @@ export class PopulationDetailsFormComponent implements OnInit {
   private blueAlleleFreq: number = 0.1;
   private magentaAlleleFreq: number = 0.1;
 
+  errorMatcher = {
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
+      return this.defaultErrorStateMatcher.isErrorState(control, form) ||
+        !!(form.invalid && (control.touched || (form && form.submitted)));
+    }
+  }
+
   private displayQuestions: boolean = false;
   @Output() displayQuestionsEmitter = new EventEmitter<boolean>();
   private displayLizards: boolean = false;
@@ -36,7 +44,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   private takeNextStep: boolean = false;
   @Output() takeNextStepEmitter = new EventEmitter<boolean>();
 
-  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private defaultErrorStateMatcher: ErrorStateMatcher) {
     this.userInputFG = this.fb.group({
       popsize: ['10', [Validators.required, Validators.min(1)]], //, Validators.max(1000)
       fragNum: ['1', [Validators.required, Validators.max(1000)]],//, Validators.max(1000)
@@ -44,7 +52,7 @@ export class PopulationDetailsFormComponent implements OnInit {
       greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
       blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
       magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
-    })
+    },{validator: this.sumToOne})
   }
 
   ngOnInit() {
@@ -72,13 +80,22 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   get f() { return this.userInputFG.controls; }
 
+  sumToOne(fg: FormGroup){
+    if(+fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq == 1){
+      console.log("sums to 1!!");
+      return null;
+    } else{
+      console.log("doesn't sum to 1!");
+      return {magentaAlleleFreq: true};
+    }
+  }
+
   getValues(){
     let result = this.userInputFG.value;
     return result;
   }
 
   processForm(){
-    //TODO emit to parent to possibly prevent stepper
     //TODO summing to 1 for allele frequencies still an issue
     this.submitted = true;
     if(this.userInputFG.invalid){
@@ -89,8 +106,6 @@ export class PopulationDetailsFormComponent implements OnInit {
       console.log("valid!");
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
-      // stepper.next();
-      // return;
     }
     let result = this.getValues();
     let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
