@@ -77,8 +77,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       for(let i = 0; i<scrambledIndividuals.length-1; i++){ //TODO should be able to make more efficient
         if(!scrambledIndividuals[i].isMated() && !scrambledIndividuals[i+1].isMated()){
           scrambledIndividuals[i].designateAsMated();
+          scrambledIndividuals[i].designateMate(scrambledIndividuals[i+1]);
           scrambledIndividuals[i+1].designateAsMated();
-          
+          scrambledIndividuals[i+1].designateMate(scrambledIndividuals[i]);
+
         }
       }
       //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, and change their canvas directive
