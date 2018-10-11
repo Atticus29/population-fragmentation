@@ -38,7 +38,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   errorPopSizeMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return (+this.userInputFG.value.popsize < +this.userInputFG.value.fragNum);
+      return (+this.userInputFG.value.popsize < +this.userInputFG.value.fragNum || +this.userInputFG.value.fragNum < 1);
     }
   }
 

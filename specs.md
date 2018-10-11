@@ -1,8 +1,9 @@
 # Bugs
 
 ## High Priority
-- [ ] negative and 0 frag numbers don't throw errors....
-- [ ] the real-time pre-submission validation no longer seems to be working?
+- [ ] Generation number doesn't currently validate
+- [x] negative and 0 frag numbers don't throw errors....
+- [x] the real-time pre-submission validation no longer seems to be working?
 - [x] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)
 - [x] Grid layout in app.component.html is not working (no longer relevant)
 - [x] Form doesn't validate
