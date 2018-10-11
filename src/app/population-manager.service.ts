@@ -118,25 +118,56 @@ export class PopulationManagerService {
     return Observable.create(obs => {
       this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
         let individuals = population.getIndividuals();
-        console.log("before");
-        console.log(individuals);
+        // console.log("before");
+        // console.log(individuals);
         //TODO fix this
         let shuffledIndividuals = this.shuffle(individuals);
-        console.log("after");
-        console.log(shuffledIndividuals);
+        // console.log("after");
+        // console.log(shuffledIndividuals);
         obs.next(shuffledIndividuals);
       });
     });
   }
 
-  shuffle(a: any[]) {
-    //TODO this currently does not work as expected
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+//   shuffle<T>(array: T[]): T[] {
+//     console.log(array);
+//   // if it's 1 or 0 items, just return
+//   if (array.length <= 1) return array;
+//
+//   // For each index in array
+//   for (let i = 0; i < array.length; i++) {
+//
+//     // choose a random not-yet-placed item to place there
+//     // must be an item AFTER the current item, because the stuff
+//     // before has all already been placed
+//     const randomChoiceIndex = this.getRandom(i, array.length - 1);
+//
+//     // place our random choice in the spot by swapping
+//     [array[i], array[randomChoiceIndex]] = [array[randomChoiceIndex], array[i]];
+//   }
+//   console.log(array);
+//   return array;
+// }
+
+getRandom(small, large){
+  return (Math.floor(Math.random() * (large-small+1)) + small);
+}
+
+shuffle(array) { //TODO could have a smaller big O; won't scale well with large arrays
+  let returnArray = [];
+  let indexTracker = [];
+  var currentIndex = array.length-1, temporaryValue, randomIndex;
+  while (currentIndex >= 0) {
+    randomIndex = this.getRandom(0, currentIndex);
+    while(indexTracker.indexOf(randomIndex) > -1){
+      randomIndex = this.getRandom(0, array.length-1);
     }
-    return a;
+    currentIndex -= 1;
+    indexTracker.push(randomIndex);
+    returnArray.push(array[randomIndex]);
   }
+  return returnArray;
+}
 
   allGenotypes(set, ploidy){
     let allGenotypes = this.allHomozygousCases(set, ploidy);
@@ -345,6 +376,7 @@ calculatePopulationAlleleFrequency(alleleName: string, populationOfInterest: Pop
   let alleleOfInterestCount = 0;
   let individuals = populationOfInterest.getIndividuals();
   let popSize = individuals.length;
+  // console.log(popSize);
   individuals.forEach(individual =>{
     let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
     let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();

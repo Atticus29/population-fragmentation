@@ -65,12 +65,15 @@ export class PopulationDetailsFormComponent implements OnInit {
   ngOnInit() {
     let alleleFrequecies = new Array<number>(0.7, 0.1, 0.2);
     let alleleNames = new Array<string>("blue", "green", "magenta");
-    this.popManager.generateMetaPopulation(alleleFrequecies, alleleNames , 1, 2);
+    this.popManager.generateMetaPopulation(alleleFrequecies, alleleNames , 20, 2);
     this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
       metapopulations.forEach(metapopulation =>{
         metapopulation.getSubpopulations().forEach(subpopulation =>{
+          // console.log(subpopulation.getIndividuals());
           alleleNames.forEach(alleleName =>{
+            // console.log(alleleName);
             let alleleFreq = this.popManager.calculatePopulationAlleleFrequency(alleleName, subpopulation);
+            // console.log(alleleFreq);
             // console.log(alleleName + " " + alleleFreq.toString());
           });
           // console.log("new subpopulation!");
@@ -137,7 +140,7 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.disablePopulationGenerationForm = true;
     this.focusOnQuestion = !this.focusOnQuestion;
   }
-  
+
   clearPop(){
     this.displayLizards = false;
     this.displayLizardsEmitter.emit(this.displayLizards);
