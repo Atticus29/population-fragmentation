@@ -22,6 +22,10 @@ export class Organism {
     this.matedStatus = true;
   }
 
+  isMated(){
+    return this.matedStatus;
+  }
+
   getGeneByName(geneName: string): Gene{
     let returnVal = null; //TODO improve this
     for(let i=0; i<this.genes.length; i++){

@@ -13,6 +13,9 @@ export class PopulationManagerService {
   private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
+  private currentMetapopulationOfMatedPairsSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  currentMetaPopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
+
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
 
@@ -114,10 +117,11 @@ export class PopulationManagerService {
     });
   }
 
-  getScrambledPopulation(){
+  getScrambledSubPopulation(subpopNumber: number){
     return Observable.create(obs => {
-      this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
-        let individuals = population.getIndividuals();
+      this.currentMetaPopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
+        // console.log(metapopulation);
+        let individuals = metapopulation.getSubpopulation(subpopNumber).getIndividuals();
         // console.log("before");
         // console.log(individuals);
         //TODO fix this

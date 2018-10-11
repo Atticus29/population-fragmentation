@@ -10,6 +10,10 @@ export class Metapopulation {
     return this.subpopulations;
   }
 
+  getSubpopulation(num: number){
+    return this.subpopulations[num];
+  }
+
   addSubpopulation(subpopulation: Population){
     this.subpopulations.push(subpopulation);
   }

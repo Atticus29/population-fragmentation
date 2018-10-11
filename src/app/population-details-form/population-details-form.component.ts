@@ -79,8 +79,8 @@ export class PopulationDetailsFormComponent implements OnInit {
           // console.log("new subpopulation!");
           let subpopIndivids = subpopulation.getIndividuals();
           let scrambled = this.popManager.shuffle(subpopIndivids);
-          console.log(subpopIndivids);
-          console.log(scrambled);
+          // console.log(subpopIndivids);
+          // console.log(scrambled);
           subpopIndivids.forEach(organism =>{
             // console.log(organism.getGeneByName("spot color").getGenotype());
           });

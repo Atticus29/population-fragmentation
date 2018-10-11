@@ -69,10 +69,19 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  pickTwoToMate(){
-    console.log("go to pickTwoToMate");
-    this.popManager.getScrambledPopulation().pipe(take(1)).subscribe(results =>{
-      //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array and change their canvas directive
+  pickTwoToMate(subpopNum: number){
+    console.log("got to pickTwoToMate");
+    console.log(subpopNum);
+    this.popManager.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
+      console.log(scrambledIndividuals);
+      for(let i = 0; i<scrambledIndividuals.length-1; i++){ //TODO should be able to make more efficient
+        if(!scrambledIndividuals[i].isMated() && !scrambledIndividuals[i+1].isMated()){
+          scrambledIndividuals[i].designateAsMated();
+          scrambledIndividuals[i+1].designateAsMated();
+          
+        }
+      }
+      //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, and change their canvas directive
     });
   }
 
