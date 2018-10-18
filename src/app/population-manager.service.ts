@@ -17,7 +17,7 @@ export class PopulationManagerService {
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
-  currentMetaPopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
+  currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
@@ -92,18 +92,23 @@ export class PopulationManagerService {
   return subPopulation;
 }
 
-  clearPopulation(){
-    let emptyPopulation = new Population([]);
-    let emptyGenerations = new Array<Population>();
-    this.currentPopulationSource.next(emptyPopulation);
-    this.generationsSouce.next(emptyGenerations);
-  }
+  // clearPopulation(){
+  //   let emptyPopulation = new Population([]);
+  //   let emptyGenerations = new Array<Population>();
+  //   this.currentPopulationSource.next(emptyPopulation);
+  //   this.generationsSouce.next(emptyGenerations);
+  // }
 
   clearMetaPopulation(){
     let emptyMetapopulation = new Metapopulation([]);
     let emptyMetapopulationGenerations = new Array<Metapopulation>();
     this.currentMetapopulationSource.next(emptyMetapopulation);
     this.metapopulationGenerationsSouce.next(emptyMetapopulationGenerations);
+  }
+
+  clearMetaPopulationOfMatedPairs(){
+    let emptyMetapopulation = new MetapopulationOfMatedPairs([]);
+    this.currentMetapopulationOfMatedPairsSource.next(emptyMetapopulation);
   }
 
   addToGenerations(population: Population){
@@ -411,13 +416,13 @@ calculateAlleleFrequencyOfSource(alleleName: string, doYouWantNewGeneration: boo
 }
 
 pickTwoToMate(subpopNum: number){
-  console.log("got to pickTwoToMate");
-  console.log(subpopNum);
+  // console.log("got to pickTwoToMate");
+  // console.log(subpopNum);
   let matedCount = 0;
   let bachelorNumberOne: Organism;
   let bachelorNumberTwo: Organism;
   this.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
-    console.log(scrambledIndividuals);
+    // console.log(scrambledIndividuals);
     for(let i = 0; i<scrambledIndividuals.length; i++){ //TODO should be able to make more efficient
       if(matedCount < 2){
         if(!scrambledIndividuals[i].isMated() && matedCount == 0){ // && !scrambledIndividuals[i+1].isMated()
@@ -436,6 +441,7 @@ pickTwoToMate(subpopNum: number){
     bachelorNumberOne.designateMate(bachelorNumberTwo);
     bachelorNumberTwo.designateMate(bachelorNumberOne);
     let newlyWeds = new MatedPair(bachelorNumberOne, bachelorNumberTwo);
+    // console.log(newlyWeds);
     this.addMatedPairToSubpop(subpopNum, newlyWeds);
     //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
   });
@@ -444,21 +450,22 @@ pickTwoToMate(subpopNum: number){
 addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
     console.log(metapopulationOfMatedPairs);
-    this.createEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs.getSubpopulations().length + 1,subpopNum);
+    let modifiedMetapopOfMPs = this.modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs,subpopNum);
+    console.log(modifiedMetapopOfMPs);
   });
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
-    console.log(metapopulationOfMatedPairs);
+    // console.log(metapopulationOfMatedPairs);
     if(metapopulationOfMatedPairs.getSubpopulation(subpopNum)){
-      console.log("hey hey got here!");
+      // console.log("hey hey got here!");
       let subpop = metapopulationOfMatedPairs.getSubpopulation(subpopNum);
-      console.log(subpop);
+      // console.log(subpop);
       subpop.addMatedPair(matedPair);
-      console.log(subpop);
+      // console.log(subpop);
       //TODO .next
     } else{
-      console.log("should no longer get here");
+      // console.log("should no longer get here");
       //TODO LEFT OFF HERE figuring out whether this is all a bad idea
-      console.log(metapopulationOfMatedPairs.getSubpopulations().length);
+      // console.log(metapopulationOfMatedPairs.getSubpopulations().length);
 
       // this.addMatedPairToSubpop(subpopNum, matedPair);
       //need to create the subpopulations necessary
@@ -466,14 +473,20 @@ addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
   });
 }
 
-createEmptySubpopulationsOfMatedPairsNecessary(startNum: number, endNum: number){
-  this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
-    for(let i = startNum; i<= endNum; i++){
+modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, subpopNum: number){
+  let currentSubpopNum = metapopulationOfMatedPairs.getSubpopulations.length -1;
+  console.log(currentSubpopNum);
+  console.log(subpopNum);
+  if(currentSubpopNum < subpopNum){
+    console.log("got here");
+    for (let i = currentSubpopNum; i < subpopNum; i++){
       let newSubpopOfMatedPairs = new PopulationOfMatedPairs([]);
       metapopulationOfMatedPairs.addSubpopulation(newSubpopOfMatedPairs);
     }
-    this.currentMetapopulationOfMatedPairsSource.next(metapopulationOfMatedPairs);
-  });
+  } else{
+    //Do nothing
+  }
+    return metapopulationOfMatedPairs;
 }
 
 }
