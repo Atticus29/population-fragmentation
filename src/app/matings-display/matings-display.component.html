@@ -3,7 +3,7 @@
   <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>A sacred union of love between {{matedPair.getIndividual1().getOrganismName()}} and {{matedPair.getIndividual2.getOrganismName()}}</mat-card-title>
+      <mat-card-title>A sacred union of love between {{matedPair.getIndividual1().getOrganismName()}} and {{matedPair.getIndividual2().getOrganismName()}}</mat-card-title>
     </mat-card-header>
     <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
       Your browser does not support the canvas element.

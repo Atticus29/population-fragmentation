@@ -17,6 +17,8 @@ export class MatingsDisplayComponent implements OnInit {
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
+      console.log("hieeee!");
+      console.log(this.matedPairSubpopulations);
     });
   }
 

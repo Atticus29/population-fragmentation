@@ -468,6 +468,7 @@ addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
     if(metapopulationOfMatedPairs.getSubpopulation(subpopNum)){
       let subpop = metapopulationOfMatedPairs.getSubpopulation(subpopNum);
       subpop.addMatedPair(matedPair);
+      this.currentMetapopulationOfMatedPairsSource.next(metapopulationOfMatedPairs);
       //TODO .next
     } else{
       console.log("should no longer get here");
