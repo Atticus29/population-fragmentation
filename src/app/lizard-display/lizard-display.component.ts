@@ -4,10 +4,12 @@ import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
 import { Organism } from '../organism.model';
 import { Population } from '../population.model';
+import { MatedPair } from '../mated-pair.model';
 import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-lizard-display',
@@ -25,7 +27,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
-  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
@@ -57,6 +59,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    this.drawDraggles();
+  }
+
+  drawDraggles(){
     let canvasArray = this.canvases.toArray();
     for(let i = 0; i<this.subpopulations.length; i++){
       //assumes subpopulations MUST be equal size TODO improve this
@@ -69,11 +75,31 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  pickTwoToMate(){
-    console.log("go to pickTwoToMate");
-    this.popManager.getScrambledPopulation().pipe(take(1)).subscribe(results =>{
-      //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array and change their canvas directive
+  pickTwoToMate(subpopNum: number){
+    this.popManager.pickTwoToMate(subpopNum);
+
+    this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+      // console.log(metapopulation);
+      //TODO currently broken
+      this.subpopulations = metapopulation.getSubpopulations();
+      this.drawDraggles();
+      this.cdr.detectChanges();
     });
+    // console.log("got to pickTwoToMate");
+    // console.log(subpopNum);
+    // this.popManager.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
+    //   for(let i = 0; i<scrambledIndividuals.length-1; i++){ //TODO should be able to make more efficient
+    //     if(!scrambledIndividuals[i].isMated() && !scrambledIndividuals[i+1].isMated()){
+    //       scrambledIndividuals[i].designateAsMated();
+    //       scrambledIndividuals[i].designateMate(scrambledIndividuals[i+1]);
+    //       scrambledIndividuals[i+1].designateAsMated();
+    //       scrambledIndividuals[i+1].designateMate(scrambledIndividuals[i]);
+    //       let newlyWeds = new MatedPair(scrambledIndividuals[i], scrambledIndividuals[i+1]);
+    //     }
+    //   }
+    //   console.log(scrambledIndividuals);
+    //   //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
+    // });
   }
 
   openMatingComponent(){

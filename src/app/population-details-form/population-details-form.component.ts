@@ -4,6 +4,7 @@ import {MatInput} from '@angular/material/input';
 import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validators,NgForm,ValidationErrors} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import { Organism } from '../organism.model';
+import { MetapopulationOfMatedPairs } from '../metapopulationOfMatedPairs.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -79,8 +80,8 @@ export class PopulationDetailsFormComponent implements OnInit {
           // console.log("new subpopulation!");
           let subpopIndivids = subpopulation.getIndividuals();
           let scrambled = this.popManager.shuffle(subpopIndivids);
-          console.log(subpopIndivids);
-          console.log(scrambled);
+          // console.log(subpopIndivids);
+          // console.log(scrambled);
           subpopIndivids.forEach(organism =>{
             // console.log(organism.getGeneByName("spot color").getGenotype());
           });
@@ -121,30 +122,38 @@ export class PopulationDetailsFormComponent implements OnInit {
     if(this.userInputFG.valid){
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
+      let result = this.getValues();
+      let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+      //TODO accommodate fragments
+      this.popsize = popsize;
+      this.fragNum = fragNum;
+      this.genNum = genNum;
+      this.greenAlleleFreq = greenAlleleFreq;
+      this.blueAlleleFreq = blueAlleleFreq;
+      this.magentaAlleleFreq = magentaAlleleFreq;
+      this.popManager.clearMetaPopulation();
+      this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
+      //TODO figure out whether this should happen
+      // this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
+      //   // console.log(metapopulationOfMatedPairs);
+      //   this.popManager.createEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs.getSubpopulations().length + 1, fragNum);
+      //   console.log(metapopulationOfMatedPairs);
+      // });
+      this.displayLizards = true;
+      this.displayLizardsEmitter.emit(this.displayLizards);
+      this.displayQuestions = !this.displayQuestions; //TODO maybe true
+      this.displayQuestionsEmitter.emit(this.displayQuestions);
+      this.disablePopulationGenerationForm = true;
+      this.focusOnQuestion = !this.focusOnQuestion;
     }
-    let result = this.getValues();
-    let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-    //TODO accommodate fragments
-    this.popsize = popsize;
-    this.fragNum = fragNum;
-    this.genNum = genNum;
-    this.greenAlleleFreq = greenAlleleFreq;
-    this.blueAlleleFreq = blueAlleleFreq;
-    this.magentaAlleleFreq = magentaAlleleFreq;
-    this.popManager.clearMetaPopulation();
-    this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
-    this.displayLizards = true;
-    this.displayLizardsEmitter.emit(this.displayLizards);
-    this.displayQuestions = !this.displayQuestions; //TODO maybe true
-    this.displayQuestionsEmitter.emit(this.displayQuestions);
-    this.disablePopulationGenerationForm = true;
-    this.focusOnQuestion = !this.focusOnQuestion;
   }
 
   clearPop(){
     this.displayLizards = false;
     this.displayLizardsEmitter.emit(this.displayLizards);
     this.disablePopulationGenerationForm = false;
-    this.popManager.clearPopulation();
+    // this.popManager.clearPopulation();
+    this.popManager.clearMetaPopulation();
+    this.popManager.clearMetaPopulationOfMatedPairs();
   }
 }

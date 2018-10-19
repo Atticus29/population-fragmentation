@@ -1,7 +1,14 @@
 # Bugs
 
 ## High Priority
+- [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
+- [ ] Grid list is not allowing rowHeight to fit contents of lizard display
+- [ ] Some of the lizard names in lizard display aren't centered
 - [ ] Generation number doesn't currently validate
+- [x] Seems to be adding new subpopulations every time you click (even though it adds to already existing ones when warranted)
+- [x] Does not remove the mated pairs when you clear population
+- [x] Errors out when you try to mate a population of size 1 (what about odd pop sizes?)
+- [x] Errors out when you try to mate but nobody in the population is eligible
 - [x] negative and 0 frag numbers don't throw errors....
 - [x] the real-time pre-submission validation no longer seems to be working?
 - [x] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)

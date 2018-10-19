@@ -8,7 +8,14 @@
       <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)" (takeNextStepEmitter)="takeNextStep($event, stepperMain)"></app-population-details-form>
     </mat-step>
     <mat-step label="Inspect Population and Answer Questions">
-      <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
+      <mat-grid-list cols="2" [rowHeight]="rowHeight + 'px'">
+        <mat-grid-tile>
+          <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <app-matings-display *ngIf="displayLizards"></app-matings-display>
+        </mat-grid-tile>
+    </mat-grid-list>
     </mat-step>
     <mat-step label="Examine Patterns">
       <app-matings-display *ngIf="displayMatings"></app-matings-display>

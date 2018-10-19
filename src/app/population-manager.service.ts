@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Organism } from './organism.model';
 import { Population } from './population.model';
 import { Metapopulation } from './metapopulation.model';
+import { MatedPair } from './mated-pair.model';
+import { PopulationOfMatedPairs } from './populationOfMatedPairs.model';
+import { MetapopulationOfMatedPairs } from './metapopulationOfMatedPairs.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
@@ -12,6 +15,9 @@ import { IndividualGenerationService } from './individual-generation.service';
 export class PopulationManagerService {
   private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
+
+  private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
+  currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
@@ -100,6 +106,11 @@ export class PopulationManagerService {
     this.metapopulationGenerationsSouce.next(emptyMetapopulationGenerations);
   }
 
+  clearMetaPopulationOfMatedPairs(){
+    let emptyMetapopulation = new MetapopulationOfMatedPairs([]);
+    this.currentMetapopulationOfMatedPairsSource.next(emptyMetapopulation);
+  }
+
   addToGenerations(population: Population){
     this.generationsSouce.pipe(take(1)).subscribe((populations: Array<Population>)=>{
       populations.push(population);
@@ -114,10 +125,11 @@ export class PopulationManagerService {
     });
   }
 
-  getScrambledPopulation(){
+  getScrambledSubPopulation(subpopNumber: number){
     return Observable.create(obs => {
-      this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
-        let individuals = population.getIndividuals();
+      this.currentMetaPopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
+        // console.log(metapopulation);
+        let individuals = metapopulation.getSubpopulation(subpopNumber).getIndividuals();
         // console.log("before");
         // console.log(individuals);
         //TODO fix this
@@ -128,26 +140,6 @@ export class PopulationManagerService {
       });
     });
   }
-
-//   shuffle<T>(array: T[]): T[] {
-//     console.log(array);
-//   // if it's 1 or 0 items, just return
-//   if (array.length <= 1) return array;
-//
-//   // For each index in array
-//   for (let i = 0; i < array.length; i++) {
-//
-//     // choose a random not-yet-placed item to place there
-//     // must be an item AFTER the current item, because the stuff
-//     // before has all already been placed
-//     const randomChoiceIndex = this.getRandom(i, array.length - 1);
-//
-//     // place our random choice in the spot by swapping
-//     [array[i], array[randomChoiceIndex]] = [array[randomChoiceIndex], array[i]];
-//   }
-//   console.log(array);
-//   return array;
-// }
 
 getRandom(small, large){
   return (Math.floor(Math.random() * (large-small+1)) + small);
@@ -422,4 +414,83 @@ calculateAlleleFrequencyOfSource(alleleName: string, doYouWantNewGeneration: boo
 
 }
 }
+
+pickTwoToMate(subpopNum: number){
+  // console.log("got to pickTwoToMate");
+  // console.log(subpopNum);
+  let matedCount = 0;
+  let bachelorNumberOne: Organism;
+  let bachelorNumberTwo: Organism;
+  this.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
+    let eligibleBachelorCount = 0;
+    for(let i = 0; i<scrambledIndividuals.length; i++){
+      if(!scrambledIndividuals[i].isMated()){
+        eligibleBachelorCount ++;
+      }
+    }
+    if(eligibleBachelorCount <2){
+      alert("There aren't enough eligible individuals to continue the pairing process");
+      //TODO have this disable the button somehow or disable the button before this happens
+      return;
+    }
+    for(let i = 0; i<scrambledIndividuals.length; i++){ //TODO should be able to make more efficient
+      if(matedCount < 2){
+        if(!scrambledIndividuals[i].isMated() && matedCount == 0){ // && !scrambledIndividuals[i+1].isMated()
+          scrambledIndividuals[i].designateAsMated();
+          bachelorNumberOne = scrambledIndividuals[i]
+          matedCount ++;
+        } else{
+          if(!scrambledIndividuals[i].isMated() && matedCount == 1){
+            scrambledIndividuals[i].designateAsMated();
+            bachelorNumberTwo = scrambledIndividuals[i]
+            matedCount ++;
+          }
+        }
+      }
+    }
+    bachelorNumberOne.designateMate(bachelorNumberTwo);
+    bachelorNumberTwo.designateMate(bachelorNumberOne);
+    let newlyWeds = new MatedPair(bachelorNumberOne, bachelorNumberTwo);
+    this.addMatedPairToSubpop(subpopNum, newlyWeds);
+    //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
+  });
+}
+
+addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
+  this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
+    console.log("original");
+    console.log(metapopulationOfMatedPairs);
+    let modifiedMetapopOfMPs = this.modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs,subpopNum);
+    console.log("modified");
+    console.log(modifiedMetapopOfMPs);
+  });
+  this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
+    if(metapopulationOfMatedPairs.getSubpopulation(subpopNum)){
+      let subpop = metapopulationOfMatedPairs.getSubpopulation(subpopNum);
+      subpop.addMatedPair(matedPair);
+      this.currentMetapopulationOfMatedPairsSource.next(metapopulationOfMatedPairs);
+      //TODO .next
+    } else{
+      console.log("should no longer get here");
+      alert("Yikes! Something has gone wrong!");
+  }
+  });
+}
+
+modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, subpopNum: number){
+  let currentSubpopMaxIndex = metapopulationOfMatedPairs.getSubpopulations().length -1;
+  console.log(currentSubpopMaxIndex);
+  console.log(subpopNum);
+  if(currentSubpopMaxIndex < subpopNum){
+    console.log("got here");
+    for (let i = currentSubpopMaxIndex; i < subpopNum; i++){
+      let newSubpopOfMatedPairs = new PopulationOfMatedPairs([]);
+      metapopulationOfMatedPairs.addSubpopulation(newSubpopOfMatedPairs);
+    }
+  } else{
+    //Do nothing
+  }
+    return metapopulationOfMatedPairs;
+}
+
 }
