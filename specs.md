@@ -2,6 +2,7 @@
 
 ## High Priority
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
+- [ ] Some of the lizard names in lizard display aren't centered
 - [ ] Generation number doesn't currently validate
 - [x] Seems to be adding new subpopulations every time you click (even though it adds to already existing ones when warranted)
 - [x] Does not remove the mated pairs when you clear population

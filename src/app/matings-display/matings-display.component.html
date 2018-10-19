@@ -3,49 +3,75 @@
   <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>A sacred union of love between {{matedPair.getIndividual1().getOrganismName()}} and {{matedPair.getIndividual2().getOrganismName()}}</mat-card-title>
+      <mat-card-title>A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span></mat-card-title>
     </mat-card-header>
-    <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
-      Your browser does not support the canvas element.
-    </canvas>
-    <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
-      Your browser does not support the canvas element.
-    </canvas>
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
+          Your browser does not support the canvas element.
+        </canvas>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <canvas #canvases width="200" height="200" style="border:1px solid #c3c3c3;">
+          Your browser does not support the canvas element.
+        </canvas>
+      </mat-grid-tile>
+    </mat-grid-list>
     <mat-card-content>
-      <div class="col s6 m6">
-        <h3>
-          {{matedPair.getIndividual1().getOrganismName()}}
-        </h3>
-        <h4>
-          50% of the gametes are:
-        </h4>
-        <p>
-          {{matedPair.getIndividual1().getGeneByName("spot color").getGenotype().getAllele1()}}
-        </p>
-        <h4>
-          50% of the gametes are:
-        </h4>
-        <p>
-          {{matedPair.getIndividual1().getGeneByName("spot color").getGenotype().getAllele2()}}
-        </p>
-      </div>
-      <div class="col s6 m6">
-        <h3>
-          {{matedPair.getIndividual2().getOrganismName()}}
-        </h3>
-        <h4>
-          50% of the gametes are:
-        </h4>
-        <p>
-          {{matedPair.getIndividual2().getGeneByName("spot color").getGenotype().getAllele1()}}
-        </p>
-        <h4>
-          50% of the gametes are:
-        </h4>
-        <p>
-          {{matedPair.getIndividual2().getGeneByName("spot color").getGenotype().getAllele2()}}
-        </p>
-      </div>
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+          <h3>
+            {{matedPair.getIndividual1().getOrganismName()}}
+          </h3>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <h3>
+            {{matedPair.getIndividual2().getOrganismName()}}
+          </h3>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <mat-grid-list cols="4" rowHeight="2:1">
+        <mat-grid-tile>
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <p>
+            {{matedPair.getIndividual1().getGeneByName("spot color").getGenotype().getAllele1()}}
+          </p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <p>
+            {{matedPair.getIndividual2().getGeneByName("spot color").getGenotype().getAllele1()}}
+          </p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <p>
+            {{matedPair.getIndividual1().getGeneByName("spot color").getGenotype().getAllele2()}}
+          </p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <p>
+            {{matedPair.getIndividual2().getGeneByName("spot color").getGenotype().getAllele2()}}
+          </p>
+        </mat-grid-tile>
+      </mat-grid-list>
     </mat-card-content>
     <mat-card-actions>
     </mat-card-actions>
