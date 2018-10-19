@@ -52,4 +52,8 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     }
   }
 
+  makeBabies(){
+    console.log("makeBabies");
+  }
+
 }
