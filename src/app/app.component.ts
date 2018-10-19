@@ -11,6 +11,9 @@ export class AppComponent {
   private displayLizards: boolean = false;
   private displayQuestions: boolean = false;
   private displayMatings: boolean = false;
+  private rowHeight: number = 3000; //TODO make this dynamic //window.innerHeight;
+  // this.rowHeight = window.innerHeight;
+
   setDisplayLizards(shouldLizardsDisplay: boolean){
     this.displayLizards = shouldLizardsDisplay;
   }

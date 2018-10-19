@@ -9,6 +9,7 @@ import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { take } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-lizard-display',
@@ -26,7 +27,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
-  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
@@ -58,6 +59,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    this.drawDraggles();
+  }
+
+  drawDraggles(){
     let canvasArray = this.canvases.toArray();
     for(let i = 0; i<this.subpopulations.length; i++){
       //assumes subpopulations MUST be equal size TODO improve this
@@ -72,6 +77,14 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   pickTwoToMate(subpopNum: number){
     this.popManager.pickTwoToMate(subpopNum);
+
+    this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+      // console.log(metapopulation);
+      //TODO currently broken
+      this.subpopulations = metapopulation.getSubpopulations();
+      this.drawDraggles();
+      this.cdr.detectChanges();
+    });
     // console.log("got to pickTwoToMate");
     // console.log(subpopNum);
     // this.popManager.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{

@@ -15,9 +15,9 @@ export class Organism {
     return this.organismName;
   }
 
-  // isMated(): boolean{
-  //   return this.matedStatus;
-  // }
+  isMated(): boolean{
+    return this.matedStatus;
+  }
 
   designateAsMated(){
     this.matedStatus = true;
@@ -25,10 +25,6 @@ export class Organism {
 
   designateMate(mate: Organism){
     this.mate = mate;
-  }
-
-  isMated(){
-    return this.matedStatus;
   }
 
   getGeneByName(geneName: string): Gene{

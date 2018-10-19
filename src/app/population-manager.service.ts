@@ -92,12 +92,12 @@ export class PopulationManagerService {
   return subPopulation;
 }
 
-  // clearPopulation(){
-  //   let emptyPopulation = new Population([]);
-  //   let emptyGenerations = new Array<Population>();
-  //   this.currentPopulationSource.next(emptyPopulation);
-  //   this.generationsSouce.next(emptyGenerations);
-  // }
+  clearPopulation(){
+    let emptyPopulation = new Population([]);
+    let emptyGenerations = new Array<Population>();
+    this.currentPopulationSource.next(emptyPopulation);
+    this.generationsSouce.next(emptyGenerations);
+  }
 
   clearMetaPopulation(){
     let emptyMetapopulation = new Metapopulation([]);
@@ -422,7 +422,17 @@ pickTwoToMate(subpopNum: number){
   let bachelorNumberOne: Organism;
   let bachelorNumberTwo: Organism;
   this.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
-    // console.log(scrambledIndividuals);
+    let eligibleBachelorCount = 0;
+    for(let i = 0; i<scrambledIndividuals.length; i++){
+      if(!scrambledIndividuals[i].isMated()){
+        eligibleBachelorCount ++;
+      }
+    }
+    if(eligibleBachelorCount <2){
+      alert("There aren't enough eligible individuals to continue the pairing process");
+      //TODO have this disable the button somehow or disable the button before this happens
+      return;
+    }
     for(let i = 0; i<scrambledIndividuals.length; i++){ //TODO should be able to make more efficient
       if(matedCount < 2){
         if(!scrambledIndividuals[i].isMated() && matedCount == 0){ // && !scrambledIndividuals[i+1].isMated()
@@ -441,7 +451,6 @@ pickTwoToMate(subpopNum: number){
     bachelorNumberOne.designateMate(bachelorNumberTwo);
     bachelorNumberTwo.designateMate(bachelorNumberOne);
     let newlyWeds = new MatedPair(bachelorNumberOne, bachelorNumberTwo);
-    // console.log(newlyWeds);
     this.addMatedPairToSubpop(subpopNum, newlyWeds);
     //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
   });
@@ -449,37 +458,31 @@ pickTwoToMate(subpopNum: number){
 
 addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
+    console.log("original");
     console.log(metapopulationOfMatedPairs);
     let modifiedMetapopOfMPs = this.modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs,subpopNum);
+    console.log("modified");
     console.log(modifiedMetapopOfMPs);
   });
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
-    // console.log(metapopulationOfMatedPairs);
     if(metapopulationOfMatedPairs.getSubpopulation(subpopNum)){
-      // console.log("hey hey got here!");
       let subpop = metapopulationOfMatedPairs.getSubpopulation(subpopNum);
-      // console.log(subpop);
       subpop.addMatedPair(matedPair);
-      // console.log(subpop);
       //TODO .next
     } else{
-      // console.log("should no longer get here");
-      //TODO LEFT OFF HERE figuring out whether this is all a bad idea
-      // console.log(metapopulationOfMatedPairs.getSubpopulations().length);
-
-      // this.addMatedPairToSubpop(subpopNum, matedPair);
-      //need to create the subpopulations necessary
+      console.log("should no longer get here");
+      alert("Yikes! Something has gone wrong!");
   }
   });
 }
 
 modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, subpopNum: number){
-  let currentSubpopNum = metapopulationOfMatedPairs.getSubpopulations.length -1;
-  console.log(currentSubpopNum);
+  let currentSubpopMaxIndex = metapopulationOfMatedPairs.getSubpopulations().length -1;
+  console.log(currentSubpopMaxIndex);
   console.log(subpopNum);
-  if(currentSubpopNum < subpopNum){
+  if(currentSubpopMaxIndex < subpopNum){
     console.log("got here");
-    for (let i = currentSubpopNum; i < subpopNum; i++){
+    for (let i = currentSubpopMaxIndex; i < subpopNum; i++){
       let newSubpopOfMatedPairs = new PopulationOfMatedPairs([]);
       metapopulationOfMatedPairs.addSubpopulation(newSubpopOfMatedPairs);
     }
