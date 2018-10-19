@@ -13,7 +13,7 @@
           <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
         </mat-grid-tile>
         <mat-grid-tile>
-          <app-matings-display></app-matings-display>
+          <app-matings-display *ngIf="displayLizards"></app-matings-display>
         </mat-grid-tile>
     </mat-grid-list>
     </mat-step>
