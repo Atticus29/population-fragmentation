@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] Generation number doesn't currently validate
