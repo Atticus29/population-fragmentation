@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] Allele frequency validation 0.2, 0.7, 0.1 doesn't work
 - [ ] Each couple can make infinite babies
 - [ ] Use population manager to add the baby to the new generation
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
