@@ -19,6 +19,9 @@ export class PopulationManagerService {
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
   currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
+  private nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  nextGenMetapopulation = this.nextGenMetapopulationSource.asObservable();
+
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
   currentPopulation = this.currentPopulationSource.asObservable();
 
@@ -48,9 +51,9 @@ export class PopulationManagerService {
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
-    this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{
-      this.addToMetapopulationGenerations(metapopulation);
-    });
+    // this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{
+    //   this.addToMetapopulationGenerations(metapopulation);
+    // });
   }
 
   generateSubpopulationUsingProbability(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
@@ -491,6 +494,36 @@ modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMat
     //Do nothing
   }
     return metapopulationOfMatedPairs;
+}
+
+addOffspringToNewGeneration(subpopNum: number, offspring: Organism){
+  //TODO work on this
+  // this.nextGenMetapopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
+  //   metapopulation
+  // });
+  // this.addOffspringToSubpop()
+  // nextGenMetapopulationSource
+}
+
+addOffspringToSubpop(subpopNum: number, offspring: Organism){
+  console.log(offspring);
+  this.nextGenMetapopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
+    let subPops = metapopulation.getSubpopulations();
+    if(subPops.length -1 < subpopNum){
+      console.log("got here");
+      for(let i = subPops.length -1; i<subpopNum; i++){
+        if(i == subpopNum-1){
+          subPops.push(new Population(new Array<Organism>(offspring)));
+        } else{
+          subPops.push(new Population(new Array<Organism>()));
+        }
+      }
+    } else{
+      subPops[subpopNum].addIndividual(offspring);
+    }
+    //either way, emit new next gen? TODO
+    this.nextGenMetapopulationSource.next(new Metapopulation(subPops));
+  });
 }
 
 }

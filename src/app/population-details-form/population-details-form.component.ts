@@ -135,10 +135,10 @@ export class PopulationDetailsFormComponent implements OnInit {
       this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
       //TODO figure out whether this should happen
       // this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
-      //   // console.log(metapopulationOfMatedPairs);
-      //   this.popManager.createEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs.getSubpopulations().length + 1, fragNum);
-      //   console.log(metapopulationOfMatedPairs);
       // });
+      this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+          this.popManager.addToMetapopulationGenerations(metapopulation);
+      });
       this.displayLizards = true;
       this.displayLizardsEmitter.emit(this.displayLizards);
       this.displayQuestions = !this.displayQuestions; //TODO maybe true
