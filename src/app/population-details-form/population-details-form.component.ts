@@ -60,7 +60,7 @@ export class PopulationDetailsFormComponent implements OnInit {
       greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
       blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
       magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
-    },{validator: [this.sumToOne, this.popSizeBigEnoughForFrag]})
+    },{validator: [this.sumToOne.bind(this), this.popSizeBigEnoughForFrag]})
   }
 
   ngOnInit() {
@@ -93,7 +93,16 @@ export class PopulationDetailsFormComponent implements OnInit {
   get f() { return this.userInputFG.controls; }
 
   sumToOne(fg: FormGroup){
-    if(+fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq == 1){
+    // console.log(fg.value.greenAlleleFreq);
+    // console.log(fg.value.blueAlleleFreq);
+    // console.log(fg.value.magentaAlleleFreq);
+    let theSum: number = +fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq;
+    let roundedNum = this.roundToNearest(theSum, 5);
+    // console.log(roundedNum);
+
+    if(roundedNum == 1){
+      console.log(roundedNum);
+      //TODO figure out why the error won't go away
       return null;
     } else{
       return {alleleFrequencySumError: true};
@@ -155,5 +164,11 @@ export class PopulationDetailsFormComponent implements OnInit {
     // this.popManager.clearPopulation();
     this.popManager.clearMetaPopulation();
     this.popManager.clearMetaPopulationOfMatedPairs();
+  }
+
+  roundToNearest(num, places) {
+    var multiplier = Math.pow(10, places);
+    // console.log(multiplier);
+    return Math.round(num * multiplier) / multiplier;
   }
 }
