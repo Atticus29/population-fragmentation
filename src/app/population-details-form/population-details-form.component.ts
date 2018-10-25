@@ -31,9 +31,9 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      // return this.defaultErrorStateMatcher.isErrorState(control, form) ||
-      //   !!(form.invalid && (control.touched || (form && form.submitted)));
-      return(+this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq != 1);
+      let theSum: number = +this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq;
+      let roundedNum = this.roundToNearest(theSum, 5);
+      return(roundedNum != 1);
     }
   }
 
@@ -93,13 +93,8 @@ export class PopulationDetailsFormComponent implements OnInit {
   get f() { return this.userInputFG.controls; }
 
   sumToOne(fg: FormGroup){
-    // console.log(fg.value.greenAlleleFreq);
-    // console.log(fg.value.blueAlleleFreq);
-    // console.log(fg.value.magentaAlleleFreq);
     let theSum: number = +fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq;
     let roundedNum = this.roundToNearest(theSum, 5);
-    // console.log(roundedNum);
-
     if(roundedNum == 1){
       console.log(roundedNum);
       //TODO figure out why the error won't go away
@@ -126,14 +121,15 @@ export class PopulationDetailsFormComponent implements OnInit {
     //TODO summing to 1 for allele frequencies still an issue
     this.submitted = true;
     if(this.userInputFG.invalid){
+      console.log("currently, input is invalid");
       return;
     }
     if(this.userInputFG.valid){
+      console.log("currently, input is valid");
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
       let result = this.getValues();
       let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-      //TODO accommodate fragments
       this.popsize = popsize;
       this.fragNum = fragNum;
       this.genNum = genNum;
@@ -161,14 +157,12 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.displayLizards = false;
     this.displayLizardsEmitter.emit(this.displayLizards);
     this.disablePopulationGenerationForm = false;
-    // this.popManager.clearPopulation();
     this.popManager.clearMetaPopulation();
     this.popManager.clearMetaPopulationOfMatedPairs();
   }
 
   roundToNearest(num, places) {
     var multiplier = Math.pow(10, places);
-    // console.log(multiplier);
     return Math.round(num * multiplier) / multiplier;
   }
 }
