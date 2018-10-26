@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 import { DrawingService } from '../drawing.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { IndividualGenerationService } from '../individual-generation.service';
+import { Observable, forkJoin } from "rxjs";
 
 @Component({
   selector: 'app-matings-display',
@@ -55,14 +56,41 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     }
   }
 
-  makeBabies(individual1: Organism, individual2: Organism, subpopNum: number){
-    console.log(subpopNum);
+  makeBabies(individual1: Organism, individual2: Organism, subpopNum: number, matedPair: MatedPair){ //TODO can simplify this signature //TODO move some of this into population manager?
     let baby = this.individualGenerationService.makeOffspring(individual1, individual2);
+    matedPair.addOffspring(baby);
     this.popManager.addOffspringToSubpop(subpopNum, baby);
     //TODO use population manager to add the baby to the new generation?
-    // this.popManager.nextGenMetapopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
-    //   console.log(metapopulation);
-    // });
+
+    //check whether all possible babies have been made
+    let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
+    let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
+    forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{
+      let observedNumBabies = this.popManager.getNumberOfBabiesObserved(results[0]);
+      // console.log("observed");
+      // console.log(observedNumBabies);
+      let expectedNumBabies = this.popManager.getNumberOfBabiesExpected(results[1], 2);
+      // console.log("expected");
+      // console.log(expectedNumBabies);
+      if(observedNumBabies == expectedNumBabies){
+        results[0].getSubpopulation(subpopNum).markCompleted();
+        let subpops = results[0].getSubpopulations();
+        let incompleteCount = 0;
+        for(let i = 0; i<subpops.length; i++){
+          if(!subpops[i].isCompleted()){
+            incompleteCount ++;
+          }
+        }
+        if(incompleteCount == 0){
+          results[0].completeMetapopulation();
+          let metapop = results[0];
+          console.log(metapop);
+          //TODO re-emit the metapop?
+          //TODO add to generations behavior subject
+        }
+      }
+    });
+    //TODO mark the new generation as completed if every subpopulation is completed
     // this.popManager.addOffspringToNewGeneration(subpopNum, baby);
   }
 

@@ -13,13 +13,13 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
-  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
   currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
-  private nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>()));
+  private nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
   nextGenMetapopulation = this.nextGenMetapopulationSource.asObservable();
 
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
@@ -37,8 +37,36 @@ export class PopulationManagerService {
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
+  getCurrentGenerationNumber(): number{
+    //TODO the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation; the changing of the guard happens when the last baby possible is made
+    //TODO make this; it must begin at 0 and should probably correspond/interact with the generations behavior subject
+    return 0;
+  }
+
+  getNumberOfBabiesExpected(metapopulation: Metapopulation, maxNumPerMatedPair: number){
+    let fragNum = metapopulation.getSubpopulations().length;
+    let numPairsPerFrag = Math.floor(metapopulation.getSubpopulation(0).getIndividuals().length / 2);
+    return(fragNum * numPairsPerFrag * maxNumPerMatedPair);
+  }
+
+  // getNumberOfBabiesObserved(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, maxNumPerMatedPair: number){
+  //   let runningBabyCount = 0;
+  //   for(let i = 0; i<metapopulationOfMatedPairs.getSubpopulations().length; i++){
+  //     runningBabyCount += metapopulationOfMatedPairs.getSubpopulation(i).getMatedPairs().length * maxNumPerMatedPair;
+  //   }
+  //   return runningBabyCount;
+  // }
+
+  getNumberOfBabiesObserved(nextGenMetapopulation: Metapopulation){
+    let runningBabyCount = 0;
+    for(let i = 0; i<nextGenMetapopulation.getSubpopulations().length; i++){
+      runningBabyCount += nextGenMetapopulation.getSubpopulation(i).getIndividuals().length;
+    }
+    return runningBabyCount;
+  }
+
   generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
-    let metaPopulation = new Metapopulation([]);
+    let metaPopulation = new Metapopulation([], this.getCurrentGenerationNumber()+1);
     for(let i = 0; i < fragNum; i++){
       let subpopulation = null;
       //rounds down subpopulations to the same number
@@ -51,6 +79,7 @@ export class PopulationManagerService {
       metaPopulation.addSubpopulation(subpopulation);
     }
     this.currentMetapopulationSource.next(metaPopulation);
+    //TODO make sure the below happens somewhere
     // this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{
     //   this.addToMetapopulationGenerations(metapopulation);
     // });
@@ -103,7 +132,7 @@ export class PopulationManagerService {
   }
 
   clearMetaPopulation(){
-    let emptyMetapopulation = new Metapopulation([]);
+    let emptyMetapopulation = new Metapopulation([], 0);
     let emptyMetapopulationGenerations = new Array<Metapopulation>();
     this.currentMetapopulationSource.next(emptyMetapopulation);
     this.metapopulationGenerationsSouce.next(emptyMetapopulationGenerations);
@@ -522,7 +551,7 @@ addOffspringToSubpop(subpopNum: number, offspring: Organism){
       subPops[subpopNum].addIndividual(offspring);
     }
     //either way, emit new next gen? TODO
-    this.nextGenMetapopulationSource.next(new Metapopulation(subPops));
+    this.nextGenMetapopulationSource.next(new Metapopulation(subPops, this.getCurrentGenerationNumber()+1));
   });
 }
 

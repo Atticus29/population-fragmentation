@@ -1,13 +1,18 @@
 # Bugs
 
 ## High Priority
-- [ ] Allele frequency validation 0.2, 0.7, 0.1 doesn't work
-- [ ] Each couple can make infinite babies
 - [ ] Use population manager to add the baby to the new generation
+    - [ ] mark the new generation as completed if every subpopulation is completed
+    - [ ] the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation; the changing of the guard happens when the last baby possible is made
+    - [ ] Check whether all babies have been made, and if so, mark the offspring generation as complete
+    - [ ] After complete, start a new generation to the array (from the nextGeneration behavior subject)
+    - [x] left off //TODO get expectedBabyCount in other observable
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] Generation number doesn't currently validate
+- [x] Each couple can make infinite babies
+- [x] Allele frequency validation 0.2, 0.7, 0.1 doesn't work
 - [x] Seems to be adding new subpopulations every time you click (even though it adds to already existing ones when warranted)
 - [x] Does not remove the mated pairs when you clear population
 - [x] Errors out when you try to mate a population of size 1 (what about odd pop sizes?)

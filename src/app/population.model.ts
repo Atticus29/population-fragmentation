@@ -3,6 +3,7 @@ import { Organism } from './organism.model';
 export class Population {
   private individuals: any;
   private popName: string = "default";
+  private completed: boolean = false;
   constructor(individuals: Organism[]){
     this.individuals = individuals;
   }
@@ -14,6 +15,14 @@ export class Population {
 
   getIndividuals(){
     return this.individuals;
+  }
+
+  markCompleted(){
+    this.completed = true;
+  }
+
+  isCompleted(){
+    return this.completed;
   }
 
   addIndividual(individual: Organism){
