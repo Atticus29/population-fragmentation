@@ -96,8 +96,6 @@ export class PopulationDetailsFormComponent implements OnInit {
     let theSum: number = +fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq;
     let roundedNum = this.roundToNearest(theSum, 5);
     if(roundedNum == 1){
-      console.log(roundedNum);
-      //TODO figure out why the error won't go away
       return null;
     } else{
       return {alleleFrequencySumError: true};

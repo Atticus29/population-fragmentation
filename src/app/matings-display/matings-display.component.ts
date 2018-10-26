@@ -24,8 +24,11 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
-      console.log("hieeee!");
-      console.log(this.matedPairSubpopulations);
+      // console.log(this.matedPairSubpopulations);
+    });
+
+    this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
+      console.log(metapopulations);
     });
   }
 
@@ -85,13 +88,9 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           console.log(metapop);
           this.popManager.nextGenMetapopulationSource.next(metapop);
           this.popManager.addToMetapopulationGenerations(metapop);
-          //TODO re-emit the metapop?
-          //TODO add to generations behavior subject
         }
       }
     });
-    //TODO mark the new generation as completed if every subpopulation is completed
-    // this.popManager.addOffspringToNewGeneration(subpopNum, baby);
   }
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){

@@ -1,11 +1,13 @@
 # Bugs
 
 ## High Priority
+- [ ] make getCurrentGenerationNumber work
 - [ ] Use population manager to add the baby to the new generation
-    - [ ] mark the new generation as completed if every subpopulation is completed
-    - [ ] the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation; the changing of the guard happens when the last baby possible is made
-    - [ ] Check whether all babies have been made, and if so, mark the offspring generation as complete
-    - [ ] After complete, start a new generation to the array (from the nextGeneration behavior subject)
+    - [x] mark the new generation as completed if every subpopulation is completed
+    - [ ] the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation;
+    - [x] the changing of the guard happens when the last baby possible is made
+    - [x] Check whether all babies have been made, and if so, mark the offspring generation as complete
+    - [x] After complete, add a new generation to the array (from the nextGeneration behavior subject)
     - [x] left off //TODO get expectedBabyCount in other observable
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
