@@ -74,11 +74,14 @@ export class PopulationManagerService {
       let fragPopSize = Math.floor(popSize/fragNum);
       if(fragNum < 10){
         subpopulation = this.generateSubpopulationUsingProbability(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+        subpopulation.markCompleted();
       } else{
         subpopulation = this.generateSubpopulation(alleleFrequencies, alleleNames, fragPopSize); //TODO decide whether you want to use the generateSubpopulationUsingProbability method here
+        subpopulation.markCompleted();
       }
       metaPopulation.addSubpopulation(subpopulation);
     }
+    metaPopulation.completeMetapopulation();
     this.currentMetapopulationSource.next(metaPopulation);
     //TODO make sure the below happens somewhere
     // this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{

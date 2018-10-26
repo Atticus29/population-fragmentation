@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] You can submit the form with a negative number of fragments
 - [ ] make getCurrentGenerationNumber work
 - [ ] Use population manager to add the baby to the new generation
     - [x] mark the new generation as completed if every subpopulation is completed

@@ -27,9 +27,9 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
       // console.log(this.matedPairSubpopulations);
     });
 
-    this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
-      console.log(metapopulations);
-    });
+    // this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
+    //   console.log(metapopulations);
+    // });
   }
 
   ngAfterViewInit(){
@@ -71,23 +71,22 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
       let observedNumBabies = this.popManager.getNumberOfBabiesObservedBySubpop(results[0],subpopNum);
       let expectedNumBabies = this.popManager.getNumberOfBabiesExpectedBySubpop(results[1],subpopNum, 2);
       if(observedNumBabies == expectedNumBabies){
-        console.log("subpopulation completed");
         results[0].getSubpopulation(subpopNum).markCompleted();
         let subpops = results[0].getSubpopulations();
         let incompleteCount = 0;
         for(let i = 0; i<subpops.length; i++){
-          console.log(subpops[i]);
           if(!subpops[i].isCompleted()){
             incompleteCount ++;
           }
         }
         if(incompleteCount == 0 && this.allSubpopulationsExpectedHaveBeenCreated(results[0], results[1])){
-          console.log("metapopulation completed");
           results[0].completeMetapopulation();
           let metapop = results[0];
-          console.log(metapop);
           this.popManager.nextGenMetapopulationSource.next(metapop);
           this.popManager.addToMetapopulationGenerations(metapop);
+          this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
+            console.log(metapopoulations);
+          });
         }
       }
     });
