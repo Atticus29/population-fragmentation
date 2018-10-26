@@ -60,31 +60,31 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     let baby = this.individualGenerationService.makeOffspring(individual1, individual2);
     matedPair.addOffspring(baby);
     this.popManager.addOffspringToSubpop(subpopNum, baby);
-    //TODO use population manager to add the baby to the new generation?
 
-    //check whether all possible babies have been made
+    //check whether all possible babies have been made and if they have, make the proper accommodations
     let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
     let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
     forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{
-      let observedNumBabies = this.popManager.getNumberOfBabiesObserved(results[0]);
-      // console.log("observed");
-      // console.log(observedNumBabies);
-      let expectedNumBabies = this.popManager.getNumberOfBabiesExpected(results[1], 2);
-      // console.log("expected");
-      // console.log(expectedNumBabies);
+      let observedNumBabies = this.popManager.getNumberOfBabiesObservedBySubpop(results[0],subpopNum);
+      let expectedNumBabies = this.popManager.getNumberOfBabiesExpectedBySubpop(results[1],subpopNum, 2);
       if(observedNumBabies == expectedNumBabies){
+        console.log("subpopulation completed");
         results[0].getSubpopulation(subpopNum).markCompleted();
         let subpops = results[0].getSubpopulations();
         let incompleteCount = 0;
         for(let i = 0; i<subpops.length; i++){
+          console.log(subpops[i]);
           if(!subpops[i].isCompleted()){
             incompleteCount ++;
           }
         }
-        if(incompleteCount == 0){
+        if(incompleteCount == 0 && this.allSubpopulationsExpectedHaveBeenCreated(results[0], results[1])){
+          console.log("metapopulation completed");
           results[0].completeMetapopulation();
           let metapop = results[0];
           console.log(metapop);
+          this.popManager.nextGenMetapopulationSource.next(metapop);
+          this.popManager.addToMetapopulationGenerations(metapop);
           //TODO re-emit the metapop?
           //TODO add to generations behavior subject
         }
@@ -92,6 +92,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     });
     //TODO mark the new generation as completed if every subpopulation is completed
     // this.popManager.addOffspringToNewGeneration(subpopNum, baby);
+  }
+
+  allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){
+    return currentMetapop.getSubpopulations().length == nextGenMetapop.getSubpopulations().length;
   }
 
 }

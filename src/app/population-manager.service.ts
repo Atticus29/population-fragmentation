@@ -19,7 +19,7 @@ export class PopulationManagerService {
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
   currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
-  private nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
+  nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
   nextGenMetapopulation = this.nextGenMetapopulationSource.asObservable();
 
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
@@ -31,7 +31,7 @@ export class PopulationManagerService {
   private generationsSouce: BehaviorSubject<Population[]> = new BehaviorSubject<Population[]>(new Array<Population>());
   generations = this.generationsSouce.asObservable();
 
-  private metapopulationGenerationsSouce: BehaviorSubject<Metapopulation[]> = new BehaviorSubject<Metapopulation[]>(new Array<Metapopulation>());
+  metapopulationGenerationsSouce: BehaviorSubject<Metapopulation[]> = new BehaviorSubject<Metapopulation[]>(new Array<Metapopulation>());
   metapopulationGenerations = this.metapopulationGenerationsSouce.asObservable();
 
   private populationWithPotentiallyNewIndividual: Population = null;
@@ -49,13 +49,10 @@ export class PopulationManagerService {
     return(fragNum * numPairsPerFrag * maxNumPerMatedPair);
   }
 
-  // getNumberOfBabiesObserved(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, maxNumPerMatedPair: number){
-  //   let runningBabyCount = 0;
-  //   for(let i = 0; i<metapopulationOfMatedPairs.getSubpopulations().length; i++){
-  //     runningBabyCount += metapopulationOfMatedPairs.getSubpopulation(i).getMatedPairs().length * maxNumPerMatedPair;
-  //   }
-  //   return runningBabyCount;
-  // }
+  getNumberOfBabiesExpectedBySubpop(metapopulation: Metapopulation, subPopNum: number, maxNumPerMatedPair: number){
+    let numPairsPerFrag = Math.floor(metapopulation.getSubpopulation(subPopNum).getIndividuals().length / 2);
+    return(numPairsPerFrag * maxNumPerMatedPair);
+  }
 
   getNumberOfBabiesObserved(nextGenMetapopulation: Metapopulation){
     let runningBabyCount = 0;
@@ -63,6 +60,10 @@ export class PopulationManagerService {
       runningBabyCount += nextGenMetapopulation.getSubpopulation(i).getIndividuals().length;
     }
     return runningBabyCount;
+  }
+
+  getNumberOfBabiesObservedBySubpop(nextGenMetapopulation: Metapopulation, subpopNum: number){
+    return nextGenMetapopulation.getSubpopulation(subpopNum).getIndividuals().length;
   }
 
   generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
