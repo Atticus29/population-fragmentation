@@ -13,13 +13,13 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
-  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
+  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), 0));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
   currentMetapopulationOfMatedPairs = this.currentMetapopulationOfMatedPairsSource.asObservable();
 
-  nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), this.getCurrentGenerationNumber()));
+  nextGenMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), 0));
   nextGenMetapopulation = this.nextGenMetapopulationSource.asObservable();
 
   private currentPopulationSource: BehaviorSubject<Population> = new BehaviorSubject<Population>(new Population(new Array<Organism>()));
@@ -37,10 +37,13 @@ export class PopulationManagerService {
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
-  getCurrentGenerationNumber(): number{
-    //TODO the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation; the changing of the guard happens when the last baby possible is made
-    //TODO make this; it must begin at 0 and should probably correspond/interact with the generations behavior subject
-    return 0;
+  getCurrentGenerationNumberObservable(){
+    return Observable.create(obs => {
+      this.metapopulationGenerations.pipe(take(1)).subscribe((metapopulations: Metapopulation[])=>{
+        let number = metapopulations.length - 1;
+        obs.next(number);
+      });
+    });
   }
 
   getNumberOfBabiesExpected(metapopulation: Metapopulation, maxNumPerMatedPair: number){
@@ -67,7 +70,7 @@ export class PopulationManagerService {
   }
 
   generateMetaPopulation(alleleFrequencies: Array<number>,alleleNames: Array<string>, popSize: number, fragNum: number){
-    let metaPopulation = new Metapopulation([], this.getCurrentGenerationNumber()+1);
+    let metaPopulation = new Metapopulation([], 0);
     for(let i = 0; i < fragNum; i++){
       let subpopulation = null;
       //rounds down subpopulations to the same number
@@ -83,10 +86,7 @@ export class PopulationManagerService {
     }
     metaPopulation.completeMetapopulation();
     this.currentMetapopulationSource.next(metaPopulation);
-    //TODO make sure the below happens somewhere
-    // this.currentMetapopulationSource.pipe(take(1)).subscribe((metapopulation: Metapopulation) =>{
-    //   this.addToMetapopulationGenerations(metapopulation);
-    // });
+    //being added to the generation tracker happens elsewhere (TODO should it??)
   }
 
   generateSubpopulationUsingProbability(alleleFrequencies: Array<number>, alleleNames: Array<string>, subpopSize: number){
@@ -555,7 +555,9 @@ addOffspringToSubpop(subpopNum: number, offspring: Organism){
       subPops[subpopNum].addIndividual(offspring);
     }
     //either way, emit new next gen? TODO
-    this.nextGenMetapopulationSource.next(new Metapopulation(subPops, this.getCurrentGenerationNumber()+1));
+    this.metapopulationGenerations.pipe(take(1)).subscribe((metapopulations: Metapopulation[])=>{
+      this.nextGenMetapopulationSource.next(new Metapopulation(subPops, metapopulations.length));
+    });
   });
 }
 

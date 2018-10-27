@@ -74,7 +74,7 @@
       </mat-grid-list>
     </mat-card-content>
     <mat-card-actions class="mated-pair-actions">
-      <button mat-raised-button (click)="makeBabies(matedPair.getIndividual1(), matedPair.getIndividual2(), k, matedPair)" [disabled]="matedPair.babiesMaxedOut()">Make Babies</button>
+      <button mat-raised-button (click)="makeBabies(matedPair.getIndividual1(), matedPair.getIndividual2(), k, matedPair)" [hidden]="matedPair.babiesMaxedOut()">Make Babies</button>
     </mat-card-actions>
   </mat-card>
 </div>
