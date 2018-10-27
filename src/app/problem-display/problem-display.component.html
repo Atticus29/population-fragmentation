@@ -1,3 +1,15 @@
-<p>
-  problem-display works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title><h3>{{problem.getQuestion()}}</h3></mat-card-title>
+    <!-- <mat-card-subtitle>A Draggle</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngFor="let choice of problem.getChoices(); let i=index">
+      <h2>{{letters[i]}}</h2>
+      <h3>{{choice}}</h3>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+  </mat-card-actions>
+</mat-card>

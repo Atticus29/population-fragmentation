@@ -14,12 +14,24 @@ export class Problem {
     this.question = question;
   }
 
+  getQuestion(): string{
+    return this.question;
+  }
+
   modifyAnswer(answer: string){
     this.answer = answer;
   }
 
+  getAnswer(): string{
+    return this.answer;
+  }
+
   modifyChoices(choices: string[]){
     this.choices = choices;
+  }
+
+  getChoices(): string[]{
+    return this.choices;
   }
 
 }

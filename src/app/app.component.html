@@ -3,6 +3,7 @@
   <mat-horizontal-stepper [linear]="isLinear" #stepperMain>
     <mat-step label="Introduction">
       <app-introduction></app-introduction>
+      <app-problem-display></app-problem-display>
     </mat-step>
     <mat-step label="Create Population">
       <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)" (takeNextStepEmitter)="takeNextStep($event, stepperMain)"></app-population-details-form>
@@ -23,3 +24,4 @@
       <app-display-table></app-display-table>
     </mat-step>
   </mat-horizontal-stepper>
+</div>
