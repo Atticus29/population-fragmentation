@@ -57,6 +57,7 @@ import { DisplayTableComponent } from './display-table/display-table.component';
 import { MatedDirective } from './mated.directive';
 import { MatingsDisplayComponent } from './matings-display/matings-display.component';
 import { IntroductionComponent } from './introduction/introduction.component';
+import { ProblemDisplayComponent } from './problem-display/problem-display.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { IntroductionComponent } from './introduction/introduction.component';
     DisplayTableComponent,
     MatedDirective,
     MatingsDisplayComponent,
-    IntroductionComponent
+    IntroductionComponent,
+    ProblemDisplayComponent
   ],
   imports: [
     BrowserModule,
