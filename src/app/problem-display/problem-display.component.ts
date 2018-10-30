@@ -10,6 +10,8 @@ export class ProblemDisplayComponent implements OnInit {
   private problem: Problem;
   private choices: string[];
   private userSelectedAnswer: string;
+  private displayCorrect: boolean = false; //TODO change
+  private displayIncorrect: boolean = false; //TODO change
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   constructor() { }
 
@@ -19,10 +21,12 @@ export class ProblemDisplayComponent implements OnInit {
   }
 
   submitAnswer(answer: string){
+    this.displayCorrect = false;
+    this.displayIncorrect = false;
     if(answer === this.problem.getAnswer()){
-      console.log("right!");
+      this.displayCorrect = true;
     } else{
-      console.log("wrong!");
+      this.displayIncorrect = true;
     }
   }
 

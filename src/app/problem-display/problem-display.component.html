@@ -11,8 +11,15 @@
           <br>
         </mat-radio-button>
       </mat-radio-group>
+      <br>
       <button mat-raised-button color="primary" (click)="submitAnswer(userSelectedAnswer)" class="uniform-length-button" >Submit
       </button>
+    </div>
+    <div *ngIf="displayCorrect">
+      <p class="correct">Correct!</p>
+    </div>
+    <div *ngIf="displayIncorrect">
+      <p class="incorrect">Incorrect! Try again!</p>
     </div>
   </mat-card-content>
   <mat-card-actions>

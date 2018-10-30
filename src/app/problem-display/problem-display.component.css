@@ -8,3 +8,11 @@ mat-card{
 .center{
   text-align: center;
 }
+
+.correct{
+  color: green;
+}
+
+.incorrect{
+  color: red;
+}
