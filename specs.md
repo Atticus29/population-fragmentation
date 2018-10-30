@@ -3,6 +3,7 @@
 ## High Priority
 - [ ] make getCurrentGenerationNumber work
 - [ ] You can submit the form with a negative number of fragments
+- [ ] You can submit the form with a negative number of generations
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] Some of the lizard names in lizard display aren't centered

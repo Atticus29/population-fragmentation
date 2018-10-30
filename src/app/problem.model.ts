@@ -7,6 +7,7 @@ export class Problem {
   constructor(question: string, choices: string[], answer: string){
     this.question = question;
     this.answer = answer;
+    this.choices = choices;
     this.difficulty = "easy"; //unless otherwise specified
   }
 

@@ -1,13 +1,18 @@
 <mat-card>
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title><h3>{{problem.getQuestion()}}</h3></mat-card-title>
+    <mat-card-title class="center"><h3>{{problem.getQuestion()}}</h3></mat-card-title>
     <!-- <mat-card-subtitle>A Draggle</mat-card-subtitle> -->
   </mat-card-header>
   <mat-card-content>
-    <div *ngFor="let choice of problem.getChoices(); let i=index">
-      <h2>{{letters[i]}}</h2>
-      <h3>{{choice}}</h3>
+    <div>
+      <mat-radio-group class="example-radio-group" [(ngModel)]="userSelectedAnswer">
+        <mat-radio-button class="example-radio-button" *ngFor="let choice of choices; let i=index" [value]="choice">
+          {{letters[i]}}. {{choice}}
+          <br>
+        </mat-radio-button>
+      </mat-radio-group>
+      <button mat-raised-button color="primary" (click)="submitAnswer(userSelectedAnswer)" class="uniform-length-button" >Submit
+      </button>
     </div>
   </mat-card-content>
   <mat-card-actions>

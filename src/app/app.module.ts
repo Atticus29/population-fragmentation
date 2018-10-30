@@ -88,7 +88,8 @@ import { ProblemDisplayComponent } from './problem-display/problem-display.compo
     MatPaginatorModule,
     MatSortModule,
     MatGridListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatRadioModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

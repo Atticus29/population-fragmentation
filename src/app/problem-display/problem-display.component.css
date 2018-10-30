@@ -4,3 +4,7 @@ mat-card{
     margin: 20px;
     vertical-align: top;
 }
+
+.center{
+  text-align: center;
+}
