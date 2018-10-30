@@ -46,6 +46,7 @@
 
 
 ## Low Priority
+- [ ] if you press next question when there are no more questions, it takes two clicks to go back
 - [ ] make the draw thing scale by %, rather than having pixels everywhere
 - [ ] app-focus directive should point to top of draggles or to questions?
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
