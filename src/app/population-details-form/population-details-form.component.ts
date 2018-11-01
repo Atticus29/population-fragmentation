@@ -1,15 +1,19 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+
+import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validators,NgForm,ValidationErrors} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validators,NgForm,ValidationErrors} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
+import {ErrorStateMatcher} from '@angular/material';
+
+import { take } from 'rxjs/operators';
+
 import { Organism } from '../organism.model';
 import { MetapopulationOfMatedPairs } from '../metapopulationOfMatedPairs.model';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { take } from 'rxjs/operators';
-import {ErrorStateMatcher} from '@angular/material';
+import { QuestionService } from '../question.service';
+import { Problem } from '../problem.model';
 
 
 @Component({
@@ -52,7 +56,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   private takeNextStep: boolean = false;
   @Output() takeNextStepEmitter = new EventEmitter<boolean>();
 
-  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private defaultErrorStateMatcher: ErrorStateMatcher) {
+  constructor(private fb: FormBuilder, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private defaultErrorStateMatcher: ErrorStateMatcher, private qs: QuestionService) {
     this.userInputFG = this.fb.group({
       popsize: ['10', [Validators.required, Validators.min(1)]], //, Validators.max(1000)
       fragNum: ['1', [Validators.required, Validators.max(1000)]],//, Validators.max(1000)
@@ -141,6 +145,17 @@ export class PopulationDetailsFormComponent implements OnInit {
       // });
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
           this.popManager.addToMetapopulationGenerations(metapopulation);
+          //TODO add a problem to the problem service after creation of metapopulation
+          let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
+          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
+          this.qs.addProblemToList(blueSubPop1FreqProblem);
+          let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
+          let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
+          this.qs.addProblemToList(greenSubPop1FreqProblem);
+          let magentaSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("magenta", metapopulation.getSubpopulation(0));
+          let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
+          this.qs.addProblemToList(magentaSubPop1FreqProblem);
+
       });
       this.displayLizards = true;
       this.displayLizardsEmitter.emit(this.displayLizards);
