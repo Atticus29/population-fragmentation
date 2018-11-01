@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Problem } from '../problem.model';
+import { QuestionService } from '../question.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-problem-display',
@@ -15,15 +17,24 @@ export class ProblemDisplayComponent implements OnInit {
   private displayCorrect: boolean = false; //TODO change
   private displayIncorrect: boolean = false; //TODO change
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-  constructor() { }
+  constructor(private qs: QuestionService) { }
 
   ngOnInit() {
     let problem1 = new Problem("What is your favorite color?", ["orange", "red", "violet", "blue", "green"], "green");
     let problem2 = new Problem("What is your favorite ice cream?", ["chocolate", "vanilla", "strawberry"], "chocolate");
     let problem3 = new Problem("What is your favorite animal?", ["cat", "dog", "ant"], "ant");
-    this.problems = [problem1, problem2, problem3];
-    this.currentProblem = this.problems[0];
-    this.currentProblemIndex = 0;
+    this.qs.addProblemToList(problem1);
+    this.qs.addProblemToList(problem2);
+    this.qs.addProblemToList(problem3);
+    this.qs.problemArray.pipe(take(1)).subscribe((problems: Array<Problem>)=>{
+      this.problems = problems;
+      this.currentProblem = this.problems[0];
+      this.currentProblemIndex = 0;
+    });
+
+    // this.problems =
+    // this.currentProblem = this.problems[0];
+    // this.currentProblemIndex = 0;
     // this.choices = this.problem.getChoices();
   }
 
