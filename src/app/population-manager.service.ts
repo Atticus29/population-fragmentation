@@ -13,6 +13,10 @@ import { IndividualGenerationService } from './individual-generation.service';
   providedIn: 'root'
 })
 export class PopulationManagerService {
+
+  private eligibleBachelorsAbsentSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
+  eligibleBachelorsAbsent = this.eligibleBachelorsAbsentSource.asObservable();
+
   private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), 0));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
@@ -465,6 +469,7 @@ pickTwoToMate(subpopNum: number){
       }
     }
     if(eligibleBachelorCount <2){
+      this.eligibleBachelorsAbsentSource.next(true);
       alert("There aren't enough eligible individuals to continue the pairing process");
       //TODO have this disable the button somehow or disable the button before this happens
       return;
@@ -559,6 +564,10 @@ addOffspringToSubpop(subpopNum: number, offspring: Organism){
       this.nextGenMetapopulationSource.next(new Metapopulation(subPops, metapopulations.length));
     });
   });
+}
+
+resetQuestions(){
+  //TODO
 }
 
 }

@@ -10,7 +10,14 @@ export class QuestionService {
   private problemArraySource: BehaviorSubject<Problem[]> = new BehaviorSubject<Problem[]>(new Array<Problem>());
   problemArray = this.problemArraySource.asObservable();
 
-  constructor() { }
+  private questionsAnsweredSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
+  questionsAnswered = this.questionsAnsweredSource.asObservable();
+
+  constructor() {
+    console.log(this.questionsAnswered);
+    this.questionsAnsweredSource.next(false);
+    console.log(this.questionsAnswered);
+  }
 
   addProblemToList(problem: Problem){
     this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
@@ -28,5 +35,10 @@ export class QuestionService {
     this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
       this.problemArraySource.next(new Array<Problem>());
     });
+  }
+
+  markQuestionsPt1Answered(){
+    console.log("markQuestionsPt1Answered happens");
+    this.questionsAnsweredSource.next(true);
   }
 }

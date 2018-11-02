@@ -1,15 +1,17 @@
-import { OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
 import { DrawingService } from '../drawing.service';
+import { take } from 'rxjs/operators';
+
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
 import { Organism } from '../organism.model';
 import { Population } from '../population.model';
 import { MatedPair } from '../mated-pair.model';
+
 import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
-import { take } from 'rxjs/operators';
-import { ChangeDetectorRef } from '@angular/core';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-lizard-display',
@@ -23,14 +25,14 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private subpopulations: Array<Population>;
   private matingsCompleted: boolean = false; //TODO allow to be toggled on
   private displayMateButton: boolean = false; //TODO allow to be toggled on
-  private goToQuestions: boolean = true; //TODO allow to be toggled off
+  private goToQuestions: boolean = true;
   // private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
   private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
-  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private qs: QuestionService) { }
 
   ngOnInit() {
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
@@ -52,6 +54,17 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         //
         // });
         // console.log(this.subpopulations);
+      });
+
+      this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
+        console.log(matingsCompleted);
+        this.matingsCompleted = matingsCompleted;
+      });
+
+      this.qs.questionsAnswered.subscribe(questionsAnswered =>{
+        console.log("questionsAnswered");
+        console.log(questionsAnswered);
+        this.displayMateButton = questionsAnswered;
       });
 
       //TODO for future more interesting color support, work on this and the color-name service
@@ -112,5 +125,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   toggleGoToQuestionsOff(){
     this.goToQuestions = false;
+    this.displayMateButton = true;
   }
 }
