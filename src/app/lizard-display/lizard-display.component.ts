@@ -109,4 +109,8 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
     this.isMatingComponentOpen = true;
     this.openMatingComponentEmitter.emit(this.isMatingComponentOpen);
   }
+
+  toggleGoToQuestionsOff(){
+    this.goToQuestions = false;
+  }
 }

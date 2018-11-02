@@ -31,6 +31,6 @@
   </button>
   <button matStepperNext mat-raised-button color="primary" (click)="openMatingComponent()" class="uniform-length-button" *ngIf="matingsCompleted">Done
   </button>
-  <button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="goToQuestions">I'm ready to answer questions about this population
-  </button>
 </div>
+<button matStepperNext mat-raised-button color="primary" (click)="toggleGoToQuestionsOff()" class="uniform-length-button" *ngIf="goToQuestions">I'm ready to answer questions about this population
+</button>
