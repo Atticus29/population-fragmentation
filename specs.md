@@ -1,14 +1,14 @@
 # Bugs
 
 ## High Priority
-- [ ] fix issue where it won't display the correct questions
-- [ ] make getCurrentGenerationNumber work
+- [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] You can submit the form with a negative number of fragments
 - [ ] You can submit the form with a negative number of generations
+- [ ] make getCurrentGenerationNumber work
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
-- [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] Generation number doesn't currently validate
+- [x] fix issue where it won't display the correct questions
 - [x] Use population manager to add the baby to the new generation
 - [x] mark the new generation as completed if every subpopulation is completed
 - [x] the generation source's most recent addition should be a completed meta population, so 1 plus that is the current generation;

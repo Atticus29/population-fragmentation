@@ -22,4 +22,11 @@ export class QuestionService {
   getProblems(startNum: number, endNum: number): Problem[]{
     return
   }
+
+  clearQuestions(){
+    console.log("clearQuestions called");
+    this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
+      this.problemArraySource.next(new Array<Problem>());
+    });
+  }
 }

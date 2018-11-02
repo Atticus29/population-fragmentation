@@ -23,9 +23,9 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="previousQuestion()" class="uniform-length-button" >Previous Question
+    <button mat-raised-button color="primary" (click)="previousQuestion()" class="uniform-length-button" *ngIf="previousQuestionExists">Previous Question
     </button>
-    <button mat-raised-button color="primary" (click)="nextQuestion()" class="uniform-length-button" >Next Question
+    <button mat-raised-button color="primary" (click)="nextQuestion()" class="uniform-length-button" *ngIf="nextQuestionExists">Next Question
     </button>
   </mat-card-actions>
 </mat-card>

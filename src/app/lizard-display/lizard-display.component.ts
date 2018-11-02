@@ -21,6 +21,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
 
   private subpopulations: Array<Population>;
+  private matingsCompleted: boolean = false; //TODO allow to be toggled on
+  private displayMateButton: boolean = false; //TODO allow to be toggled on
+  private goToQuestions: boolean = true; //TODO allow to be toggled off
   // private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 

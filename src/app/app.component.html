@@ -14,14 +14,10 @@
       <app-problem-display></app-problem-display>
     </mat-step>
     <mat-step label="Arrange Matings">
-      <mat-grid-list cols="2" [rowHeight]="rowHeight + 'px'">
-        <mat-grid-tile>
-          <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <app-matings-display *ngIf="displayLizards"></app-matings-display>
-        </mat-grid-tile>
-      </mat-grid-list>
+      <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
+    </mat-step>
+    <mat-step label="View Matings">
+      <app-matings-display *ngIf="displayLizards"></app-matings-display>
     </mat-step>
     <mat-step label="Examine Patterns">
       <app-matings-display *ngIf="displayMatings"></app-matings-display>

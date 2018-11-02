@@ -172,6 +172,8 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.disablePopulationGenerationForm = false;
     this.popManager.clearMetaPopulation();
     this.popManager.clearMetaPopulationOfMatedPairs();
+    //TODO you should get rid of dynamically generated questions
+    this.qs.clearQuestions(); //TODO is this overkill and will it create errors?
   }
 
   roundToNearest(num, places) {
