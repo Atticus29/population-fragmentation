@@ -13,6 +13,7 @@ export class ProblemDisplayComponent implements OnInit {
   private currentProblem: Problem;
   private currentProblemIndex: number;
   private choices: string[];
+  private question: string;
   private userSelectedAnswer: string;
   private displayCorrect: boolean = false; //TODO change
   private displayIncorrect: boolean = false; //TODO change
@@ -20,16 +21,22 @@ export class ProblemDisplayComponent implements OnInit {
   constructor(private qs: QuestionService) { }
 
   ngOnInit() {
-    let problem1 = new Problem("What is your favorite color?", ["orange", "red", "violet", "blue", "green"], "green");
-    let problem2 = new Problem("What is your favorite ice cream?", ["chocolate", "vanilla", "strawberry"], "chocolate");
-    let problem3 = new Problem("What is your favorite animal?", ["cat", "dog", "ant"], "ant");
-    this.qs.addProblemToList(problem1);
-    this.qs.addProblemToList(problem2);
-    this.qs.addProblemToList(problem3);
-    this.qs.problemArray.pipe(take(1)).subscribe((problems: Array<Problem>)=>{
-      this.problems = problems;
-      this.currentProblem = this.problems[0];
-      this.currentProblemIndex = 0;
+    this.currentProblemIndex = 0;
+    // let problem1 = new Problem("What is your favorite color?", ["orange", "red", "violet", "blue", "green"], "green");
+    // let problem2 = new Problem("What is your favorite ice cream?", ["chocolate", "vanilla", "strawberry"], "chocolate");
+    // let problem3 = new Problem("What is your favorite animal?", ["cat", "dog", "ant"], "ant");
+    // this.qs.addProblemToList(problem1);
+    // this.qs.addProblemToList(problem2);
+    // this.qs.addProblemToList(problem3);
+    this.qs.problemArray.subscribe((problems: Array<Problem>)=>{
+      console.log("problem display");
+      console.log(problems);
+      if(problems && problems.length > 0){
+        this.problems = problems;
+        this.currentProblem = this.problems[this.currentProblemIndex];
+        this.choices = this.currentProblem.getChoices();
+        this.question = this.currentProblem.getQuestion();
+      }
     });
 
     // this.problems =

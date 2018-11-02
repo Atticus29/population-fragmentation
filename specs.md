@@ -1,7 +1,7 @@
 # Bugs
 
 ## High Priority
-- [ ] add a way to pass question numbers to the component
+- [ ] fix issue where it won't display the correct questions
 - [ ] make getCurrentGenerationNumber work
 - [ ] You can submit the form with a negative number of fragments
 - [ ] You can submit the form with a negative number of generations
