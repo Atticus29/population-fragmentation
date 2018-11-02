@@ -18,7 +18,7 @@ export class ProblemDisplayComponent implements OnInit {
   private displayCorrect: boolean = false;
   private displayIncorrect: boolean = false;
   private previousQuestionExists: boolean = false; //TODO make dynamic
-  private nextQuestionExists: boolean = true; //TODO make dynamic
+  private nextQuestionExists: boolean = false; //TODO make dynamic
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   constructor(private qs: QuestionService) { }
 
@@ -26,18 +26,13 @@ export class ProblemDisplayComponent implements OnInit {
     this.currentProblemIndex = 0;
     this.question = "Whoops!";
     this.choices = ["No question has been generated yet. Try creating a population"];
-    // let problem1 = new Problem("What is your favorite color?", ["orange", "red", "violet", "blue", "green"], "green");
-    // let problem2 = new Problem("What is your favorite ice cream?", ["chocolate", "vanilla", "strawberry"], "chocolate");
-    // let problem3 = new Problem("What is your favorite animal?", ["cat", "dog", "ant"], "ant");
-    // this.qs.addProblemToList(problem1);
-    // this.qs.addProblemToList(problem2);
-    // this.qs.addProblemToList(problem3);
     this.qs.problemArray.subscribe((problems: Array<Problem>)=>{
       console.log("problem display");
       console.log(problems);
       if(problems && problems.length > 0){
-        console.log("there are some problems");
+        console.log("some problems are in the problem array!");
         this.problems = problems;
+        this.recalibrateNextAndPreviousButtons();
         this.currentProblem = this.problems[this.currentProblemIndex];
         this.choices = this.currentProblem.getChoices();
         this.question = this.currentProblem.getQuestion();
@@ -47,11 +42,6 @@ export class ProblemDisplayComponent implements OnInit {
         this.choices = ["No question has been generated yet. Try creating a population"];
       }
     });
-
-    // this.problems =
-    // this.currentProblem = this.problems[0];
-    // this.currentProblemIndex = 0;
-    // this.choices = this.problem.getChoices();
   }
 
   resetCorrectStatusDisplay(){
@@ -71,12 +61,7 @@ export class ProblemDisplayComponent implements OnInit {
     this.resetCorrectStatusDisplay();
     if(this.currentProblemIndex < this.problems.length-1 ){
       this.currentProblemIndex ++;
-      if(this.currentProblemIndex == this.problems.length -1){
-        this.nextQuestionExists = false;
-      }
-      if (this.currentProblemIndex > 0){
-        this.previousQuestionExists = true;
-      }
+      this.recalibrateNextAndPreviousButtons();
       this.currentProblem = this.problems[this.currentProblemIndex];
       this.choices = this.currentProblem.getChoices();
       this.question = this.currentProblem.getQuestion();
@@ -87,15 +72,25 @@ export class ProblemDisplayComponent implements OnInit {
     this.resetCorrectStatusDisplay();
     if(this.currentProblemIndex > 0){
       this.currentProblemIndex --;
-      if (this.currentProblemIndex > 0){
-        this.previousQuestionExists = true;
-      }
-      if(this.currentProblemIndex == this.problems.length -1){
-        this.nextQuestionExists = false;
-      }
+      this.recalibrateNextAndPreviousButtons();
       this.currentProblem = this.problems[this.currentProblemIndex];
       this.choices = this.currentProblem.getChoices();
       this.question = this.currentProblem.getQuestion();
+    }
+  }
+
+  recalibrateNextAndPreviousButtons(){
+    if (this.currentProblemIndex > 0){
+      this.previousQuestionExists = true;
+    }
+    if(this.currentProblemIndex < 1){
+      this.previousQuestionExists = false;
+    }
+    if(this.currentProblemIndex == this.problems.length -1){
+      this.nextQuestionExists = false;
+    }
+    if(this.currentProblemIndex < this.problems.length -1){
+      this.nextQuestionExists = true;
     }
   }
 
