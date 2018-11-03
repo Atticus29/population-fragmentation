@@ -58,6 +58,7 @@ import { MatedDirective } from './mated.directive';
 import { MatingsDisplayComponent } from './matings-display/matings-display.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ProblemDisplayComponent } from './problem-display/problem-display.component';
+import { GenerationDisplayComponent } from './generation-display/generation-display.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ProblemDisplayComponent } from './problem-display/problem-display.compo
     MatedDirective,
     MatingsDisplayComponent,
     IntroductionComponent,
-    ProblemDisplayComponent
+    ProblemDisplayComponent,
+    GenerationDisplayComponent
   ],
   imports: [
     BrowserModule,
