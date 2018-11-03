@@ -29,7 +29,7 @@
         </mat-form-field>
       </div>
     <div class="col m1 s1">
-      <button mat-raised-button color="primary" (click)="processForm(stepper)" class="uniform-length-button">Generate Random Population Based on These Parameters
+      <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
       </button>
       <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
         <div *ngIf="f.popsize.errors.required">Population Size is required</div>

@@ -120,7 +120,6 @@ export class PopulationDetailsFormComponent implements OnInit {
   }
 
   processForm(){
-    //TODO summing to 1 for allele frequencies still an issue
     this.submitted = true;
     if(this.userInputFG.invalid){
       console.log("currently, input is invalid");

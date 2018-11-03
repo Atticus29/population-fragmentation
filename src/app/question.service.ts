@@ -10,13 +10,17 @@ export class QuestionService {
   private problemArraySource: BehaviorSubject<Problem[]> = new BehaviorSubject<Problem[]>(new Array<Problem>());
   problemArray = this.problemArraySource.asObservable();
 
-  private questionsAnsweredSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
+  private questionsAnsweredSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   questionsAnswered = this.questionsAnsweredSource.asObservable();
 
   constructor() {
-    console.log(this.questionsAnswered);
+    // console.log(this.questionsAnswered);
     this.questionsAnsweredSource.next(false);
-    console.log(this.questionsAnswered);
+    this.questionsAnswered.subscribe(result =>{
+      console.log("constructor happens");
+      console.log(result);
+    });
+    // console.log(this.questionsAnswered);
   }
 
   addProblemToList(problem: Problem){
