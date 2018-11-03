@@ -87,7 +87,11 @@ export class ProblemDisplayComponent implements OnInit {
     if(this.currentProblemIndex < 1){
       this.previousQuestionExists = false;
     }
-    if(this.currentProblemIndex == this.problems.length -1){
+    if(this.currentProblemIndex == this.problems.length -1 && this.currentProblemIndex != 0){
+      //TODO bug here
+      console.log("got to last question");
+      console.log(this.currentProblemIndex);
+      console.log(this.problems.length -1);
       this.nextQuestionExists = false;
       this.qs.markQuestionsPt1Answered();
     }

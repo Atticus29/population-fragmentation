@@ -1,6 +1,8 @@
 # Bugs
 
 ## High Priority
+- [ ] fix bug where designate a random pair to mate button doesn't disappear
+- [ ] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)
 - [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] You can submit the form with a negative number of fragments
 - [ ] You can submit the form with a negative number of generations
