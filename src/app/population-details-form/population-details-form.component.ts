@@ -32,6 +32,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   private greenAlleleFreq: number = 0.8;
   private blueAlleleFreq: number = 0.1;
   private magentaAlleleFreq: number = 0.1;
+  private MAX_GEN: number = 100;
 
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
@@ -44,6 +45,12 @@ export class PopulationDetailsFormComponent implements OnInit {
   errorPopSizeMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
       return (+this.userInputFG.value.popsize < +this.userInputFG.value.fragNum || +this.userInputFG.value.fragNum < 1);
+    }
+  }
+
+  errorGenNumMatcher = {
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
+      return (+this.userInputFG.value.genNum < 1 || +this.userInputFG.value.genNum > this.MAX_GEN);
     }
   }
 

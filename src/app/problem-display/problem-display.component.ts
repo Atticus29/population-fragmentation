@@ -20,6 +20,7 @@ export class ProblemDisplayComponent implements OnInit {
   private displayIncorrect: boolean = false;
   private previousQuestionExists: boolean = false; //TODO make dynamic
   private nextQuestionExists: boolean = false; //TODO make dynamic
+  private readyForNextStepperStep: boolean = false
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   constructor(private qs: QuestionService, private popManager: PopulationManagerService) { }
 
@@ -42,6 +43,9 @@ export class ProblemDisplayComponent implements OnInit {
         this.question = "Whoops!";
         this.choices = ["No question has been generated yet. Try creating a population"];
       }
+    });
+    this.qs.questionsAnswered.subscribe(questionsAnswered =>{
+      this.readyForNextStepperStep = questionsAnswered;
     });
   }
 
@@ -98,6 +102,11 @@ export class ProblemDisplayComponent implements OnInit {
     if(this.currentProblemIndex < this.problems.length -1){
       this.nextQuestionExists = true;
     }
+  }
+
+  nextStep(){
+    console.log("clicked");
+    //TODO stepper to next step
   }
 
 }

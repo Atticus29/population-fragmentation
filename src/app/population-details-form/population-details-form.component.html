@@ -11,7 +11,8 @@
           <!-- <mat-error>Population too small to split into that many fragments</mat-error> -->
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number">
+          <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number" [errorStateMatcher]="errorGenNumMatcher">
+          <mat-error>Generation number must be > 0 and less than {{MAX_GEN}}</mat-error>
         </mat-form-field>
       </div>
       <br>

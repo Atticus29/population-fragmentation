@@ -27,5 +27,8 @@
     </button>
     <button mat-raised-button color="primary" (click)="nextQuestion()" class="uniform-length-button" *ngIf="nextQuestionExists">Next Question
     </button>
+    <br>
+    <button matStepperNext mat-raised-button color="primary" (click)="nextStep()" class="uniform-length-button" *ngIf="readyForNextStepperStep">Next Section
+    </button>
   </mat-card-actions>
 </mat-card>
