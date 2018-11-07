@@ -39,10 +39,12 @@
       <div *ngIf="submitted && f.fragNum.errors" class="invalid-feedback">
         <div *ngIf="f.fragNum.errors.required">Number of fragments required</div>
         <div *ngIf="f.fragNum.errors.min">Number of fragments is too small</div>
+        <div *ngIf="f.fragNum.errors.max">Number of fragments is too large</div>
       </div>
       <div *ngIf="submitted && f.genNum.errors" class="invalid-feedback">
         <div *ngIf="f.genNum.errors.required">Number of generations required</div>
         <div *ngIf="f.genNum.errors.min">Number of generations is too small</div>
+        <div *ngIf="f.genNum.errors.max">Number of generations is too large</div>
       </div>
       <div *ngIf="submitted && f.greenAlleleFreq.errors" class="invalid-feedback">
         <div *ngIf="f.greenAlleleFreq.errors.required">Allele frequencies required</div>

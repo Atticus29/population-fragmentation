@@ -1,17 +1,17 @@
 # Bugs
 
 ## High Priority
-- [ ] define "primary" color so that it can be accessed
-- [ ] TODO this is not true fix
-- [ ] fix bug where designate a random pair to mate button doesn't disappear
-- [ ] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)
-- [ ] Grid list is not allowing rowHeight to fit contents of lizard display
 - [ ] You can submit the form with a negative number of fragments
 - [ ] You can submit the form with a negative number of generations
+- [ ] define "primary" color so that it can be accessed
+- [ ] TODO this is not true fix
+- [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
 - [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Some of the lizard names in lizard display aren't centered
-- [ ] Generation number doesn't currently validate
+- [x] fix bug where designate a random pair to mate button doesn't disappear
+- [x] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)
+- [x] Generation number doesn't currently validate
 - [x] fix issue where it won't display the correct questions
 - [x] Use population manager to add the baby to the new generation
 - [x] mark the new generation as completed if every subpopulation is completed
@@ -58,6 +58,9 @@
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 - [x] Grid layout for angular material not working well to display the draggle cards
 - [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
+
+## No longer relevant
+- [x] Grid list is not allowing rowHeight to fit contents of lizard display
 
 # Specs
 
