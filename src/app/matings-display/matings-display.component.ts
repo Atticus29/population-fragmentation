@@ -19,6 +19,7 @@ import { Observable, forkJoin } from "rxjs";
 export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
+  private hideNextButton: boolean = true;
   constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService) { }
 
   ngOnInit() {
@@ -87,6 +88,8 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
             console.log(metapopoulations);
           });
+          //TODO make a next button available
+          this.hideNextButton = false;
         }
       }
     });

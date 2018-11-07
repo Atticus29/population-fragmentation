@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] define "primary" color so that it can be accessed
 - [ ] TODO this is not true fix
 - [ ] fix bug where designate a random pair to mate button doesn't disappear
 - [ ] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)

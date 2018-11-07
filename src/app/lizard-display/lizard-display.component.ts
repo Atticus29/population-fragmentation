@@ -59,12 +59,17 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
         console.log(matingsCompleted);
         this.matingsCompleted = matingsCompleted;
+        this.displayMateButton = false;
       });
 
       this.qs.questionsAnswered.subscribe(questionsAnswered =>{
         console.log("questionsAnswered");
         console.log(questionsAnswered);
         this.displayMateButton = questionsAnswered;
+        if(questionsAnswered){
+          this.goToQuestions = false;
+          // this.displayMateButton = true;
+        }
       });
 
       //TODO for future more interesting color support, work on this and the color-name service
@@ -121,10 +126,5 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   openMatingComponent(){
     this.isMatingComponentOpen = true;
     this.openMatingComponentEmitter.emit(this.isMatingComponentOpen);
-  }
-
-  toggleGoToQuestionsOff(){
-    this.goToQuestions = false;
-    this.displayMateButton = true;
   }
 }
