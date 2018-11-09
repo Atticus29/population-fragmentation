@@ -118,9 +118,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   }
 
   openSnackBar(name1: string, name2: string) {
-    this.snackBar.open(name1 + " and " + name2 + " have been selected");
-    // this.snackBar.openFromComponent(MatedSnackbarComponent, {
-    //   duration: 300,
+    this.snackBar.open(name1 + " and " + name2 + " have been selected", '',{duration: 2000,});
+    // this.snackBar.openFromComponent(MatedSnackbarComponent, { //TODO figure out why not working
+    //   duration: 3000,
     // });
   }
 
