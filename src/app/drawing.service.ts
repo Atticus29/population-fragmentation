@@ -30,8 +30,11 @@ export class DrawingService {
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementRef: ElementRef, color: string, fillStatus: boolean){
     let canvasElement = <HTMLCanvasElement>elementRef.nativeElement;
+    // console.log(canvasElement);
     if (canvasElement){
+      // console.log("got here!");
       let context = canvasElement.getContext("2d");
+      // console.log(canvasElement);
       context.beginPath();
       context.moveTo(x1, y1);
       context.lineTo(x2, y2);
@@ -68,9 +71,11 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasRef: ElementRef, genotype: Genotype){
+  console.log(canvasRef);
+  console.log(genotype);
   //head
-  this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef,"black", true);
-  this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef,"black", true);
+  this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef, "black", true);
+  this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef, "black", true);
 
   //eyes
   this.drawArc(37.5, 106.25, 2, 0, 2*Math.PI, canvasRef,"white", true);
@@ -97,5 +102,6 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype){
   this.drawArc(85, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
   this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
   this.drawArc(120, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
+  console.log("got to the end");
 }
 }

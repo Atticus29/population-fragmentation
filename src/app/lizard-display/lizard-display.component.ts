@@ -35,7 +35,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private qs: QuestionService) { }
 
   ngOnInit() {
-      this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+      this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //.pipe(take(1))
         this.subpopulations = metapopulation.getSubpopulations();
         for(let i = 0; i<this.subpopulations.length; i++){
           console.log("subpopulation " + i.toString());
@@ -91,6 +91,8 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       for(let j = 0; j<currentSubpopulation.getIndividuals().length; j++){
         let currentIndividual = currentSubpopulation.getIndividuals()[j];
         let canvasNum = (i)*currentSubpopulation.getIndividuals().length + j;
+        console.log(canvasArray);
+        console.log(canvasNum);
         this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype());
       }
     }
@@ -99,7 +101,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   pickTwoToMate(subpopNum: number){
     this.popManager.pickTwoToMate(subpopNum);
 
-    this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+    this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //TODO pipe take(1)?
       // console.log(metapopulation);
       //TODO currently broken
       this.subpopulations = metapopulation.getSubpopulations();

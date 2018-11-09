@@ -25,6 +25,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
+      // this.drawDraggles(); //TODO this might be buggy
       // console.log(this.matedPairSubpopulations);
     });
 
@@ -34,14 +35,16 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.drawDraggles();
+    this.drawDraggles(); //TODO this happens before there are mated pairs?
     this.cdr.detectChanges();
     //TODO fix this only loading once
   }
 
   drawDraggles(){
     console.log("does this even happen?");
+    console.log(this.canvases);
     let canvasArray = this.canvases.toArray();
+    console.log(canvasArray);
     let canvasNumTracker = 0;
     for(let i = 0; i<this.matedPairSubpopulations.length; i++){
       //assumes subpopulations MUST be equal size TODO improve this
@@ -49,11 +52,13 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
       for(let j = 0; j<currentSubpopulation.getMatedPairs().length; j++){
         let currentMatedPair = currentSubpopulation.getMatedPairs()[j];
         // let canvasNum = (i)*currentMatedPair.getIndividual1().length + j;
-        console.log(currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
+        // console.log(currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
+        console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
         // canvasNum = (i)*currentMatedPair.getIndividual2().length + j + 1;
-        console.log(currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
+        // console.log(currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
+        console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
       }

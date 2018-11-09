@@ -9,6 +9,10 @@ export class Metapopulation {
     this.generationNumber = genNum;
   }
 
+  updateSubpopulation(subpopNum: number, pop: Population){
+    this.subpopulations[subpopNum] = pop;
+  }
+
   setGenerationNumber(genNum: number){
     this.generationNumber = genNum;
   }

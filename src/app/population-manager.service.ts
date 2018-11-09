@@ -168,14 +168,8 @@ export class PopulationManagerService {
   getScrambledSubPopulation(subpopNumber: number){
     return Observable.create(obs => {
       this.currentMetaPopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
-        // console.log(metapopulation);
         let individuals = metapopulation.getSubpopulation(subpopNumber).getIndividuals();
-        // console.log("before");
-        // console.log(individuals);
-        //TODO fix this
         let shuffledIndividuals = this.shuffle(individuals);
-        // console.log("after");
-        // console.log(shuffledIndividuals);
         obs.next(shuffledIndividuals);
       });
     });
@@ -491,9 +485,22 @@ pickTwoToMate(subpopNum: number){
     }
     bachelorNumberOne.designateMate(bachelorNumberTwo);
     bachelorNumberTwo.designateMate(bachelorNumberOne);
+    this.updateSubpopulationInMetapopulation(subpopNum, scrambledIndividuals);
+    //TODO update the subpopulation in the metapopulation source??
     let newlyWeds = new MatedPair(bachelorNumberOne, bachelorNumberTwo);
     this.addMatedPairToSubpop(subpopNum, newlyWeds);
     //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
+  });
+}
+
+updateSubpopulationInMetapopulation(subpopNum: number, arrayOfIndividuals: Array<Organism>){
+  this.currentMetapopulationSource.pipe(take(1)).subscribe(metapopulation =>{
+    let updatedMetapopulation = metapopulation;
+    let newPop = new Population(arrayOfIndividuals);
+    newPop.markCompleted();
+    updatedMetapopulation.updateSubpopulation(subpopNum, newPop);
+    this.currentMetapopulationSource.next(updatedMetapopulation);
+    console.log("got to the end of updateSubpopulationInMetapopulation");
   });
 }
 

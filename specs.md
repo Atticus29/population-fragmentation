@@ -1,14 +1,16 @@
 # Bugs
 
 ## High Priority
-- [ ] You can submit the form with a negative number of fragments
-- [ ] You can submit the form with a negative number of generations
-- [ ] define "primary" color so that it can be accessed
+- [ ] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
+- [ ] TODO have this disable the button somehow or disable the button before this happens
+- [ ] when there are multiple subpopulations, the done button appears for all populations
+- [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] TODO this is not true fix
 - [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
-- [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] Some of the lizard names in lizard display aren't centered
+- [x] You can submit the form with a negative number of fragments
+- [x] You can submit the form with a negative number of generations
 - [x] fix bug where designate a random pair to mate button doesn't disappear
 - [x] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)
 - [x] Generation number doesn't currently validate
@@ -51,13 +53,14 @@
 
 
 ## Low Priority
-- [ ] if you press next question when there are no more questions, it takes two clicks to go back
+- [ ] define "primary" color so that it can be accessed
 - [ ] make the draw thing scale by %, rather than having pixels everywhere
 - [ ] app-focus directive should point to top of draggles or to questions?
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
-- [x] Grid layout for angular material not working well to display the draggle cards
 - [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
+- [x] Grid layout for angular material not working well to display the draggle cards
+- [x] if you press next question when there are no more questions, it takes two clicks to go back
 
 ## No longer relevant
 - [x] Grid list is not allowing rowHeight to fit contents of lizard display
