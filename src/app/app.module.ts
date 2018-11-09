@@ -59,6 +59,7 @@ import { MatingsDisplayComponent } from './matings-display/matings-display.compo
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ProblemDisplayComponent } from './problem-display/problem-display.component';
 import { GenerationDisplayComponent } from './generation-display/generation-display.component';
+import { MatedSnackbarComponent } from './mated-snackbar/mated-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { GenerationDisplayComponent } from './generation-display/generation-disp
     MatingsDisplayComponent,
     IntroductionComponent,
     ProblemDisplayComponent,
-    GenerationDisplayComponent
+    GenerationDisplayComponent,
+    MatedSnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { GenerationDisplayComponent } from './generation-display/generation-disp
     MatSortModule,
     MatGridListModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

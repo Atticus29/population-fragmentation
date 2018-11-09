@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
 import { DrawingService } from '../drawing.service';
 import { take } from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material';
 
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
@@ -12,12 +13,13 @@ import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
 import { QuestionService } from '../question.service';
+import { MatedSnackbarComponent } from '../mated-snackbar/mated-snackbar.component';
 
 @Component({
   selector: 'app-lizard-display',
   templateUrl: './lizard-display.component.html',
   styleUrls: ['./lizard-display.component.css'],
-  providers: [DrawingService]
+  providers: [DrawingService, MatSnackBar]
 })
 export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
@@ -32,7 +34,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
 
-  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private qs: QuestionService) { }
+  constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private qs: QuestionService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
       this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //.pipe(take(1))
@@ -100,7 +102,11 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   pickTwoToMate(subpopNum: number){
     this.popManager.pickTwoToMate(subpopNum);
-
+    this.popManager.getMostRecentMatedPair(subpopNum).pipe(take(1)).subscribe(mostRecentMatedPair =>{
+        console.log("mostRecentMatedPair");
+        console.log(mostRecentMatedPair);
+        this.openSnackBar(mostRecentMatedPair.getIndividual1().getOrganismName(), mostRecentMatedPair.getIndividual2().getOrganismName());
+    });
     this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //TODO pipe take(1)?
       // console.log(metapopulation);
       //TODO currently broken
@@ -108,20 +114,13 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       this.drawDraggles();
       this.cdr.detectChanges();
     });
-    // console.log("got to pickTwoToMate");
-    // console.log(subpopNum);
-    // this.popManager.getScrambledSubPopulation(subpopNum).pipe(take(1)).subscribe(scrambledIndividuals =>{
-    //   for(let i = 0; i<scrambledIndividuals.length-1; i++){ //TODO should be able to make more efficient
-    //     if(!scrambledIndividuals[i].isMated() && !scrambledIndividuals[i+1].isMated()){
-    //       scrambledIndividuals[i].designateAsMated();
-    //       scrambledIndividuals[i].designateMate(scrambledIndividuals[i+1]);
-    //       scrambledIndividuals[i+1].designateAsMated();
-    //       scrambledIndividuals[i+1].designateMate(scrambledIndividuals[i]);
-    //       let newlyWeds = new MatedPair(scrambledIndividuals[i], scrambledIndividuals[i+1]);
-    //     }
-    //   }
-    //   console.log(scrambledIndividuals);
-    //   //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
+
+  }
+
+  openSnackBar(name1: string, name2: string) {
+    this.snackBar.open(name1 + " and " + name2 + " have been selected");
+    // this.snackBar.openFromComponent(MatedSnackbarComponent, {
+    //   duration: 300,
     // });
   }
 

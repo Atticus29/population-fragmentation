@@ -486,10 +486,8 @@ pickTwoToMate(subpopNum: number){
     bachelorNumberOne.designateMate(bachelorNumberTwo);
     bachelorNumberTwo.designateMate(bachelorNumberOne);
     this.updateSubpopulationInMetapopulation(subpopNum, scrambledIndividuals);
-    //TODO update the subpopulation in the metapopulation source??
     let newlyWeds = new MatedPair(bachelorNumberOne, bachelorNumberTwo);
     this.addMatedPairToSubpop(subpopNum, newlyWeds);
-    //TODO pick the next two on the scrambled list that haven't mated, add them to matedPair array, change their matedStatus, assign them mates, and change their canvas directive
   });
 }
 
@@ -501,6 +499,15 @@ updateSubpopulationInMetapopulation(subpopNum: number, arrayOfIndividuals: Array
     updatedMetapopulation.updateSubpopulation(subpopNum, newPop);
     this.currentMetapopulationSource.next(updatedMetapopulation);
     console.log("got to the end of updateSubpopulationInMetapopulation");
+  });
+}
+
+getMostRecentMatedPair(subpopNum: number){
+  return Observable.create(obs => {
+    this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
+      let targetSubpop = metapopulationOfMatedPairs.getSubpopulation(subpopNum).getMatedPairs();
+      obs.next(targetSubpop[targetSubpop.length-1]);
+    });
   });
 }
 
