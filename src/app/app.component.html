@@ -4,6 +4,15 @@
     <mat-step label="Introduction">
       <app-introduction></app-introduction>
     </mat-step>
+    <mat-step label="Objectives">
+      <app-objectives></app-objectives>
+    </mat-step>
+    <mat-step label="Vocabulary">
+      <app-vocabulary></app-vocabulary>
+    </mat-step>
+    <mat-step label="Instructions">
+      <app-instructions></app-instructions>
+    </mat-step>
     <mat-step label="Create Population">
       <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)" (takeNextStepEmitter)="takeNextStep($event, stepperMain)"></app-population-details-form>
     </mat-step>
