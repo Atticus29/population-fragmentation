@@ -5,7 +5,7 @@ import { Metapopulation } from './metapopulation.model';
 import { MatedPair } from './mated-pair.model';
 import { PopulationOfMatedPairs } from './populationOfMatedPairs.model';
 import { MetapopulationOfMatedPairs } from './metapopulationOfMatedPairs.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
 
@@ -40,6 +40,39 @@ export class PopulationManagerService {
 
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
+
+  isEveryoneInTheMetaPopulationMated(){
+    return Observable.create(obs => {
+      let currentMetaPopObservable = this.currentMetaPopulation;
+      console.log("got here");
+      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs;
+      console.log("got here two");
+      forkJoin([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
+        console.log("got here three");
+        let metaPop = results[0];
+        let metaPopMatedPairs = results[1];
+        console.log(metaPopMatedPairs);
+        console.log("isEveryoneInTheMetaPopulationMated");
+        let expectedNumMatedPairs: number = null;
+        let observedNumMatedPairs: number = null;
+        for(let i = 0; i<metaPop.getSubpopulations().length; i++){
+          let currentSubpop = metaPop.getSubpopulation(i);
+          expectedNumMatedPairs += Math.floor(currentSubpop.getIndividuals().length/2);
+        }
+        for(let j=0; j<metaPopMatedPairs.getSubpopulations().length; j++){
+          let currentSubpopMatedPairs = metaPopMatedPairs.getSubpopulation(j);
+          observedNumMatedPairs += currentSubpopMatedPairs.getMatedPairs().length;
+        }
+        console.log(expectedNumMatedPairs);
+        console.log(observedNumMatedPairs);
+        if(expectedNumMatedPairs >= 0 && observedNumMatedPairs >= 0 && observedNumMatedPairs == expectedNumMatedPairs){
+          obs.next(true);
+        } else {
+          obs.next(false);
+        }
+      });
+    });
+  }
 
   getCurrentGenerationNumberObservable(){
     return Observable.create(obs => {
@@ -274,11 +307,11 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
     this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
     // console.log(population);
     if(population.getIndividuals().length<popSize){
-      console.log("your population is too small!");
+      // console.log("your population is too small!");
       this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
     }
     if(population.getIndividuals().length>popSize){
-      console.log("your population is too big! Weird!")
+      // console.log("your population is too big! Weird!")
       this.removeAnIndividualAtRandomFromPopulation();
     }
   });
@@ -286,11 +319,11 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
   this.currentPopulationSource.pipe(take(1)).subscribe((population: Population)=>{
   // console.log(population);
   if(population.getIndividuals().length<popSize){
-    console.log("your population is too small!");
+    // console.log("your population is too small!");
     this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
   }
   if(population.getIndividuals().length>popSize){
-    console.log("your population is too big! Weird!")
+    // console.log("your population is too big! Weird!")
     this.removeAnIndividualAtRandomFromPopulation();
   }
 });
@@ -513,11 +546,7 @@ getMostRecentMatedPair(subpopNum: number){
 
 addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
-    console.log("original");
-    console.log(metapopulationOfMatedPairs);
     let modifiedMetapopOfMPs = this.modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs,subpopNum);
-    console.log("modified");
-    console.log(modifiedMetapopOfMPs);
   });
   this.currentMetapopulationOfMatedPairsSource.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
     if(metapopulationOfMatedPairs.getSubpopulation(subpopNum)){
@@ -526,7 +555,6 @@ addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
       this.currentMetapopulationOfMatedPairsSource.next(metapopulationOfMatedPairs);
       //TODO .next
     } else{
-      console.log("should no longer get here");
       alert("Yikes! Something has gone wrong!");
   }
   });
@@ -534,10 +562,7 @@ addMatedPairToSubpop(subpopNum: number, matedPair: MatedPair){
 
 modifyMetapopulationOfMatedPairsToContainCorrectNumberOfEmptySubpopulationsOfMatedPairsNecessary(metapopulationOfMatedPairs: MetapopulationOfMatedPairs, subpopNum: number){
   let currentSubpopMaxIndex = metapopulationOfMatedPairs.getSubpopulations().length -1;
-  console.log(currentSubpopMaxIndex);
-  console.log(subpopNum);
   if(currentSubpopMaxIndex < subpopNum){
-    console.log("got here");
     for (let i = currentSubpopMaxIndex; i < subpopNum; i++){
       let newSubpopOfMatedPairs = new PopulationOfMatedPairs([]);
       metapopulationOfMatedPairs.addSubpopulation(newSubpopOfMatedPairs);
@@ -558,11 +583,9 @@ addOffspringToNewGeneration(subpopNum: number, offspring: Organism){
 }
 
 addOffspringToSubpop(subpopNum: number, offspring: Organism){
-  console.log(offspring);
   this.nextGenMetapopulation.pipe(take(1)).subscribe((metapopulation: Metapopulation)=>{
     let subPops = metapopulation.getSubpopulations();
     if(subPops.length -1 < subpopNum){
-      console.log("got here");
       for(let i = subPops.length -1; i<subpopNum; i++){
         if(i == subpopNum-1){
           subPops.push(new Population(new Array<Organism>(offspring)));

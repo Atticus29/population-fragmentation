@@ -41,10 +41,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   drawDraggles(){
-    console.log("does this even happen?");
-    console.log(this.canvases);
+    // console.log("does this even happen?");
+    // console.log(this.canvases);
     let canvasArray = this.canvases.toArray();
-    console.log(canvasArray);
+    // console.log(canvasArray);
     let canvasNumTracker = 0;
     for(let i = 0; i<this.matedPairSubpopulations.length; i++){
       //assumes subpopulations MUST be equal size TODO improve this
@@ -53,12 +53,14 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         let currentMatedPair = currentSubpopulation.getMatedPairs()[j];
         // let canvasNum = (i)*currentMatedPair.getIndividual1().length + j;
         // console.log(currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
-        console.log(canvasNumTracker);
+
+        // console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
         // canvasNum = (i)*currentMatedPair.getIndividual2().length + j + 1;
         // console.log(currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
-        console.log(canvasNumTracker);
+
+        // console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
       }
@@ -91,7 +93,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.nextGenMetapopulationSource.next(metapop);
           this.popManager.addToMetapopulationGenerations(metapop);
           this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
-            console.log(metapopoulations);
+            // console.log(metapopoulations);
           });
           //TODO make a next button available
           this.hideNextButton = false;

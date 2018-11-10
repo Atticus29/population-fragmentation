@@ -40,33 +40,30 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //.pipe(take(1))
         this.subpopulations = metapopulation.getSubpopulations();
         for(let i = 0; i<this.subpopulations.length; i++){
-          console.log("subpopulation " + i.toString());
+          // console.log("subpopulation " + i.toString());
           let subpopulation = this.subpopulations[i];
           let blueAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("blue", subpopulation);
-          console.log("blue");
-          console.log(blueAlleleFreq);
+          // console.log("blue");
+          // console.log(blueAlleleFreq);
           let greenAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("green", subpopulation);
-          console.log("green");
-          console.log(greenAlleleFreq);
+          // console.log("green");
+          // console.log(greenAlleleFreq);
           let magentaAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("magenta", subpopulation);
-          console.log("magenta");
-          console.log(magentaAlleleFreq);
+          // console.log("magenta");
+          // console.log(magentaAlleleFreq);
         }
-        // this.subpopulations.forEach(subpopulation =>{
-        //
-        // });
-        // console.log(this.subpopulations);
       });
 
       this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
-        console.log(matingsCompleted);
         this.matingsCompleted = matingsCompleted;
-        this.displayMateButton = false;
+        // this.displayMateButton = false;
+      });
+
+      this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
+        this.displayMateButton = !status;
       });
 
       this.qs.questionsAnswered.subscribe(questionsAnswered =>{
-        console.log("questionsAnswered");
-        console.log(questionsAnswered);
         this.displayMateButton = questionsAnswered;
         if(questionsAnswered){
           this.goToQuestions = false;
@@ -93,8 +90,8 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       for(let j = 0; j<currentSubpopulation.getIndividuals().length; j++){
         let currentIndividual = currentSubpopulation.getIndividuals()[j];
         let canvasNum = (i)*currentSubpopulation.getIndividuals().length + j;
-        console.log(canvasArray);
-        console.log(canvasNum);
+        // console.log(canvasArray);
+        // console.log(canvasNum);
         this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype());
       }
     }
@@ -103,8 +100,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   pickTwoToMate(subpopNum: number){
     this.popManager.pickTwoToMate(subpopNum);
     this.popManager.getMostRecentMatedPair(subpopNum).pipe(take(1)).subscribe(mostRecentMatedPair =>{
-        console.log("mostRecentMatedPair");
-        console.log(mostRecentMatedPair);
         this.openSnackBar(mostRecentMatedPair.getIndividual1().getOrganismName(), mostRecentMatedPair.getIndividual2().getOrganismName());
     });
     this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //TODO pipe take(1)?

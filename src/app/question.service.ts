@@ -14,13 +14,9 @@ export class QuestionService {
   questionsAnswered = this.questionsAnsweredSource.asObservable();
 
   constructor() {
-    // console.log(this.questionsAnswered);
     this.questionsAnsweredSource.next(false);
     this.questionsAnswered.subscribe(result =>{
-      console.log("constructor happens");
-      console.log(result);
     });
-    // console.log(this.questionsAnswered);
   }
 
   addProblemToList(problem: Problem){
@@ -35,14 +31,12 @@ export class QuestionService {
   }
 
   clearQuestions(){
-    console.log("clearQuestions called");
     this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
       this.problemArraySource.next(new Array<Problem>());
     });
   }
 
   markQuestionsPt1Answered(){
-    console.log("markQuestionsPt1Answered happens");
     this.questionsAnsweredSource.next(true);
   }
 }

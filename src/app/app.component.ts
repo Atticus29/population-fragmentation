@@ -23,8 +23,7 @@ export class AppComponent {
   }
 
   setMatingDisplay(shouldMatingsDisplay: boolean){
-    console.log("got here!!");
-    console.log(shouldMatingsDisplay);
+    // console.log(shouldMatingsDisplay);
     this.displayMatings = shouldMatingsDisplay;
   }
 

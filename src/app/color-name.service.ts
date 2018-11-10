@@ -14,7 +14,7 @@ export class ColorNameService {
   }
 
   extractNameFromJSON(result: any){
-    console.log(result);
-    console.log(typeof result);
+    // console.log(result);
+    // console.log(typeof result);
   }
 }

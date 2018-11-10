@@ -15,8 +15,9 @@ export class GenerationDisplayComponent implements OnInit {
 
   ngOnInit() {
     this.popMananger.metapopulationGenerations.pipe(take(1)).subscribe(generations =>{
-      console.log("got into generation display component")
-      console.log(generations);
+      //TODO add
+      // console.log("got into generation display component")
+      // console.log(generations);
       this.remainingGenerations = generations; //TODO this is not true fix
     });
   }

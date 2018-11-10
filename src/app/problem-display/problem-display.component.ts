@@ -29,10 +29,7 @@ export class ProblemDisplayComponent implements OnInit {
     this.question = "Whoops!";
     this.choices = ["No question has been generated yet. Try creating a population"];
     this.qs.problemArray.subscribe((problems: Array<Problem>)=>{
-      console.log("problem display");
-      console.log(problems);
       if(problems && problems.length > 0){
-        console.log("some problems are in the problem array!");
         this.problems = problems;
         this.recalibrateNextAndPreviousButtons();
         this.currentProblem = this.problems[this.currentProblemIndex];
@@ -93,9 +90,6 @@ export class ProblemDisplayComponent implements OnInit {
     }
     if(this.currentProblemIndex == this.problems.length -1 && this.currentProblemIndex != 0){
       //TODO bug here
-      console.log("got to last question");
-      console.log(this.currentProblemIndex);
-      console.log(this.problems.length -1);
       this.nextQuestionExists = false;
       this.qs.markQuestionsPt1Answered();
     }
@@ -103,10 +97,4 @@ export class ProblemDisplayComponent implements OnInit {
       this.nextQuestionExists = true;
     }
   }
-
-  nextStep(){
-    console.log("clicked");
-    //TODO stepper to next step
-  }
-
 }

@@ -71,8 +71,8 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasRef: ElementRef, genotype: Genotype){
-  console.log(canvasRef);
-  console.log(genotype);
+  // console.log(canvasRef);
+  // console.log(genotype);
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef, "black", true);
   this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef, "black", true);
@@ -102,6 +102,6 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype){
   this.drawArc(85, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
   this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
   this.drawArc(120, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
-  console.log("got to the end");
+  // console.log("got to the end");
 }
 }

@@ -129,11 +129,11 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     this.submitted = true;
     if(this.userInputFG.invalid){
-      console.log("currently, input is invalid");
+      // console.log("currently, input is invalid");
       return;
     }
     if(this.userInputFG.valid){
-      console.log("currently, input is valid");
+      // console.log("currently, input is valid");
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
       let result = this.getValues();
