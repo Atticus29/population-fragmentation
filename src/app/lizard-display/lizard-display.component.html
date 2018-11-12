@@ -27,10 +27,10 @@
     </mat-card-actions>
   </mat-card>
   <br>
-  <button mat-raised-button color="primary" (click)="pickTwoToMate(j)" class="uniform-length-button" *ngIf="displayMateButton">Designate a Random Pair to Mate
+  <button mat-raised-button color="primary" (click)="pickTwoToMate(j)" class="uniform-length-button" *ngIf="displayMateButton">Shuffle and Designate a Random Pair to Mate
   </button>
-  <button matStepperNext mat-raised-button color="primary" (click)="openMatingComponent()" class="uniform-length-button" *ngIf="matingsCompleted">Done
+  <button matStepperNext mat-raised-button color="primary" (click)="openMatingComponent()" class="uniform-length-button" *ngIf="matingsCompleted">Next
   </button>
 </div>
-<button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="goToQuestions">I'm ready to answer questions about this population
+<button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="goToQuestions">I'm Ready to Answer Questions
 </button>

@@ -7,6 +7,7 @@
 - [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
 - [ ] Some of the lizard names in lizard display aren't centered
+- [ ] I don't think the built-in theme is working
 - [x] TODO try without the detect changes
 - [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
 - [x] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)

@@ -48,10 +48,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
       let currentSubpopulation = this.matedPairSubpopulations[i];
       for(let j = 0; j<currentSubpopulation.getMatedPairs().length; j++){
         let currentMatedPair = currentSubpopulation.getMatedPairs()[j];
-        console.log(canvasNumTracker);
+        // console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
-        console.log(canvasNumTracker);
+        // console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
       }

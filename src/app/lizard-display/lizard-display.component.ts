@@ -54,12 +54,13 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         }
       });
 
-      this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
-        this.matingsCompleted = matingsCompleted;
-        // this.displayMateButton = false;
-      });
+      // this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
+      //   this.matingsCompleted = matingsCompleted;
+      //   // this.displayMateButton = false;
+      // });
 
       this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
+        this.matingsCompleted = status;
         this.displayMateButton = !status; //TODO this won't make it false until it's false everywhere?
       });
 

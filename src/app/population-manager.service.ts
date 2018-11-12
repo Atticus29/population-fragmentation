@@ -532,7 +532,6 @@ updateSubpopulationInMetapopulation(subpopNum: number, arrayOfIndividuals: Array
     newPop.markCompleted();
     updatedMetapopulation.updateSubpopulation(subpopNum, newPop);
     this.currentMetapopulationSource.next(updatedMetapopulation);
-    console.log("got to the end of updateSubpopulationInMetapopulation");
   });
 }
 
