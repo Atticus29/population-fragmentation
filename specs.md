@@ -1,13 +1,13 @@
 # Bugs
 
 ## High Priority
-- [ ] TODO try without the detect changes
-- [ ] TODO have this disable the button somehow or disable the button before this happens
 - [ ] when there are multiple subpopulations, the done button appears for all populations
+- [ ] TODO have this disable the button somehow or disable the button before this happens
 - [ ] TODO this is not true fix
 - [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
 - [ ] Some of the lizard names in lizard display aren't centered
+- [x] TODO try without the detect changes
 - [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
 - [x] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [x] You can submit the form with a negative number of fragments

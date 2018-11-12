@@ -27,16 +27,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
       if(this.matedPairSubpopulations.length > 0){
-        this.cdr.detectChanges(); //TODO try without the detect changes
-        this.drawDraggles(); //TODO this might be buggy
         this.cdr.detectChanges();
+        this.drawDraggles();
       }
-      // console.log(this.matedPairSubpopulations);
     });
-
-    // this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
-    //   console.log(metapopulations);
-    // });
   }
 
   ngAfterViewInit(){
@@ -47,25 +41,16 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   drawDraggles(){
-    console.log("drawDraggles from matings-display component entered");
-    // console.log(this.canvases);
     let canvasArray = this.canvases.toArray();
-    // console.log(canvasArray);
     let canvasNumTracker = 0;
     for(let i = 0; i<this.matedPairSubpopulations.length; i++){
       //assumes subpopulations MUST be equal size TODO improve this
       let currentSubpopulation = this.matedPairSubpopulations[i];
       for(let j = 0; j<currentSubpopulation.getMatedPairs().length; j++){
         let currentMatedPair = currentSubpopulation.getMatedPairs()[j];
-        // let canvasNum = (i)*currentMatedPair.getIndividual1().length + j;
-        // console.log(currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
-
         console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
-        // canvasNum = (i)*currentMatedPair.getIndividual2().length + j + 1;
-        // console.log(currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
-
         console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
@@ -77,7 +62,6 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     let baby = this.individualGenerationService.makeOffspring(individual1, individual2);
     matedPair.addOffspring(baby);
     this.popManager.addOffspringToSubpop(subpopNum, baby);
-
     //check whether all possible babies have been made and if they have, make the proper accommodations
     let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
     let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
@@ -101,17 +85,12 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.nextGenMetapopulationSource.next(metapop);
           this.popManager.addToMetapopulationGenerations(metapop);
           this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
-            // console.log(metapopoulations);
           });
           //TODO make a next button available
           this.hideNextButton = false;
         }
       }
     });
-    // console.log("Mark you got here");
-    // this.cdr.detectChanges();
-    // this.drawDraggles(); //TODO I think remove
-    // this.cdr.detectChanges();
   }
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){
