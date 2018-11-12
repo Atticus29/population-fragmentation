@@ -44,9 +44,9 @@ export class PopulationManagerService {
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
-      let currentMetaPopObservable = this.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe));
+      let currentMetaPopObservable = this.currentMetapopulationSource.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here");
-      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe));
+      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairsSource.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here two");
       forkJoin([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
         console.log("got here three");

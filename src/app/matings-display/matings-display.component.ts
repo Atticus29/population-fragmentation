@@ -5,11 +5,11 @@ import { Population } from '../population.model';
 import { Organism } from '../organism.model';
 import { Metapopulation } from '../metapopulation.model';
 import { PopulationOfMatedPairs } from '../populationOfMatedPairs.model';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { DrawingService } from '../drawing.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { IndividualGenerationService } from '../individual-generation.service';
-import { Observable, forkJoin } from "rxjs";
+import { Observable, forkJoin, Subject } from "rxjs";
 
 @Component({
   selector: 'app-matings-display',
@@ -17,15 +17,22 @@ import { Observable, forkJoin } from "rxjs";
   styleUrls: ['./matings-display.component.css']
 })
 export class MatingsDisplayComponent implements OnInit, AfterViewInit {
-  @ViewChildren('canvases') canvases: QueryList<ElementRef>;
+  @ViewChildren('matingcanvases') canvases: QueryList<ElementRef>;
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService) { }
 
   ngOnInit() {
-    this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe(metapopulationOfMatedPairs =>{
+    this.popManager.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
-      // this.drawDraggles(); //TODO this might be buggy
+      console.log("Mark in ngOnInit subscription");
+      if(this.matedPairSubpopulations.length > 0){
+        console.log("Mark in ngOnInit subscription more than 0 matedPairs");
+        this.cdr.detectChanges(); //TODO try without the detect changes
+        this.drawDraggles(); //TODO this might be buggy
+        this.cdr.detectChanges();
+      }
       // console.log(this.matedPairSubpopulations);
     });
 
@@ -36,13 +43,13 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
     this.cdr.detectChanges();
-    this.drawDraggles(); //TODO this happens before there are mated pairs?
-    this.cdr.detectChanges();
+    // this.drawDraggles(); //TODO this happens before there are mated pairs?
+    // this.cdr.detectChanges();
     //TODO fix this only loading once
   }
 
   drawDraggles(){
-    // console.log("does this even happen?");
+    console.log("drawDraggles from matings-display component entered");
     // console.log(this.canvases);
     let canvasArray = this.canvases.toArray();
     // console.log(canvasArray);
@@ -55,13 +62,13 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         // let canvasNum = (i)*currentMatedPair.getIndividual1().length + j;
         // console.log(currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
 
-        // console.log(canvasNumTracker);
+        console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
         // canvasNum = (i)*currentMatedPair.getIndividual2().length + j + 1;
         // console.log(currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
 
-        // console.log(canvasNumTracker);
+        console.log(canvasNumTracker);
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype());
         canvasNumTracker ++;
       }
@@ -76,7 +83,9 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     //check whether all possible babies have been made and if they have, make the proper accommodations
     let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
     let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
+    console.log("before the forkJoin");
     forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{
+      console.log("inside the forkJoin");
       let observedNumBabies = this.popManager.getNumberOfBabiesObservedBySubpop(results[0],subpopNum);
       let expectedNumBabies = this.popManager.getNumberOfBabiesExpectedBySubpop(results[1],subpopNum, 2);
       if(observedNumBabies == expectedNumBabies){
@@ -101,6 +110,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         }
       }
     });
+    // console.log("Mark you got here");
+    // this.cdr.detectChanges();
+    // this.drawDraggles(); //TODO I think remove
+    // this.cdr.detectChanges();
   }
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){

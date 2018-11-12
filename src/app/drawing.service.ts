@@ -29,6 +29,7 @@ export class DrawingService {
   }
 
   drawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3:number, elementRef: ElementRef, color: string, fillStatus: boolean){
+    console.log(elementRef);
     let canvasElement = <HTMLCanvasElement>elementRef.nativeElement;
     // console.log(canvasElement);
     if (canvasElement){
@@ -71,7 +72,7 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 }
 
 drawLizard(canvasRef: ElementRef, genotype: Genotype){
-  // console.log(canvasRef);
+  console.log(canvasRef);
   // console.log(genotype);
   //head
   this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef, "black", true);
