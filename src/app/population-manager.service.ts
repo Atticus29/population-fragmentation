@@ -5,14 +5,15 @@ import { Metapopulation } from './metapopulation.model';
 import { MatedPair } from './mated-pair.model';
 import { PopulationOfMatedPairs } from './populationOfMatedPairs.model';
 import { MetapopulationOfMatedPairs } from './metapopulationOfMatedPairs.model';
-import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Subject, BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopulationManagerService {
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   private eligibleBachelorsAbsentSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
   eligibleBachelorsAbsent = this.eligibleBachelorsAbsentSource.asObservable();
@@ -43,26 +44,26 @@ export class PopulationManagerService {
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
-      let currentMetaPopObservable = this.currentMetaPopulation;
+      let currentMetaPopObservable = this.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here");
-      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs;
+      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here two");
       forkJoin([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
         console.log("got here three");
-        let metaPop = results[0];
-        let metaPopMatedPairs = results[1];
+        let metaPop: Metapopulation = results[0];
+        let metaPopMatedPairs: MetapopulationOfMatedPairs = results[1];
         console.log(metaPopMatedPairs);
         console.log("isEveryoneInTheMetaPopulationMated");
         let expectedNumMatedPairs: number = null;
         let observedNumMatedPairs: number = null;
-        for(let i = 0; i<metaPop.getSubpopulations().length; i++){
-          let currentSubpop = metaPop.getSubpopulation(i);
-          expectedNumMatedPairs += Math.floor(currentSubpop.getIndividuals().length/2);
-        }
-        for(let j=0; j<metaPopMatedPairs.getSubpopulations().length; j++){
-          let currentSubpopMatedPairs = metaPopMatedPairs.getSubpopulation(j);
-          observedNumMatedPairs += currentSubpopMatedPairs.getMatedPairs().length;
-        }
+        // for(let i = 0; i<metaPop.getSubpopulations().length; i++){
+        //   let currentSubpop = metaPop.getSubpopulation(i);
+        //   expectedNumMatedPairs += Math.floor(currentSubpop.getIndividuals().length/2);
+        // }
+        // for(let j=0; j<metaPopMatedPairs.getSubpopulations().length; j++){
+        //   let currentSubpopMatedPairs = metaPopMatedPairs.getSubpopulation(j);
+        //   observedNumMatedPairs += currentSubpopMatedPairs.getMatedPairs().length;
+        // }
         console.log(expectedNumMatedPairs);
         console.log(observedNumMatedPairs);
         if(expectedNumMatedPairs >= 0 && observedNumMatedPairs >= 0 && observedNumMatedPairs == expectedNumMatedPairs){

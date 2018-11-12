@@ -35,6 +35,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    this.cdr.detectChanges();
     this.drawDraggles(); //TODO this happens before there are mated pairs?
     this.cdr.detectChanges();
     //TODO fix this only loading once

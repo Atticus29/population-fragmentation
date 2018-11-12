@@ -106,6 +106,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       // console.log(metapopulation);
       //TODO currently broken
       this.subpopulations = metapopulation.getSubpopulations();
+      this.cdr.detectChanges();
       this.drawDraggles();
       this.cdr.detectChanges();
     });
