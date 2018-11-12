@@ -26,9 +26,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulationOfMatedPairs =>{
       this.matedPairSubpopulations = metapopulationOfMatedPairs.getSubpopulations();
-      console.log("Mark in ngOnInit subscription");
       if(this.matedPairSubpopulations.length > 0){
-        console.log("Mark in ngOnInit subscription more than 0 matedPairs");
         this.cdr.detectChanges(); //TODO try without the detect changes
         this.drawDraggles(); //TODO this might be buggy
         this.cdr.detectChanges();

@@ -1,14 +1,15 @@
 # Bugs
 
 ## High Priority
-- [ ] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
+- [ ] TODO try without the detect changes
 - [ ] TODO have this disable the button somehow or disable the button before this happens
 - [ ] when there are multiple subpopulations, the done button appears for all populations
-- [ ] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [ ] TODO this is not true fix
 - [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
 - [ ] Some of the lizard names in lizard display aren't centered
+- [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
+- [x] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
 - [x] You can submit the form with a negative number of fragments
 - [x] You can submit the form with a negative number of generations
 - [x] fix bug where designate a random pair to mate button doesn't disappear
@@ -83,12 +84,12 @@
 - [x] User is asked whether the calculated frequencies match the observed (they should)
 - [ ] Users can see a table of allele frequency for each generation
 - [ ] Users can roll a die of size N (where N is number of individuals in certain subpopulation)
-- [ ] Mated pairs are displayed
-- [ ] Gametes of each individual are displayed
+- [x] Mated pairs are displayed
+- [x] Gametes of each individual are displayed
 - [ ] User clicks on make baby button under each pair and sees:
 	- [ ] Which gamete each parent give to offspring
 	- [ ] the offspring resulting from mating events (the lizard with its spots)
-	- [ ] User no longer sees make baby button after two (x) babies are made
+	- [x] User no longer sees make baby button after two (x) babies are made
 
 
 - [ ] When all babies are made, user is asked to calculate allele frequencies of new offspring generation
