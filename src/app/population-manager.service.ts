@@ -5,7 +5,7 @@ import { Metapopulation } from './metapopulation.model';
 import { MatedPair } from './mated-pair.model';
 import { PopulationOfMatedPairs } from './populationOfMatedPairs.model';
 import { MetapopulationOfMatedPairs } from './metapopulationOfMatedPairs.model';
-import { Subject, BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
+import { Subject, BehaviorSubject, Observable, combineLatest, of } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { IndividualGenerationService } from './individual-generation.service';
 
@@ -44,11 +44,12 @@ export class PopulationManagerService {
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
-      let currentMetaPopObservable = this.currentMetapopulationSource.pipe(takeUntil(this.ngUnsubscribe));
+      let currentMetaPopObservable = this.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here");
-      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairsSource.pipe(takeUntil(this.ngUnsubscribe));
+      console.log(currentMetaPopObservable);
+      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe));
       console.log("got here two");
-      forkJoin([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
+      combineLatest([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
         console.log("got here three");
         let metaPop: Metapopulation = results[0];
         let metaPopMatedPairs: MetapopulationOfMatedPairs = results[1];
