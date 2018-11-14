@@ -60,8 +60,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       // });
 
       this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
-        console.log("status of isEveryoneInTheMetaPopulationMated:");
-        console.log(status);
         this.matingsCompleted = status;
         this.displayMateButton = !status; //TODO this won't make it false until it's false everywhere?
       });

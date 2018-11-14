@@ -44,30 +44,22 @@ export class PopulationManagerService {
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
-      let currentMetaPopObservable = this.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe));
-      console.log("got here");
-      console.log(currentMetaPopObservable);
-      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe));
-      console.log("got here two");
+      let currentMetaPopObservable = this.currentMetapopulationSource.pipe(takeUntil(this.ngUnsubscribe));
+      let currentMetapopulationOfMatedPairsObservable = this.currentMetapopulationOfMatedPairsSource.pipe(takeUntil(this.ngUnsubscribe));
       combineLatest([currentMetaPopObservable, currentMetapopulationOfMatedPairsObservable]).subscribe(results=>{
-        console.log("got here three");
         let metaPop: Metapopulation = results[0];
         let metaPopMatedPairs: MetapopulationOfMatedPairs = results[1];
-        console.log(metaPopMatedPairs);
-        console.log("isEveryoneInTheMetaPopulationMated");
         let expectedNumMatedPairs: number = null;
         let observedNumMatedPairs: number = null;
-        // for(let i = 0; i<metaPop.getSubpopulations().length; i++){
-        //   let currentSubpop = metaPop.getSubpopulation(i);
-        //   expectedNumMatedPairs += Math.floor(currentSubpop.getIndividuals().length/2);
-        // }
-        // for(let j=0; j<metaPopMatedPairs.getSubpopulations().length; j++){
-        //   let currentSubpopMatedPairs = metaPopMatedPairs.getSubpopulation(j);
-        //   observedNumMatedPairs += currentSubpopMatedPairs.getMatedPairs().length;
-        // }
-        console.log(expectedNumMatedPairs);
-        console.log(observedNumMatedPairs);
-        if(expectedNumMatedPairs >= 0 && observedNumMatedPairs >= 0 && observedNumMatedPairs == expectedNumMatedPairs){
+        for(let i = 0; i<metaPop.getSubpopulations().length; i++){
+          let currentSubpop = metaPop.getSubpopulation(i);
+          expectedNumMatedPairs += Math.floor(currentSubpop.getIndividuals().length/2);
+        }
+        for(let j=0; j<metaPopMatedPairs.getSubpopulations().length; j++){
+          let currentSubpopMatedPairs = metaPopMatedPairs.getSubpopulation(j);
+          observedNumMatedPairs += currentSubpopMatedPairs.getMatedPairs().length;
+        }
+        if(expectedNumMatedPairs >= 0 && observedNumMatedPairs >= 0 && observedNumMatedPairs == expectedNumMatedPairs && observedNumMatedPairs != null){
           obs.next(true);
         } else {
           obs.next(false);
