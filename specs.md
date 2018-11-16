@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] Make it update currentGenNum on population manager everytime baby generation get marked complete
 - [ ] Make the mated pair displays look cleaner
 - [ ] TODO this is not true fix
 - [ ] make getCurrentGenerationNumber work

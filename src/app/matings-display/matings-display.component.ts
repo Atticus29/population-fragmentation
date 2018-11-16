@@ -69,9 +69,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     //check whether all possible babies have been made and if they have, make the proper accommodations
     let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
     let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
-    console.log("before the forkJoin");
-    forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{
-      console.log("inside the forkJoin");
+    forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{ //TODO decide whether combineLatest is better here
       let observedNumBabies = this.popManager.getNumberOfBabiesObservedBySubpop(results[0],subpopNum);
       let expectedNumBabies = this.popManager.getNumberOfBabiesExpectedBySubpop(results[1],subpopNum, 2);
       if(observedNumBabies == expectedNumBabies){
@@ -90,7 +88,6 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.addToMetapopulationGenerations(metapop);
           this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
           });
-          //TODO make a next button available
           this.hideNextButton = false;
         }
       }

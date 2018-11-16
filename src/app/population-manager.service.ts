@@ -39,6 +39,9 @@ export class PopulationManagerService {
   metapopulationGenerationsSouce: BehaviorSubject<Metapopulation[]> = new BehaviorSubject<Metapopulation[]>(new Array<Metapopulation>());
   metapopulationGenerations = this.metapopulationGenerationsSouce.asObservable();
 
+  private currentGenNumSource: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  currentGenNum = this.currentGenNumSource.asObservable();
+
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
