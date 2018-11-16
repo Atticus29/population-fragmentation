@@ -48,6 +48,20 @@ export class PopulationManagerService {
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
 
+  isThisTheLastGeneration(): Observable<boolean>{
+    return Observable.create(obs => {
+      combineLatest([this.totalGenNumSource, this.currentGenNumSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+        let totalGenNum = results[0];
+        let currentGenNum = results[1];
+        if(totalGenNum == currentGenNum){
+          obs.next(true);
+        } else{
+          obs.next(false);
+        }
+      });
+    });
+  }
+
   // incrementCurrentGenNum(){
   //   this.currentGenNumSource.pipe(takeUntil(this.ngUnsubscribe)).subscribe(currentGenNum =>{
   //     this.currentGenNumSource.next(currentGenNum + 1);

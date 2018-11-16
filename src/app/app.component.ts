@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   // this.rowHeight = window.innerHeight;
   private generations = [0];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private INDEX_OF_POP_DISPLAY: number = 5;
 
   constructor(private popManager:PopulationManagerService){}
 
@@ -43,16 +44,18 @@ export class AppComponent implements OnInit {
   }
 
   setMatingDisplay(shouldMatingsDisplay: boolean){
-    // console.log(shouldMatingsDisplay);
     this.displayMatings = shouldMatingsDisplay;
   }
 
   takeNextStep(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
-    console.log("got to takeNextStep");
     stepperMain.next();
   }
 
   repeatStepperForNewGen(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
-    console.log("got to repeatStepperForNewGen");
+    stepperMain.selectedIndex = this.INDEX_OF_POP_DISPLAY;
+  }
+
+  doneRepeatStepper(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
+    stepperMain.next();
   }
 }

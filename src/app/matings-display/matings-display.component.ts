@@ -22,6 +22,7 @@ import { IndividualGenerationService } from '../individual-generation.service';
 export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('matingcanvases') canvases: QueryList<ElementRef>;
   @Output() repeatMatingEmitter = new EventEmitter<boolean>();
+  @Output() doneRepeatingEmitter = new EventEmitter<boolean>();
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -107,7 +108,13 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
 
   nextStep(stepperMain: MatStepper){
     console.log("got here nextStep in matings-display.component");
-    this.repeatMatingEmitter.emit(true); //TODO instead of true, only emit true if numGen max not reached
+    this.popManager.isThisTheLastGeneration().pipe(takeUntil(this.ngUnsubscribe)).subscribe(isThisTheLastGeneration =>{
+      if(isThisTheLastGeneration){
+        this.doneRepeatingEmitter.emit(true);
+      } else{
+        this.repeatMatingEmitter.emit(true); //TODO instead of true, only emit true if numGen max not reached
+      }
+    });
   }
 
 }

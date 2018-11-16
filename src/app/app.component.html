@@ -27,7 +27,7 @@
         <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
       </mat-step>
       <mat-step label="View Matings">
-        <app-matings-display *ngIf="displayLizards" (repeatMatingEmitter)="repeatStepperForNewGen($event, stepperMain)"></app-matings-display>
+        <app-matings-display *ngIf="displayLizards" (repeatMatingEmitter)="repeatStepperForNewGen($event, stepperMain)" (doneRepeatingEmitter)="doneRepeatStepper($event, stepperMain)"></app-matings-display>
       </mat-step>
     </div>
     <!-- <mat-step label="Repeat for Generations">
