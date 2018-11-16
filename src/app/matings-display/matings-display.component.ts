@@ -93,6 +93,11 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.hideNextButton = false;
           // this.popManager.incrementCurrentGenNum();
           this.popManager.currentMetapopulationSource.next(metapop);
+          this.popManager.clearMetaPopulationOfMatedPairs();
+          alert("Congratulations! You have a whole new generation of draggles! Let's see what they all look like");
+          this.repeatMatingEmitter.emit(true);
+          //go ahead and take them to look at their pop
+          // this.popManager.currentMetapopulationOfMatedPairsSource
         }
       }
     });
