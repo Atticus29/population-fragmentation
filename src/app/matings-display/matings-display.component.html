@@ -5,7 +5,7 @@
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span></mat-card-title>
     </mat-card-header>
-    <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-list cols="2" rowHeight="5em">
       <mat-grid-tile>
         <canvas #matingcanvases width="200" height="200" style="border:1px solid #c3c3c3;">
           Your browser does not support the canvas element.
@@ -18,7 +18,7 @@
       </mat-grid-tile>
     </mat-grid-list>
     <mat-card-content>
-      <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-list cols="2" rowHeight="5em">
         <mat-grid-tile>
           <h3>
             {{matedPair.getIndividual1().getOrganismName()}}
@@ -30,7 +30,7 @@
           </h3>
         </mat-grid-tile>
       </mat-grid-list>
-      <mat-grid-list cols="4" rowHeight="2:1">
+      <mat-grid-list cols="4" rowHeight="5em">
         <mat-grid-tile>
           <h4>
             50% of the gametes are:

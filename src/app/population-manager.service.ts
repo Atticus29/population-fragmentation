@@ -492,7 +492,7 @@ pickTwoToMate(subpopNum: number){
     if(eligibleBachelorCount <2){
       this.eligibleBachelorsAbsentSource.next(true);
       alert("There aren't enough eligible individuals to continue the pairing process");
-      //TODO have this disable the button somehow or disable the button before this happens
+      //TODO have this disable the button somehow or disable the button before this happens low priority in specs.md
       return;
     }
     for(let i = 0; i<scrambledIndividuals.length; i++){ //TODO should be able to make more efficient

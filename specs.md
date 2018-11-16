@@ -1,13 +1,12 @@
 # Bugs
 
 ## High Priority
-- [ ] when there are multiple subpopulations, the done button appears for all populations
-- [ ] TODO have this disable the button somehow or disable the button before this happens
+- [ ] Make the mated pair displays look cleaner
 - [ ] TODO this is not true fix
-- [ ] Stepper is displaying super weird text in white ("create")
 - [ ] make getCurrentGenerationNumber work
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] I don't think the built-in theme is working
+- [x] when there are multiple subpopulations, the done button appears for all populations
 - [x] TODO try without the detect changes
 - [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
 - [x] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
@@ -61,11 +60,13 @@
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] Color name service is incomplete and is low priority at this point so has been abandoned
 - [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
+- [ ] TODO have this disable the button somehow or disable the button before this happens
 - [x] Grid layout for angular material not working well to display the draggle cards
 - [x] if you press next question when there are no more questions, it takes two clicks to go back
 
 ## No longer relevant
 - [x] Grid list is not allowing rowHeight to fit contents of lizard display
+- [x] Stepper is displaying super weird text in white ("create") NO LONGER SEEMS TO BE AN ISSUE??
 
 # Specs
 
