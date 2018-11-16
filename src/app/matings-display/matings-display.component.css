@@ -5,3 +5,11 @@
 .mated-pair-actions{
   text-align: center;
 }
+
+mat-grid-tile{
+  overflow: hidden;
+}
+
+mat-card-title{
+  text-align: center;
+}

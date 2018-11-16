@@ -1,15 +1,18 @@
-import { OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
-import { PopulationManagerService } from '../population-manager.service';
+import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
+import {MatSnackBar} from '@angular/material';
+
+import { take, takeUntil } from 'rxjs/operators';
+import { Observable, forkJoin, Subject } from "rxjs";
+
 import { MatedPair } from '../mated-pair.model';
 import { Population } from '../population.model';
 import { Organism } from '../organism.model';
 import { Metapopulation } from '../metapopulation.model';
 import { PopulationOfMatedPairs } from '../populationOfMatedPairs.model';
-import { take, takeUntil } from 'rxjs/operators';
+
+import { PopulationManagerService } from '../population-manager.service';
 import { DrawingService } from '../drawing.service';
-import { ChangeDetectorRef } from '@angular/core';
 import { IndividualGenerationService } from '../individual-generation.service';
-import { Observable, forkJoin, Subject } from "rxjs";
 
 @Component({
   selector: 'app-matings-display',
@@ -21,7 +24,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService) { }
+  constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulationOfMatedPairs =>{
@@ -60,6 +63,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
 
   makeBabies(individual1: Organism, individual2: Organism, subpopNum: number, matedPair: MatedPair){ //TODO can simplify this signature //TODO move some of this into population manager?
     let baby = this.individualGenerationService.makeOffspring(individual1, individual2);
+    this.openSnackBar(baby);
     matedPair.addOffspring(baby);
     this.popManager.addOffspringToSubpop(subpopNum, baby);
     //check whether all possible babies have been made and if they have, make the proper accommodations
@@ -91,6 +95,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  openSnackBar(baby: Organism) {
+    this.snackBar.open(baby.getOrganismName() + " has been born! It has one " + baby.getGeneByName("spot color").getGenotype().getAllele1() + " allele and one " + baby.getGeneByName("spot color").getGenotype().getAllele2() + " allele", '',{duration: 2000,});
   }
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){
