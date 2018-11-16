@@ -141,6 +141,7 @@ export class PopulationDetailsFormComponent implements OnInit {
       this.popsize = popsize;
       this.fragNum = fragNum;
       this.genNum = genNum;
+      this.popManager.totalGenNumSource.next(genNum);
       this.greenAlleleFreq = greenAlleleFreq;
       this.blueAlleleFreq = blueAlleleFreq;
       this.magentaAlleleFreq = magentaAlleleFreq;

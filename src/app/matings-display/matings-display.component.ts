@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar, MatStepper } from '@angular/material';
 
 import { take, takeUntil } from 'rxjs/operators';
 import { Observable, forkJoin, Subject } from "rxjs";
@@ -21,6 +21,7 @@ import { IndividualGenerationService } from '../individual-generation.service';
 })
 export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('matingcanvases') canvases: QueryList<ElementRef>;
+  @Output() repeatMatingEmitter = new EventEmitter<boolean>();
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -89,6 +90,8 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
           });
           this.hideNextButton = false;
+          // this.popManager.incrementCurrentGenNum();
+          this.popManager.currentMetapopulationSource.next(metapop);
         }
       }
     });
@@ -100,6 +103,11 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){
     return currentMetapop.getSubpopulations().length == nextGenMetapop.getSubpopulations().length;
+  }
+
+  nextStep(stepperMain: MatStepper){
+    console.log("got here nextStep in matings-display.component");
+    this.repeatMatingEmitter.emit(true); //TODO instead of true, only emit true if numGen max not reached
   }
 
 }

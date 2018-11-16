@@ -78,4 +78,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<button matStepperNext mat-raised-button [hidden]="hideNextButton">Next section</button>
+<button (click)="nextStep(stepperMain)" mat-raised-button [hidden]="hideNextButton">Next section</button>

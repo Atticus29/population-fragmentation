@@ -25,17 +25,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.popManager.metapopulationGenerations.pipe(takeUntil(this.ngUnsubscribe)).subscribe(generationsOfMetapopulations =>{
-      console.log("got here in app.component");
-      console.log(generationsOfMetapopulations);
-      console.log(generationsOfMetapopulations.length);
       let genNum = generationsOfMetapopulations.length;
       let currentGenNum = 0;
-      this.generations = [0]; //TODO will this break?
-      for(let i = 1; i<genNum; i++){
-        this.generations.push(i);
-      }
-      console.log("generation array");
-      console.log(this.generations);
+      this.generations = [0];
+      // for(let i = 1; i<genNum; i++){
+      //   this.generations.push(i);
+      // }
     });
   }
 
@@ -53,6 +48,11 @@ export class AppComponent implements OnInit {
   }
 
   takeNextStep(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
+    console.log("got to takeNextStep");
     stepperMain.next();
+  }
+
+  repeatStepperForNewGen(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
+    console.log("got to repeatStepperForNewGen");
   }
 }

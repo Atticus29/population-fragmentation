@@ -18,7 +18,7 @@ export class PopulationManagerService {
   private eligibleBachelorsAbsentSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
   eligibleBachelorsAbsent = this.eligibleBachelorsAbsentSource.asObservable();
 
-  private currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), 0));
+  currentMetapopulationSource: BehaviorSubject<Metapopulation> = new BehaviorSubject<Metapopulation>(new Metapopulation(new Array<Population>(), 0));
   currentMetaPopulation = this.currentMetapopulationSource.asObservable();
 
   private currentMetapopulationOfMatedPairsSource: BehaviorSubject<MetapopulationOfMatedPairs> = new BehaviorSubject<MetapopulationOfMatedPairs>(new MetapopulationOfMatedPairs(new Array<PopulationOfMatedPairs>()));
@@ -42,8 +42,17 @@ export class PopulationManagerService {
   private currentGenNumSource: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   currentGenNum = this.currentGenNumSource.asObservable();
 
+  totalGenNumSource: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  // totalGenNum = this.currentGenNumSource.asObservable();
+
   private populationWithPotentiallyNewIndividual: Population = null;
   constructor(private individualGenerator: IndividualGenerationService) { }
+
+  // incrementCurrentGenNum(){
+  //   this.currentGenNumSource.pipe(takeUntil(this.ngUnsubscribe)).subscribe(currentGenNum =>{
+  //     this.currentGenNumSource.next(currentGenNum + 1);
+  //   });
+  // }
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
