@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, ElementRef, ViewChildren, Output, EventEmitter } from '@angular/core';
-import { DrawingService } from '../drawing.service';
-import { take } from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
+
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from "rxjs";
 
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
@@ -9,6 +10,7 @@ import { Organism } from '../organism.model';
 import { Population } from '../population.model';
 import { MatedPair } from '../mated-pair.model';
 
+import { DrawingService } from '../drawing.service';
 import { ColorNameService } from '../color-name.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 import { PopulationManagerService } from '../population-manager.service';
@@ -23,11 +25,13 @@ import { MatedSnackbarComponent } from '../mated-snackbar/mated-snackbar.compone
 })
 export class LizardDisplayComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvases') canvases: QueryList<ElementRef>;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   private subpopulations: Array<Population>;
   private matingsCompleted: boolean = false; //TODO allow to be toggled on
   private displayMateButton: boolean = false; //TODO allow to be toggled on
   private goToQuestions: boolean = true;
+  private allGenerationsViewed: boolean = false;
   // private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
@@ -55,6 +59,16 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
           let magentaAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("magenta", subpopulation);
           // console.log("magenta");
           // console.log(magentaAlleleFreq);
+        }
+      });
+
+      this.popManager.isThisTheLastGeneration().pipe(takeUntil(this.ngUnsubscribe)).subscribe(isThisTheLastGeneration =>{
+        console.log("got here");
+        if(isThisTheLastGeneration){
+            console.log("isThisTheLastGeneration is true from lizard-display");
+            this.allGenerationsViewed = true;
+            this.goToQuestions = false;
+            this.displayMateButton = false;
         }
       });
 

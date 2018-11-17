@@ -90,11 +90,12 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.hideNextButton = false;
           this.popManager.currentMetapopulationSource.next(metapop);
           this.popManager.clearMetaPopulationOfMatedPairs();
+          this.popManager.incrementCurrentGenNum();
           //currentMetaPopulation
           //nextGenMetapopulation
           this.questionService.clearQuestions();
           this.popManager.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulation =>{
-              this.popManager.addToMetapopulationGenerations(metapopulation);
+              // this.popManager.addToMetapopulationGenerations(metapopulation);
               let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
               let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.questionService.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
               this.questionService.addProblemToList(blueSubPop1FreqProblem);

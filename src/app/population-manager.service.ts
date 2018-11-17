@@ -53,6 +53,10 @@ export class PopulationManagerService {
       combineLatest([this.totalGenNumSource, this.currentGenNumSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let totalGenNum = results[0];
         let currentGenNum = results[1];
+        console.log("totalGenNum");
+        console.log(totalGenNum);
+        console.log("currentGenNum");
+        console.log(currentGenNum);
         if(totalGenNum == currentGenNum){
           obs.next(true);
         } else{
@@ -62,11 +66,11 @@ export class PopulationManagerService {
     });
   }
 
-  // incrementCurrentGenNum(){
-  //   this.currentGenNumSource.pipe(takeUntil(this.ngUnsubscribe)).subscribe(currentGenNum =>{
-  //     this.currentGenNumSource.next(currentGenNum + 1);
-  //   });
-  // }
+  incrementCurrentGenNum(){
+    this.currentGenNumSource.pipe(take(1)).subscribe(currentGenNum =>{
+      this.currentGenNumSource.next(currentGenNum + 1);
+    });
+  }
 
   isEveryoneInTheMetaPopulationMated(){
     return Observable.create(obs => {
