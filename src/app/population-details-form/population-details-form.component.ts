@@ -37,7 +37,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
       let theSum: number = +this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq;
-      let roundedNum = this.roundToNearest(theSum, 5);
+      let roundedNum = this.qs.roundToNearest(theSum, 5);
       return(roundedNum != 1);
     }
   }
@@ -105,7 +105,7 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   sumToOne(fg: FormGroup){
     let theSum: number = +fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq;
-    let roundedNum = this.roundToNearest(theSum, 5);
+    let roundedNum = this.qs.roundToNearest(theSum, 5);
     if(roundedNum == 1){
       return null;
     } else{
@@ -154,13 +154,13 @@ export class PopulationDetailsFormComponent implements OnInit {
           this.popManager.addToMetapopulationGenerations(metapopulation);
           //TODO add a problem to the problem service after creation of metapopulation
           let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
-          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
+          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
           this.qs.addProblemToList(blueSubPop1FreqProblem);
           let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
-          let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
+          let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.qs.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
           this.qs.addProblemToList(greenSubPop1FreqProblem);
           let magentaSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("magenta", metapopulation.getSubpopulation(0));
-          let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
+          let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.qs.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
           this.qs.addProblemToList(magentaSubPop1FreqProblem);
 
       });
@@ -181,10 +181,5 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.popManager.clearMetaPopulationOfMatedPairs();
     //TODO you should get rid of dynamically generated questions
     this.qs.clearQuestions(); //TODO is this overkill and will it create errors?
-  }
-
-  roundToNearest(num, places) {
-    var multiplier = Math.pow(10, places);
-    return Math.round(num * multiplier) / multiplier;
   }
 }

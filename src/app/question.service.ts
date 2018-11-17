@@ -31,12 +31,19 @@ export class QuestionService {
   }
 
   clearQuestions(){
-    this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
-      this.problemArraySource.next(new Array<Problem>());
-    });
+    this.questionsAnsweredSource.next(false);
+    this.problemArraySource.next(new Array<Problem>());
+    // this.problemArraySource.pipe(take(1)).subscribe((problems: Array<Problem>) =>{
+    //   this.problemArraySource.next(new Array<Problem>());
+    // });
   }
 
   markQuestionsPt1Answered(){
     this.questionsAnsweredSource.next(true);
+  }
+
+  roundToNearest(num, places) :number {
+    var multiplier = Math.pow(10, places);
+    return Math.round(num * multiplier) / multiplier;
   }
 }

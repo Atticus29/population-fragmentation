@@ -2,16 +2,18 @@ import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, Element
 import { MatSnackBar, MatStepper } from '@angular/material';
 
 import { take, takeUntil } from 'rxjs/operators';
-import { Observable, forkJoin, Subject } from "rxjs";
+import { Observable, combineLatest, Subject } from "rxjs";
 
 import { MatedPair } from '../mated-pair.model';
 import { Population } from '../population.model';
 import { Organism } from '../organism.model';
 import { Metapopulation } from '../metapopulation.model';
 import { PopulationOfMatedPairs } from '../populationOfMatedPairs.model';
+import { Problem } from '../problem.model';
 
 import { PopulationManagerService } from '../population-manager.service';
 import { DrawingService } from '../drawing.service';
+import { QuestionService } from '../question.service';
 import { IndividualGenerationService } from '../individual-generation.service';
 
 @Component({
@@ -26,7 +28,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService, public snackBar: MatSnackBar) { }
+  constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService, public snackBar: MatSnackBar, private questionService: QuestionService) { }
 
   ngOnInit() {
     this.popManager.currentMetapopulationOfMatedPairs.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulationOfMatedPairs =>{
@@ -39,10 +41,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    this.cdr.detectChanges();
-    // this.drawDraggles(); //TODO this happens before there are mated pairs?
-    // this.cdr.detectChanges();
-    //TODO fix this only loading once
+    this.cdr.detectChanges(); //TODO what happens if you comment this out?
   }
 
   drawDraggles(){
@@ -71,7 +70,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
     //check whether all possible babies have been made and if they have, make the proper accommodations
     let nextGenMetaPopObservable = this.popManager.nextGenMetapopulation.pipe(take(1));
     let currentGenMetaPopObservable = this.popManager.currentMetaPopulation.pipe(take(1));
-    forkJoin([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{ //TODO decide whether combineLatest is better here
+    combineLatest([nextGenMetaPopObservable, currentGenMetaPopObservable]).subscribe(results=>{ //TODO decide whether combineLatest is better here
       let observedNumBabies = this.popManager.getNumberOfBabiesObservedBySubpop(results[0],subpopNum);
       let expectedNumBabies = this.popManager.getNumberOfBabiesExpectedBySubpop(results[1],subpopNum, 2);
       if(observedNumBabies == expectedNumBabies){
@@ -86,18 +85,30 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         if(incompleteCount == 0 && this.allSubpopulationsExpectedHaveBeenCreated(results[0], results[1])){
           results[0].completeMetapopulation();
           let metapop = results[0];
-          this.popManager.nextGenMetapopulationSource.next(metapop);
+          this.popManager.nextGenMetapopulationSource.next(new Metapopulation(new Array<Population>(), 0));
           this.popManager.addToMetapopulationGenerations(metapop);
-          this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopoulations=>{
-          });
           this.hideNextButton = false;
-          // this.popManager.incrementCurrentGenNum();
           this.popManager.currentMetapopulationSource.next(metapop);
           this.popManager.clearMetaPopulationOfMatedPairs();
+          //currentMetaPopulation
+          //nextGenMetapopulation
+          this.questionService.clearQuestions();
+          this.popManager.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulation =>{
+              this.popManager.addToMetapopulationGenerations(metapopulation);
+              let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
+              let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.questionService.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
+              this.questionService.addProblemToList(blueSubPop1FreqProblem);
+              let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
+              let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.questionService.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
+              this.questionService.addProblemToList(greenSubPop1FreqProblem);
+              let magentaSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("magenta", metapopulation.getSubpopulation(0));
+              let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.questionService.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
+              this.questionService.addProblemToList(magentaSubPop1FreqProblem);
+
+          });
+          //TODO generate new questions.
           alert("Congratulations! You have a whole new generation of draggles! Let's see what they all look like");
           this.repeatMatingEmitter.emit(true);
-          //go ahead and take them to look at their pop
-          // this.popManager.currentMetapopulationOfMatedPairsSource
         }
       }
     });

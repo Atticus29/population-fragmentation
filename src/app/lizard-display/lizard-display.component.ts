@@ -39,6 +39,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   ngOnInit() {
       this.popManager.currentMetaPopulation.subscribe(metapopulation =>{ //.pipe(take(1))
         this.subpopulations = metapopulation.getSubpopulations();
+        this.cdr.detectChanges(); //TODO figure out order
+        this.drawDraggles();
+        this.cdr.detectChanges();
+
         for(let i = 0; i<this.subpopulations.length; i++){
           // console.log("subpopulation " + i.toString());
           let subpopulation = this.subpopulations[i];
@@ -54,11 +58,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         }
       });
 
-      // this.popManager.eligibleBachelorsAbsent.subscribe(matingsCompleted =>{
-      //   this.matingsCompleted = matingsCompleted;
-      //   // this.displayMateButton = false;
-      // });
-
       this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
         this.matingsCompleted = status;
         this.displayMateButton = !status; //TODO this won't make it false until it's false everywhere?
@@ -68,7 +67,8 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         this.displayMateButton = questionsAnswered;
         if(questionsAnswered){
           this.goToQuestions = false;
-          // this.displayMateButton = true;
+        } else {
+          this.goToQuestions = true;
         }
       });
 
@@ -107,7 +107,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       // console.log(metapopulation);
       //TODO currently broken
       this.subpopulations = metapopulation.getSubpopulations();
-      this.cdr.detectChanges();
+      this.cdr.detectChanges(); //TODO figure out order
       this.drawDraggles();
       this.cdr.detectChanges();
     });
