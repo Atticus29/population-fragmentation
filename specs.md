@@ -1,6 +1,7 @@
 # Bugs
 
 ## High Priority
+- [ ] round and shuffle the question answers
 - [ ] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [ ] Make it update currentGenNum on population manager everytime baby generation get marked complete
 - [ ] Make the mated pair displays look cleaner
