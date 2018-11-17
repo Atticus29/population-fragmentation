@@ -90,10 +90,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.hideNextButton = false;
           this.popManager.currentMetapopulationSource.next(metapop);
           this.popManager.clearMetaPopulationOfMatedPairs();
+          this.questionService.clearQuestions();
           this.popManager.incrementCurrentGenNum();
           //currentMetaPopulation
           //nextGenMetapopulation
-          this.questionService.clearQuestions();
           this.popManager.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulation =>{
               // this.popManager.addToMetapopulationGenerations(metapopulation);
               let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));

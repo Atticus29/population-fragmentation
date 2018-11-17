@@ -2,7 +2,7 @@ import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, Element
 import {MatSnackBar} from '@angular/material';
 
 import { take, takeUntil } from 'rxjs/operators';
-import { Subject } from "rxjs";
+import { Subject, combineLatest } from "rxjs";
 
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
@@ -29,7 +29,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   private subpopulations: Array<Population>;
   private matingsCompleted: boolean = false; //TODO allow to be toggled on
-  private displayMateButton: boolean = false; //TODO allow to be toggled on
+  private shuffleAndPairButton: boolean = false; //TODO allow to be toggled on
   private goToQuestions: boolean = true;
   private allGenerationsViewed: boolean = false;
   // private individuals: Array<Organism>;
@@ -37,6 +37,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
 
   private isMatingComponentOpen: boolean = false;
   @Output() openMatingComponentEmitter = new EventEmitter<boolean>();
+  @Output() takeToEndEmitter = new EventEmitter<boolean>();
 
   constructor(private ds: DrawingService, private cns: ColorNameService, private individualGenService: IndividualGenerationService, private popManager: PopulationManagerService, private cdr: ChangeDetectorRef, private qs: QuestionService, public snackBar: MatSnackBar) { }
 
@@ -62,27 +63,48 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         }
       });
 
-      this.popManager.isThisTheLastGeneration().pipe(takeUntil(this.ngUnsubscribe)).subscribe(isThisTheLastGeneration =>{
-        console.log("got here");
-        if(isThisTheLastGeneration){
-            console.log("isThisTheLastGeneration is true from lizard-display");
-            this.allGenerationsViewed = true;
-            this.goToQuestions = false;
-            this.displayMateButton = false;
+      //this has to happen before the check for whether this is the last generation
+      combineLatest([this.popManager.isEveryoneInTheMetaPopulationMated(), this.popManager.isThisTheLastGeneration()]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+        let everyoneMatedStatus = results[0];
+        console.log("everyoneMatedStatus");
+        console.log(everyoneMatedStatus);
+        let isLastGen = results[1];
+        this.matingsCompleted = everyoneMatedStatus;
+        this.shuffleAndPairButton = !everyoneMatedStatus;
+        if(isLastGen){
+          console.log("it's the last gen!");
+          this.shuffleAndPairButton = false;
         }
       });
 
-      this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
-        this.matingsCompleted = status;
-        this.displayMateButton = !status; //TODO this won't make it false until it's false everywhere?
-      });
+      // this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
+      //   this.matingsCompleted = status;
+      //   this.shuffleAndPairButton = !status; //TODO this won't make it false until it's false everywhere?
+      // });
 
-      this.qs.questionsAnswered.subscribe(questionsAnswered =>{
-        this.displayMateButton = questionsAnswered;
+      // this.qs.questionsAnswered.subscribe(questionsAnswered =>{
+      //   this.shuffleAndPairButton = questionsAnswered;
+      //   if(questionsAnswered){
+      //     this.goToQuestions = false;
+      //   } else {
+      //     this.goToQuestions = true;
+      //   }
+      // });
+
+      combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+        let isThisTheLastGeneration = results[0];
+        let questionsAnswered = results[1];
+        this.shuffleAndPairButton = questionsAnswered;
         if(questionsAnswered){
           this.goToQuestions = false;
         } else {
           this.goToQuestions = true;
+        }
+        if(isThisTheLastGeneration && questionsAnswered){
+            console.log("isThisTheLastGeneration and questionsAnswered are true from lizard-display");
+            this.allGenerationsViewed = true;
+            this.goToQuestions = false;
+            this.shuffleAndPairButton = false;
         }
       });
 
@@ -138,5 +160,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   openMatingComponent(){
     this.isMatingComponentOpen = true;
     this.openMatingComponentEmitter.emit(this.isMatingComponentOpen);
+  }
+
+  takeThemToTheEnd(){
+    this.takeToEndEmitter.emit(true);
   }
 }

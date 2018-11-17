@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   private generations = [0];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private INDEX_OF_POP_DISPLAY: number = 5;
+  private INDEX_OF_END: number = 9;
 
   constructor(private popManager:PopulationManagerService){}
 
@@ -57,5 +58,9 @@ export class AppComponent implements OnInit {
 
   doneRepeatStepper(shouldTakeTheNextStep: boolean, stepperMain: MatStepper){
     stepperMain.next();
+  }
+
+  takeToEnd(shouldGoToEnd: boolean, stepperMain: MatStepper){
+    stepperMain.selectedIndex = this.INDEX_OF_END;
   }
 }
