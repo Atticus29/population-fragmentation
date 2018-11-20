@@ -1,4 +1,8 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+
+.basic-container{
+  background-color: black;
+}
 
 mat-card{
     background-color: red;

@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body{
+  background-color: black;
+  font-size: 2em;
+  font: karla;
+  /* TODO is the above working? */
+}
+
+/* .basic-container{
+  background-color: black;
+} */
+
+mat-horizontal-stepper{
+  margin: 4em;
+}

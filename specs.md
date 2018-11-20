@@ -1,14 +1,16 @@
 # Bugs
 
 ## High Priority
+- [ ] improve the styling of the intro sections
 - [ ] round and shuffle the question answers
 - [ ] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [ ] Make it update currentGenNum on population manager everytime baby generation get marked complete
 - [ ] Make the mated pair displays look cleaner
 - [ ] TODO this is not true fix
-- [ ] make getCurrentGenerationNumber work
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] I don't think the built-in theme is working
+
+- [x] make getCurrentGenerationNumber work
 - [x] when there are multiple subpopulations, the done button appears for all populations
 - [x] TODO try without the detect changes
 - [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
