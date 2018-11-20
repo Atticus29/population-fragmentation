@@ -58,7 +58,6 @@ import { MatedDirective } from './mated.directive';
 import { MatingsDisplayComponent } from './matings-display/matings-display.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { ProblemDisplayComponent } from './problem-display/problem-display.component';
-import { GenerationDisplayComponent } from './generation-display/generation-display.component';
 import { MatedSnackbarComponent } from './mated-snackbar/mated-snackbar.component';
 import { ObjectivesComponent } from './objectives/objectives.component';
 import { VocabularyComponent } from './vocabulary/vocabulary.component';
@@ -78,7 +77,6 @@ import { InstructionsComponent } from './instructions/instructions.component';
     MatingsDisplayComponent,
     IntroductionComponent,
     ProblemDisplayComponent,
-    GenerationDisplayComponent,
     MatedSnackbarComponent,
     ObjectivesComponent,
     VocabularyComponent,
