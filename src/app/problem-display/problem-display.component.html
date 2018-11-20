@@ -16,10 +16,10 @@
       <button mat-raised-button color="primary" (click)="submitAnswer(userSelectedAnswer)" class="uniform-length-button" >Submit
       </button>
     <div *ngIf="displayCorrect">
-      <p class="correct">Correct!</p>
+      <p class="correct">{{correctResponse}}</p>
     </div>
     <div *ngIf="displayIncorrect">
-      <p class="incorrect">Incorrect! Try again!</p>
+      <p class="incorrect">{{incorrectResponse}}</p>
     </div>
   </mat-card-content>
   <mat-card-actions>

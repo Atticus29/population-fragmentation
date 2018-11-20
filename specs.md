@@ -7,6 +7,7 @@
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] I don't think the built-in theme is working
+- [ ] check for generation x fragment number bugs
 
 - [x] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [x] TODO this is not true fix

@@ -20,7 +20,9 @@ export class ProblemDisplayComponent implements OnInit {
   private displayIncorrect: boolean = false;
   private previousQuestionExists: boolean = false; //TODO make dynamic
   private nextQuestionExists: boolean = false; //TODO make dynamic
-  private readyForNextStepperStep: boolean = false
+  private readyForNextStepperStep: boolean = false;
+  private correctResponse: string = "No question has been generated yet";
+  private incorrectResponse: string = "No question has been generated yet";
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   constructor(private qs: QuestionService, private popManager: PopulationManagerService) { }
 
@@ -34,6 +36,8 @@ export class ProblemDisplayComponent implements OnInit {
         this.recalibrateNextAndPreviousButtons();
         this.currentProblem = this.problems[this.currentProblemIndex];
         this.choices = this.currentProblem.getChoices();
+        this.correctResponse = this.currentProblem.getCorrectResponse();
+        this.incorrectResponse = this.currentProblem.getIncorrectResponse();
         this.question = this.currentProblem.getQuestion();
       } else{
         this.currentProblemIndex = 0;
