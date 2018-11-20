@@ -154,13 +154,13 @@ export class PopulationDetailsFormComponent implements OnInit {
           this.popManager.addToMetapopulationGenerations(metapopulation);
           //TODO add a problem to the problem service after creation of metapopulation
           let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
-          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
+          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(blueSubPop1Freq,3).toString(), "0", "1"], this.qs.roundToNearest(blueSubPop1Freq,3).toString());
           this.qs.addProblemToList(blueSubPop1FreqProblem);
           let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
-          let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.qs.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
+          let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.qs.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(greenSubPop1Freq,3).toString(), "1"], this.qs.roundToNearest(greenSubPop1Freq,3).toString());
           this.qs.addProblemToList(greenSubPop1FreqProblem);
           let magentaSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("magenta", metapopulation.getSubpopulation(0));
-          let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.qs.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
+          let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.qs.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), this.qs.roundToNearest(magentaSubPop1Freq,3).toString(), "0"], this.qs.roundToNearest(magentaSubPop1Freq,3).toString());
           this.qs.addProblemToList(magentaSubPop1FreqProblem);
 
       });

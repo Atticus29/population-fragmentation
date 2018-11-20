@@ -3,12 +3,12 @@
 ## High Priority
 - [ ] round and shuffle the question answers
 - [ ] flesh out actual content of intro sections
-- [ ] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] I don't think the built-in theme is working
 
+- [x] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [x] TODO this is not true fix
 - [x] Make it update currentGenNum on population manager every time baby generation get marked complete
 - [x] make getCurrentGenerationNumber work
