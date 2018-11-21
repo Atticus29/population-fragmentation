@@ -116,7 +116,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   }
 
   openSnackBar(baby: Organism) {
-    this.snackBar.open(baby.getOrganismName() + " has been born! It has one " + baby.getGeneByName("spot color").getGenotype().getAllele1() + " allele and one " + baby.getGeneByName("spot color").getGenotype().getAllele2() + " allele", '',{duration: 2000,});
+    this.snackBar.open(baby.getOrganismName() + " has been born! It has one " + baby.getGeneByName("spot color").getGenotype().getAllele1() + " allele and one " + baby.getGeneByName("spot color").getGenotype().getAllele2() + " allele", '',{duration: 3500,});
   }
 
   allSubpopulationsExpectedHaveBeenCreated(currentMetapop: Metapopulation, nextGenMetapop: Metapopulation){

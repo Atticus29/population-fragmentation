@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstructionsComponent implements OnInit {
   private heading: string = "Instructions";
-  private instructions: string[] = ["TODO"];
+  private instructions: string[] = ["Practice allele frequency calculations with your instructor", "Practice genotype frequency calculations with your instructor", "Practice expected heterozygosity calculations with your instructor", "Work through this simulation module, making sure to TRACK ALLELE FREQUENCIES OF EVERY SUBPOPULATION/FRAGMENT for EVERY generation", "Enter calculated allele frequencies in the spreadsheet", "Use allele frequecies to calculate expected genotype frequencies and expected heterozygosity", "Discuss class results", "Answer online worksheet questions"];
   constructor() { }
 
   ngOnInit() {

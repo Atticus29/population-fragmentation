@@ -11,7 +11,7 @@ export class IntroductionComponent implements OnInit {
   // private booleanBS: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
   private heading: string = "Introduction";
   private text: string = "In this simulation, you will be learning about how population fragmentation increases the rate at which genetic diversity is lost. We’ll be simulating populations of snarl-toothed draggles. Scientists have recently discovered that a single gene fully controls spot color, which is the gene you’ll be tracking through the generations."
-  private text2: string = "The class will be dividing into teams of two. Some teams will simulate populations split into various equally-sized fragments, while others will simulate one intact population.";
+  private text2: string = "The class will be dividing into teams of two or three. Some teams will simulate populations split into various equally-sized fragments (a.k.a., subpopulation), while others will simulate one intact population.";
   private text3: string = "Each population fragment can’t reach (and therefore can’t mate with) any other.";
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 

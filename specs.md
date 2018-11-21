@@ -2,13 +2,13 @@
 
 ## High Priority
 - [ ] shuffle the question answers
-- [ ] flesh out actual content of intro sections
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] I don't think the built-in theme is working
-- [ ] check for generation x fragment number bugs
 
+- [x] check for generation x fragment number bugs
+- [x] flesh out actual content of intro sections
 - [x] Displays as correct even after gen 1 questions are done --> when you hit "next" (not next question), it should reset that
 - [x] confirm that the generations work with large fragment numbers --> works fine unless you hit clear pop (this should really just be a refresh)
 - [x] round the question answers

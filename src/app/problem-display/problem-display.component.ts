@@ -101,4 +101,9 @@ export class ProblemDisplayComponent implements OnInit {
       this.nextQuestionExists = true;
     }
   }
+
+  processNextClick(){
+    confirm("Make sure that you calculate allele frequencies of ALL subpopulations in a similar way.");
+    this.resetCorrectStatusDisplay()
+  }
 }
