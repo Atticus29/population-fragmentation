@@ -174,12 +174,14 @@ export class PopulationDetailsFormComponent implements OnInit {
   }
 
   clearPop(){
-    this.displayLizards = false;
-    this.displayLizardsEmitter.emit(this.displayLizards);
-    this.disablePopulationGenerationForm = false;
-    this.popManager.clearMetaPopulation();
-    this.popManager.clearMetaPopulationOfMatedPairs();
-    //TODO you should get rid of dynamically generated questions
-    this.qs.clearQuestions(); //TODO is this overkill and will it create errors?
+    // this.displayLizards = false;
+    // this.displayLizardsEmitter.emit(this.displayLizards);
+    // this.disablePopulationGenerationForm = false;
+    // this.popManager.clearMetaPopulation();
+    // this.popManager.clearMetaPopulationOfMatedPairs();
+    // //TODO you should get rid of dynamically generated questions
+    // this.qs.clearQuestions(); //TODO is this overkill and will it create errors?
+    //TODO the reload is a good quick fix for the "confirm that the generations work with large fragment numbers --> works fine unless you hit clear pop (this should really just be a refresh)" bug that used to be in the spec list, but not necessarily the best fix
+    window.location.reload(true);
   }
 }

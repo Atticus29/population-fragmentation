@@ -1,7 +1,7 @@
 # Bugs
 
 ## High Priority
-- [ ] round and shuffle the question answers
+- [ ] shuffle the question answers
 - [ ] flesh out actual content of intro sections
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
@@ -9,6 +9,9 @@
 - [ ] I don't think the built-in theme is working
 - [ ] check for generation x fragment number bugs
 
+- [x] Displays as correct even after gen 1 questions are done --> when you hit "next" (not next question), it should reset that
+- [x] confirm that the generations work with large fragment numbers --> works fine unless you hit clear pop (this should really just be a refresh)
+- [x] round the question answers
 - [x] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [x] TODO this is not true fix
 - [x] Make it update currentGenNum on population manager every time baby generation get marked complete

@@ -33,5 +33,5 @@
 <br>
 <button matStepperPrevious mat-raised-button color="primary" class="uniform-length-button">Previous
 </button>
-<button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="readyForNextStepperStep">Next
+<button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="readyForNextStepperStep" (click)="resetCorrectStatusDisplay()">Next
 </button>
