@@ -1,35 +1,33 @@
 <div class="row">
-  <form materialize class="example-form" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
-    <div class="row">
-      <div class="col m1 s1">
-        <mat-form-field>
+  <form materialize class="full-width" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
+    <div class="row div-wrapper">
+      <div class="col m12 s1 form-wrapper">
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
           <mat-error>Fragment number must be > 0 and population must be large enough to split</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
           <!-- <mat-error>Population too small to split into that many fragments</mat-error> -->
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number" [errorStateMatcher]="errorGenNumMatcher">
           <mat-error>Generation number must be > 0 and less than {{MAX_GEN}}</mat-error>
         </mat-form-field>
       </div>
-      <br>
-      <br>
-      <div class="col m1 s1">
-        <mat-form-field>
+      <div class="col m12 s1">
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Allele frequency of green allele" value="0.33" required formControlName="greenAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.greenAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
           <mat-error>Allele frequencies must sum to 1</mat-error>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Allele frequency of blue allele" value="0.33" required formControlName="blueAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.blueAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="span-thirty">
           <input matInput placeholder="Allele frequency of magenta allele" value="0.34" required formControlName="magentaAlleleFreq" [ngClass]="{ 'is-invalid': submitted && f.magentaAlleleFreq.errors}" type="number" [errorStateMatcher]="errorMatcher">
         </mat-form-field>
       </div>
-    <div class="col m1 s1">
+    <div class="col m12 s1">
       <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
       </button>
       <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
