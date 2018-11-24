@@ -32,6 +32,7 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private shuffleAndPairButton: boolean = false; //TODO allow to be toggled on
   private goToQuestions: boolean = true;
   private allGenerationsViewed: boolean = false;
+  private genNum: number = null;
   // private individuals: Array<Organism>;
   private genotypeTest: Genotype;
 
@@ -106,6 +107,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
             this.goToQuestions = false;
             this.shuffleAndPairButton = false;
         }
+      });
+
+      this.popManager.currentGenNum.pipe(takeUntil(this.ngUnsubscribe)).subscribe((genNum:number) =>{
+        this.genNum = genNum;
       });
 
       //TODO for future more interesting color support, work on this and the color-name service
