@@ -1,4 +1,5 @@
 <h2>Generation {{genNum}}</h2>
+<hr>
 <div class="subpopulation" *ngFor="let subpopulation of subpopulations; let j=index">
   <h2>Subpopulation {{j+1}}</h2>
   <mat-card *ngFor="let individual of subpopulation.getIndividuals(); let i=index" [appMated]="individual.matedStatus">
