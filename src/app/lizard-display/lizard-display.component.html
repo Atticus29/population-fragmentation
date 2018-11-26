@@ -30,12 +30,12 @@
     </mat-card-actions>
   </mat-card>
   <br>
-  <button mat-raised-button color="primary" (click)="pickTwoToMate(j)" class="uniform-length-button" *ngIf="shuffleAndPairButton">Shuffle and Designate a Random Pair to Mate
+  <button mat-raised-button color="accent" (click)="pickTwoToMate(j)" class="uniform-length-button" *ngIf="shuffleAndPairButton">Shuffle and Designate a Random Pair to Mate
   </button>
-  <button matStepperNext mat-raised-button color="primary" (click)="openMatingComponent()" class="uniform-length-button" *ngIf="matingsCompleted">Next
+  <button matStepperNext mat-raised-button color="accent" (click)="openMatingComponent()" class="uniform-length-button" *ngIf="matingsCompleted">Next
   </button>
 </div>
-<button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="goToQuestions">I'm Ready to Answer Questions
+<button matStepperNext mat-raised-button color="accent" class="uniform-length-button" *ngIf="goToQuestions">I'm Ready to Answer Questions
 </button>
-<button (click)="takeThemToTheEnd()" mat-raised-button color="primary" class="uniform-length-button" *ngIf="allGenerationsViewed">I'm Ready to Answer Some Final Questions
+<button (click)="takeThemToTheEnd()" mat-raised-button color="accent" class="uniform-length-button" *ngIf="allGenerationsViewed">I'm Ready to Answer Some Final Questions
 </button>

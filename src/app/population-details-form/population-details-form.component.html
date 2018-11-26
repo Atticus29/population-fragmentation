@@ -1,6 +1,6 @@
 <h2>Create A Population</h2>
 <div class="row">
-  <form materialize class="full-width" [formGroup]="userInputFG" [hidden]="disablePopulationGenerationForm">
+  <form materialize class="full-width" [formGroup]="userInputFG" *ngIf="!disablePopulationGenerationForm">
     <div class="row div-wrapper">
       <div class="col m12 s1 form-wrapper">
         <mat-form-field class="span-thirty">
@@ -29,7 +29,7 @@
         </mat-form-field>
       </div>
     <div class="col m12 s1">
-      <button mat-raised-button color="primary" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
+      <button mat-raised-button color="accent" (click)="processForm()" class="uniform-length-button">Generate Random Population Based on These Parameters
       </button>
       <div *ngIf="submitted && f.popsize.errors" class="invalid-feedback">
         <div *ngIf="f.popsize.errors.required">Population Size is required</div>
@@ -64,7 +64,7 @@
   </div>
 </form>
 </div>
-<div class="row">
-  <button mat-raised-button color="primary" (click)="clearPop()" class="uniform-length-button" [hidden]="!disablePopulationGenerationForm">Clear Population
+<div class="row" *ngIf="disablePopulationGenerationForm">
+  <button mat-raised-button color="accent" (click)="clearPop()" class="uniform-length-button">Clear Population
   </button>
 </div>
