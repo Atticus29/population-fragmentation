@@ -64,6 +64,7 @@
 
 
 ## Low Priority
+- [ ] Make number of offspring dynamic
 - [ ] define "primary" color so that it can be accessed
 - [ ] make the draw thing scale by %, rather than having pixels everywhere
 - [ ] app-focus directive should point to top of draggles or to questions?
