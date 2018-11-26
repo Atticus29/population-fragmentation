@@ -1,3 +1,4 @@
+<h2>Answer A Few Questions About Your Population</h2>
 <mat-card class="full-width">
   <mat-card-header>
     <mat-card-title class="center"><h3>{{currentProblemIndex+1}}. {{question}}</h3></mat-card-title>
@@ -32,9 +33,10 @@
 </mat-card>
 <br>
 <div class='container'>
-  <span matStepperPrevious class='pulse-button'>Back to Inspect Population</span>
+  <button matStepperPrevious class='pulse-button' (click)="goBack()">Back to Inspect Population</button>
 </div>
-<button matStepperPrevious mat-raised-button color="primary" class="uniform-length-button">Previous
-</button>
+<!-- <button matStepperPrevious mat-raised-button color="primary" class="uniform-length-button">Previous
+</button> -->
+<br>
 <button matStepperNext mat-raised-button color="primary" class="uniform-length-button" *ngIf="readyForNextStepperStep" (click)="processNextClick()">Next
 </button>
