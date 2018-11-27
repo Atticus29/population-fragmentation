@@ -92,9 +92,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       //   }
       // });
 
-      combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+      combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered, this.popManager.nextClickedAfterQuestionsAnsweredSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let isThisTheLastGeneration = results[0];
         let questionsAnswered = results[1];
+        let nextClicked = results[2];
         this.shuffleAndPairButton = questionsAnswered;
         if(questionsAnswered){
           this.goToQuestions = false;

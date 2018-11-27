@@ -3,13 +3,13 @@
 ## High Priority
 - [ ] disable shuffle button until next button on the problems-display has been clicked
 - [ ] display gen number lots of places
-- [ ] round later questions
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
-- [ ] I don't think the built-in theme is working
 
+- [x] I don't think the built-in theme is working
+- [x] round later questions
 - [x] check for generation x fragment number bugs
 - [x] flesh out actual content of intro sections
 - [x] Displays as correct even after gen 1 questions are done --> when you hit "next" (not next question), it should reset that

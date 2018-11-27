@@ -15,6 +15,9 @@ import { IndividualGenerationService } from './individual-generation.service';
 export class PopulationManagerService {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
+  nextClickedAfterQuestionsAnsweredSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
+  // nextClickedAfterQuestionsAnswered = this.nextClickedAfterQuestionsAnsweredSource.asObservable();
+
   private eligibleBachelorsAbsentSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean> (false);
   eligibleBachelorsAbsent = this.eligibleBachelorsAbsentSource.asObservable();
 

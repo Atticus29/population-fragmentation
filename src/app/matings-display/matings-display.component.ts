@@ -92,18 +92,19 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
           this.popManager.clearMetaPopulationOfMatedPairs();
           this.questionService.clearQuestions();
           this.popManager.incrementCurrentGenNum();
+          this.popManager.nextClickedAfterQuestionsAnsweredSource.next(false);
           //currentMetaPopulation
           //nextGenMetapopulation
           this.popManager.currentMetaPopulation.pipe(takeUntil(this.ngUnsubscribe)).subscribe(metapopulation =>{
               // this.popManager.addToMetapopulationGenerations(metapopulation);
               let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
-              let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.questionService.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), blueSubPop1Freq.toString(), "0", "1"], blueSubPop1Freq.toString());
+              let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.questionService.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), this.questionService.roundToNearest(blueSubPop1Freq,3).toString(), "0", "1"], this.questionService.roundToNearest(blueSubPop1Freq,3).toString());
               this.questionService.addProblemToList(blueSubPop1FreqProblem);
               let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
-              let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.questionService.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), greenSubPop1Freq.toString(), "1"], greenSubPop1Freq.toString());
+              let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.questionService.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), this.questionService.roundToNearest(greenSubPop1Freq, 3).toString(), "1"], this.questionService.roundToNearest(greenSubPop1Freq, 3).toString());
               this.questionService.addProblemToList(greenSubPop1FreqProblem);
               let magentaSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("magenta", metapopulation.getSubpopulation(0));
-              let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.questionService.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), magentaSubPop1Freq.toString(), "0"], magentaSubPop1Freq.toString());
+              let magentaSubPop1FreqProblem = new Problem("What is the allele frequency of the magenta allele in subpopulation 1?", ["1", this.questionService.roundToNearest((magentaSubPop1Freq - 0.25),3).toString(), this.questionService.roundToNearest(magentaSubPop1Freq, 3).toString(), "0"], this.questionService.roundToNearest(magentaSubPop1Freq, 3).toString());
               this.questionService.addProblemToList(magentaSubPop1FreqProblem);
 
           });
