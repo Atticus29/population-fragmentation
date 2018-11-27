@@ -1,6 +1,9 @@
 # Bugs
 
 ## High Priority
+- [ ] disable shuffle button until next button on the problems-display has been clicked
+- [ ] display gen number lots of places
+- [ ] round later questions
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
