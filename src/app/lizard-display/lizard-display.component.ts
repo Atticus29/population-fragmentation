@@ -48,30 +48,17 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         this.cdr.detectChanges(); //TODO figure out order
         this.drawDraggles();
         this.cdr.detectChanges();
-
-        for(let i = 0; i<this.subpopulations.length; i++){
-          // console.log("subpopulation " + i.toString());
-          let subpopulation = this.subpopulations[i];
-          let blueAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("blue", subpopulation);
-          // console.log("blue");
-          // console.log(blueAlleleFreq);
-          let greenAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("green", subpopulation);
-          // console.log("green");
-          // console.log(greenAlleleFreq);
-          let magentaAlleleFreq = this.popManager.calculatePopulationAlleleFrequency("magenta", subpopulation);
-          // console.log("magenta");
-          // console.log(magentaAlleleFreq);
-        }
       });
 
       //this has to happen before the check for whether this is the last generation
-      combineLatest([this.popManager.isEveryoneInTheMetaPopulationMated(), this.popManager.isThisTheLastGeneration()]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+      combineLatest([this.popManager.isEveryoneInTheMetaPopulationMated(), this.popManager.isThisTheLastGeneration(), this.popManager.nextClickedAfterQuestionsAnsweredSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let everyoneMatedStatus = results[0];
+        let nextClicked = results[2];
         console.log("everyoneMatedStatus");
         console.log(everyoneMatedStatus);
         let isLastGen = results[1];
         this.matingsCompleted = everyoneMatedStatus;
-        this.shuffleAndPairButton = !everyoneMatedStatus;
+        this.shuffleAndPairButton = !everyoneMatedStatus && nextClicked;
         if(isLastGen){
           console.log("it's the last gen!");
           this.shuffleAndPairButton = false;
@@ -92,10 +79,9 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       //   }
       // });
 
-      combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered, this.popManager.nextClickedAfterQuestionsAnsweredSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+      combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let isThisTheLastGeneration = results[0];
         let questionsAnswered = results[1];
-        let nextClicked = results[2];
         this.shuffleAndPairButton = questionsAnswered;
         if(questionsAnswered){
           this.goToQuestions = false;

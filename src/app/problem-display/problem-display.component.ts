@@ -109,6 +109,6 @@ export class ProblemDisplayComponent implements OnInit {
   }
 
   goBack(){
-    console.log("Mark got here");
+    //TODO in case you need to something here, which you may or may not need
   }
 }
