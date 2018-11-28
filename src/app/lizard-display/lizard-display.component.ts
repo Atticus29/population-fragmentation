@@ -89,8 +89,8 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         } else {
           this.goToQuestions = true;
         }
-        if(isThisTheLastGeneration && questionsAnswered){
-            console.log("isThisTheLastGeneration and questionsAnswered are true from lizard-display");
+        if(isThisTheLastGeneration && questionsAnswered && nextClicked){
+            console.log("isThisTheLastGeneration and questionsAnswered and nextClicked are true from lizard-display");
             this.allGenerationsViewed = true;
             this.goToQuestions = false;
             this.shuffleAndPairButton = false;
