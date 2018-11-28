@@ -5,6 +5,7 @@
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
+- [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
 
 - [x] disable shuffle button until next button on the problems-display has been clicked
 - [x] display gen number lots of places
