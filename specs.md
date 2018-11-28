@@ -1,13 +1,13 @@
 # Bugs
 
 ## High Priority
-- [ ] disable shuffle button until next button on the problems-display has been clicked
-- [ ] display gen number lots of places
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
 
+- [x] disable shuffle button until next button on the problems-display has been clicked
+- [x] display gen number lots of places
 - [x] I don't think the built-in theme is working
 - [x] round later questions
 - [x] check for generation x fragment number bugs

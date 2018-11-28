@@ -28,6 +28,7 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
   private matedPairSubpopulations: Array<PopulationOfMatedPairs> = new Array<PopulationOfMatedPairs>();
   private hideNextButton: boolean = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private genNum: number;
   constructor(private popManager: PopulationManagerService, private ds: DrawingService, private cdr: ChangeDetectorRef, private individualGenerationService: IndividualGenerationService, public snackBar: MatSnackBar, private questionService: QuestionService) { }
 
   ngOnInit() {
@@ -38,6 +39,10 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         this.drawDraggles();
       }
     });
+
+    this.popManager.currentGenNum.pipe(takeUntil(this.ngUnsubscribe)).subscribe((genNum:number) =>{
+          this.genNum = genNum;
+        });
   }
 
   ngAfterViewInit(){

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from "rxjs";
+
 import { Problem } from '../problem.model';
-import { take } from 'rxjs/operators';
+
 import { QuestionService } from '../question.service';
 import { PopulationManagerService } from '../population-manager.service';
 
@@ -24,6 +28,8 @@ export class ProblemDisplayComponent implements OnInit {
   private correctResponse: string = "No question has been generated yet";
   private incorrectResponse: string = "No question has been generated yet";
   private letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  private genNum: number;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(private qs: QuestionService, private popManager: PopulationManagerService) { }
 
   ngOnInit() {
@@ -47,6 +53,10 @@ export class ProblemDisplayComponent implements OnInit {
     });
     this.qs.questionsAnswered.subscribe(questionsAnswered =>{
       this.readyForNextStepperStep = questionsAnswered;
+    });
+
+    this.popManager.currentGenNum.pipe(takeUntil(this.ngUnsubscribe)).subscribe((genNum:number) =>{
+      this.genNum = genNum;
     });
   }
 
