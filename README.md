@@ -1,31 +1,47 @@
-# PopulationFragmentation
+# Draggle Drift
 
 ## Description
 
+The populations genetics concept of genetic drift is a notoriously difficult concept to teach and to learn. Draggle Drift is an open-source simulation webapp that allows students to create a metapopulation of fictitious diploid simultaneously-hermaphroditic animals called draggles that satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size.
+
+The simulation tracks individuals over the course of generations with respect to one gene that is necessary and sufficient to determine spot color in draggles. Currently, three alleles are supported ...In other words, TODO the effect of a phenomenon called genetic drift on genetic diversity.
+
+Users are able to specify parameters including:
+ * population size
+ * number of fragments into which the metapopulation is split
+ * number of generations to follow the metapopualtion
+ * starting allele frequencies of three alleles of the spot color gene
+
+In particular, it explores the effect of fragmenting populations on genetic diversity.
+
+## Software Features
+
+Draggle Drift is extensible TODO
+
+## Software Framework Details
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
-Population fragmentation is an open-source web app that allows students to simulate the effect of a phenomenon called genetic drift on genetic diversity. In particular, it explores the effect of fragmenting populations on genetic diversity.
-
-## Development server
+### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+### Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

@@ -105,12 +105,10 @@
 - [x] Gametes of each individual are displayed
 - [ ] User clicks on make baby button under each pair and sees:
 	- [ ] Which gamete each parent give to offspring
-	- [ ] the offspring resulting from mating events (the lizard with its spots)
+	- [x] the offspring resulting from mating events (the name and genotype)
 	- [x] User no longer sees make baby button after two (x) babies are made
+- [x] When all babies are made, user is asked to calculate allele frequencies of new offspring generation
+- [x] User sees offspring population replace their parents
+- [x] User repeats process above until x generations are done
 
-
-- [ ] When all babies are made, user is asked to calculate allele frequencies of new offspring generation
-
-- [ ] User sees offspring population replace their parents
-- [ ] User repeats process above until 10 (x) generations are done
 - [ ] User sees the allele frequencies of each generation
