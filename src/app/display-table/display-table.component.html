@@ -12,19 +12,24 @@
       <td mat-cell *matCellDef="let row">{{row.fragment}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="alleleFrequencyBlue">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Blue Allele</th>
-      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyBlue}}</td>
+    <ng-container matColumnDef="fragmentPopSize">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Fragment Population Size</th>
+      <td mat-cell *matCellDef="let row">{{row.fragmentPopSize}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="alleleFrequencyGreen">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Green Allele</th>
-      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyGreen}}</td>
+    <ng-container matColumnDef="blueCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Count of Blue Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.blueCount}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="alleleFrequencyMagenta">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Frequency of Magenta Allele</th>
-      <td mat-cell *matCellDef="let row">{{row.alleleFrequencyMagenta}}</td>
+    <ng-container matColumnDef="greenCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Count of Green Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.greenCount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="magentaCount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Count of Magenta Allele</th>
+      <td mat-cell *matCellDef="let row">{{row.magentaCount}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

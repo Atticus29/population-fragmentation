@@ -1,24 +1,27 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, of as observableOf, merge, Subject } from 'rxjs';
+
 import { PopulationManagerService } from '../population-manager.service';
+import { IndividualGenerationService } from '../individual-generation.service';
 
 export interface DisplayTableItem {
   generation: number;
   fragment: number;
-  alleleFrequencyBlue: number;
-  alleleFrequencyGreen: number;
-  alleleFrequencyMagenta: number;
+  fragmentPopSize: number;
+  blueCount: number;
+  greenCount: number;
+  magentaCount: number;
 }
 
 // TODO: replace this with real data from your application
 //TODO fix
 let frequencyData: DisplayTableItem[] = [];
-// let popManagerInstance = new PopulationManagerService();
+let ngUnsubscribe: Subject<void> = new Subject<void>();
 // popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
 //   console.log(result);
-//   frequencyData.push({generation: 0, fragment: 1, alleleFrequencyBlue: result, alleleFrequencyGreen: 0.77, alleleFrequencyMagenta: 0.78});
 //   //TODO update this somehow
 // });
 // const frequencyData: DisplayTableItem[] = [
@@ -56,7 +59,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
     this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
+      return this.getPagedData(this.getSortedData(this.getAllGenerationData([...this.data])));
     }));
   }
 
@@ -65,6 +68,18 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}
+
+  getAllGenerationData(data: DisplayTableItem[]){
+    return Observable.create(obs => {
+      let popManagerInstance = new PopulationManagerService(new IndividualGenerationService());
+      popManagerInstance.metapopulationGenerations.subscribe(results =>{
+        console.log("results!");
+        console.log(results);
+        data.push({generation: 0, fragment: 1,fragmentPopSize: 10 , blueCount: 5, greenCount: 0.77, magentaCount: 0.78});
+        obs.next(data);
+      });
+    });
+  }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
@@ -89,9 +104,10 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
       switch (this.sort.active) {
         case 'generation': return compare(a.generation, b.generation, isAsc);
         case 'fragment': return compare(+a.fragment, +b.fragment, isAsc);
-        case 'alleleFrequencyBlue': return compare(+a.alleleFrequencyBlue, +b.alleleFrequencyBlue, isAsc);
-        case 'alleleFrequencyGreen': return compare(+a.alleleFrequencyGreen, +b.alleleFrequencyGreen, isAsc);
-        case 'alleleFrequencyMagenta': return compare(+a.alleleFrequencyMagenta, +b.alleleFrequencyMagenta, isAsc);
+        case 'fragmentPopSize': return compare(+a.fragmentPopSize, +b.fragmentPopSize, isAsc);
+        case 'blueCount': return compare(+a.blueCount, +b.blueCount, isAsc);
+        case 'greenCount': return compare(+a.greenCount, +b.greenCount, isAsc);
+        case 'magentaCount': return compare(+a.magentaCount, +b.magentaCount, isAsc);
         default: return 0;
       }
     });

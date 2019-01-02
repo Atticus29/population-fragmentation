@@ -1,6 +1,8 @@
 # Bugs
 
 ## High Priority
+- [ ] display allele count table
+- [ ] add questions to intro section
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro sections
 - [ ] Make the mated pair displays look cleaner

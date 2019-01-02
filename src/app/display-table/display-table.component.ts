@@ -13,7 +13,7 @@ export class DisplayTableComponent implements OnInit {
   dataSource: DisplayTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['generation', 'fragment', 'alleleFrequencyBlue', 'alleleFrequencyGreen', 'alleleFrequencyMagenta'];
+  displayedColumns = ['generation', 'fragment', 'fragmentPopSize', 'blueCount', 'greenCount', 'magentaCount'];
 
   ngOnInit() {
     this.dataSource = new DisplayTableDataSource(this.paginator, this.sort);
