@@ -14,9 +14,13 @@ Users are able to specify parameters including:
 
 In particular, it explores the effect of fragmenting populations on genetic diversity.
 
-## Software Features
+## Software Features and Details for Other Contributors
 
-Draggle Drift is extensible TODO
+Draggle Drift currently only simulates genetic drift, but contains models for metapopulations, populations, mated-pairs, organisms, genotypes, genes, and alleles. Consequently, simulating other forces or combinations of forces that drive evolutionary change should be relatively straightforward.
+
+The questions are managed and persisted across the stepper components by injecting a service called QuestionService. Each question is an instance of the "problem" model.
+
+Similarly, the metapopulations, which, depending on user input from the form, consist of one or more subpopulations, are persisted across stepper components by injecting a service called PopulationManagerService. Both of these services track the status of their respective TODO
 
 ## Software Framework Details
 
