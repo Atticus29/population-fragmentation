@@ -1,11 +1,13 @@
-# DraggleSimulator
+# DraggleSimulator: and Open Source Web Application for Teaching Genetic Drift
 
 By: Mark Fisher TODO see how others do this
 January, 2019
 
-## Description/User Experience
+## For The Instructor: What is DraggleSimulator?
 
-The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals called draggles across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby allowing the sampling error that accounts for genetic drift).
+TODO add user video here
+
+The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in an example instance (Population Simulator)[www.populationsimulator.com] or in a less-structured fashion, students can explore how allele frequencies can in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. They can compare how allele frequencies change in populations of different sizes or in metapopulations of the same total size but with different numbers of isolated subpopulations.
 
 The simulation tracks individuals over the course of any number of generations with respect to one gene that is necessary and sufficient to determine spot color in draggles. Currently, the simulation tracks three alleles at this gene (although it should not be difficult to extend this).
 
@@ -37,6 +39,14 @@ TODO direct them to github issues page if they find a new bug
 
 ## How to Set Up Your Own Instance of DraggleSimulator in Amazon Web Services
 TODO add some instructions with links and a video here.
+
+## How to Set Up Your Own Instance of The Example in populationsimulator.com
+
+1. Clone
+1. Checkout v1.1 branch TODO check
+1. Add any personal questions in TODO.doc
+1. Add URL to your personal google form (TODO make a copy of this one) TODO google can people copy google forms they don't have edit rights to?
+1. Follow the same instructions about, but use this build instead
 
 ## Software Framework Details
 
