@@ -7,21 +7,17 @@ January, 2019
 
 TODO add user video here
 
-The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in an example instance (Population Simulator)[www.populationsimulator.com] or in a less-structured fashion, students can explore how allele frequencies can in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. They can compare how allele frequencies change in populations of different sizes or in metapopulations of the same total size but with different numbers of isolated subpopulations.
+The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in this example instance (Population Simulator)[www.populationsimulator.com] or in a less-structured fashion, students can explore how allele frequencies can change in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. They can compare how allele frequencies change in populations of different sizes or in metapopulations of the same total size but with different numbers of isolated subpopulations. For instance, I used the simulation to help students explore the effects of fragmenting populations on genetic diversity.
 
-The simulation tracks individuals over the course of any number of generations with respect to one gene that is necessary and sufficient to determine spot color in draggles. Currently, the simulation tracks three alleles at this gene (although it should not be difficult to extend this).
+The simulation tracks individuals over the course of any number of generations with respect to one gene that is necessary and sufficient to determine spot color in the fictitious draggles. Currently, the simulation tracks three alleles at this gene (although it should not be difficult to extend this).
 
-Each generation, the user must answer several questions about allele frequencies of the current generation of the metapopulation actively assign two individuals in the population that are currently unmated (the "Shuffle and Designate a Random Pair to Mate" button) to form a mated pair.
-
-In other words, TODO the effect of a phenomenon called genetic drift on genetic diversity.
-
-Users are able to specify parameters including:
+At the beginning of the simulation, users are able to specify parameters including:
  * population size
  * number of fragments into which the metapopulation is split
  * number of generations to follow the metapopualtion
  * starting allele frequencies of three alleles of the spot color gene
 
-In particular, it explores the effect of fragmenting populations on genetic diversity.
+Each generation of the simulation, the user must answer several questions about allele frequencies of the current generation of the metapopulation. Then, the user is prompted to assign two individuals in the same subpopulation that are currently unmated (the "Shuffle and Designate a Random Pair to Mate" button) to form a mated pair for each subpopulation. Afterwards, users are taken a to a new component of the app that displays the mated pairs and prompts the user to generate two offspring (this should be easily extensible to more or fewer offspring TODO). Once all possible offspring are generated for each pair (i.e., currently 2 to reflect replacement-level fertility), the user is then escorted to a new component that displays the new generation of offspring as a fresh metapopulation. If this is not the final generation, the user is again prompted to answer questions about allele frequencies for the new generation. The sequence of components continues as described above until the final generation selected by the user at the beginning of the simulation is reached. At this point, the user is guided to a final component. Instructors can add any questions they might like to this component, or they can link students to google sheets or google forms to make collaborative spreadsheets and answer easily-graded questions.
 
 ## Software Features and Details for Other Contributors
 
