@@ -30,8 +30,8 @@ let popManagerInstance = new PopulationManagerService(new IndividualGenerationSe
 //   //TODO update this somehow
 // });
 frequencyData = [
-  // {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
-  // {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
+  {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
+  {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
 ];
 
 /**
@@ -75,6 +75,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
   disconnect() {}
 
   resetDataTableData(){
+    this.data = [];
     this.popManager.metapopulationGenerations.subscribe(results =>{
       console.log("hi mark from inside resetDataTableData");
       for (let i = 0; i<results.length; i++){
@@ -84,10 +85,12 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
           let currentBlueCount = this.popManager.getAlleleCount("blue", currentIndividuals);
           let currentGreenCount = this.popManager.getAlleleCount("green", currentIndividuals);
           let currentMagentaCount = this.popManager.getAlleleCount("magenta", currentIndividuals);
-          console.log(currentBlueCount);
-          console.log(currentGreenCount);
-          console.log(currentMagentaCount);
-          this.data.push({generation: i, fragment: j, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
+          // console.log(currentBlueCount);
+          // console.log(currentGreenCount);
+          // console.log(currentMagentaCount);
+          console.log(this.data);
+          this.data.push({generation: i+1, fragment: j+1, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
+          console.log(this.data);
         }
       }
     });
