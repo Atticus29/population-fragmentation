@@ -1,6 +1,6 @@
 # Specs
 
-- [ ] Users can see a table of allele counts for each generation so they don't get tempted to hit the back button
+- [x] Users can see a table of allele counts for each generation
 - [x] User can choose starting total population size
 - [x] User can choose number of population fragments
 - [x] User can choose the number of generations to track

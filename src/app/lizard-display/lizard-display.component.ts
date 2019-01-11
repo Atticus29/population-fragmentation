@@ -54,8 +54,6 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       combineLatest([this.popManager.isEveryoneInTheMetaPopulationMated(), this.popManager.isThisTheLastGeneration(), this.popManager.nextClickedAfterQuestionsAnsweredSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let everyoneMatedStatus = results[0];
         let nextClicked = results[2];
-        console.log("everyoneMatedStatus");
-        console.log(everyoneMatedStatus);
         let isLastGen = results[1];
         this.matingsCompleted = everyoneMatedStatus;
         this.shuffleAndPairButton = !everyoneMatedStatus && nextClicked;

@@ -151,7 +151,9 @@ export class PopulationDetailsFormComponent implements OnInit {
       // this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
       // });
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
+          console.log("Mark ,this is about to be called");
           this.popManager.addToMetapopulationGenerations(metapopulation);
+          console.log("Mark ,this is got called");
           //TODO add a problem to the problem service after creation of metapopulation
           let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
           let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(blueSubPop1Freq,3).toString(), "0", "1"], this.qs.roundToNearest(blueSubPop1Freq,3).toString());

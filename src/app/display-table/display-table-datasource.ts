@@ -1,30 +1,38 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, of as observableOf, merge, Subject } from 'rxjs';
+
 import { PopulationManagerService } from '../population-manager.service';
+import { IndividualGenerationService } from '../individual-generation.service';
 
 export interface DisplayTableItem {
   generation: number;
   fragment: number;
-  alleleFrequencyBlue: number;
-  alleleFrequencyGreen: number;
-  alleleFrequencyMagenta: number;
+  fragmentPopSize: number;
+  blueCount: number;
+  greenCount: number;
+  magentaCount: number;
 }
 
 // TODO: replace this with real data from your application
 //TODO fix
 let frequencyData: DisplayTableItem[] = [];
-// let popManagerInstance = new PopulationManagerService();
+let ngUnsubscribe: Subject<void> = new Subject<void>();
+let popManagerInstance = new PopulationManagerService(new IndividualGenerationService());
+// popManagerInstance.currentMetaPopulation.subscribe(metapopulation =>{
+//   console.log("hi mark");
+//   console.log(metapopulation);
+// });
 // popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
 //   console.log(result);
-//   frequencyData.push({generation: 0, fragment: 1, alleleFrequencyBlue: result, alleleFrequencyGreen: 0.77, alleleFrequencyMagenta: 0.78});
 //   //TODO update this somehow
 // });
-// const frequencyData: DisplayTableItem[] = [
-//   {id: 1, name: 'Hydrogen'},
-//   {id: 2, name: 'Helium'},
-// ];
+frequencyData = [
+  // {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
+  // {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
+];
 
 /**
  * Data source for the DisplayTable view. This class should
@@ -34,7 +42,8 @@ let frequencyData: DisplayTableItem[] = [];
 export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
   data: DisplayTableItem[] = frequencyData;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+
+  constructor(private paginator: MatPaginator, private sort: MatSort, private popManager: PopulationManagerService) {
     super();
   }
 
@@ -44,6 +53,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<DisplayTableItem[]> {
+    this.resetDataTableData();
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -65,6 +75,40 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}
+
+  resetDataTableData(){
+    this.data = [];
+    this.popManager.metapopulationGenerations.subscribe(results =>{
+      console.log("hi mark from inside resetDataTableData");
+      for (let i = 0; i<results.length; i++){
+        for(let j = 0; j<results[i].getSubpopulations().length; j++){
+          let currentSubpop = results[i].getSubpopulations()[j];
+          let currentIndividuals = currentSubpop.getIndividuals();
+          let currentBlueCount = this.popManager.getAlleleCount("blue", currentIndividuals);
+          let currentGreenCount = this.popManager.getAlleleCount("green", currentIndividuals);
+          let currentMagentaCount = this.popManager.getAlleleCount("magenta", currentIndividuals);
+          // console.log(currentBlueCount);
+          // console.log(currentGreenCount);
+          // console.log(currentMagentaCount);
+          console.log(this.data);
+          this.data.push({generation: i+1, fragment: j+1, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
+          console.log(this.data);
+        }
+      }
+    });
+  };
+
+  getAllGenerationData(data: DisplayTableItem[]){
+    return Observable.create(obs => {
+      let popManagerInstance = new PopulationManagerService(new IndividualGenerationService());
+      popManagerInstance.metapopulationGenerations.subscribe(results =>{
+        console.log("results!");
+        console.log(results);
+        data.push({generation: 0, fragment: 1,fragmentPopSize: 10 , blueCount: 5, greenCount: 0.77, magentaCount: 0.78});
+        obs.next(data);
+      });
+    });
+  }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
@@ -89,9 +133,10 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
       switch (this.sort.active) {
         case 'generation': return compare(a.generation, b.generation, isAsc);
         case 'fragment': return compare(+a.fragment, +b.fragment, isAsc);
-        case 'alleleFrequencyBlue': return compare(+a.alleleFrequencyBlue, +b.alleleFrequencyBlue, isAsc);
-        case 'alleleFrequencyGreen': return compare(+a.alleleFrequencyGreen, +b.alleleFrequencyGreen, isAsc);
-        case 'alleleFrequencyMagenta': return compare(+a.alleleFrequencyMagenta, +b.alleleFrequencyMagenta, isAsc);
+        case 'fragmentPopSize': return compare(+a.fragmentPopSize, +b.fragmentPopSize, isAsc);
+        case 'blueCount': return compare(+a.blueCount, +b.blueCount, isAsc);
+        case 'greenCount': return compare(+a.greenCount, +b.greenCount, isAsc);
+        case 'magentaCount': return compare(+a.magentaCount, +b.magentaCount, isAsc);
         default: return 0;
       }
     });
