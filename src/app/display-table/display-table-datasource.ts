@@ -30,8 +30,8 @@ let popManagerInstance = new PopulationManagerService(new IndividualGenerationSe
 //   //TODO update this somehow
 // });
 frequencyData = [
-  {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
-  {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
+  // {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
+  // {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
 ];
 
 /**
@@ -41,6 +41,7 @@ frequencyData = [
  */
 export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
   data: DisplayTableItem[] = frequencyData;
+
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private popManager: PopulationManagerService) {
     super();
@@ -52,6 +53,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<DisplayTableItem[]> {
+    this.resetDataTableData();
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -127,7 +129,6 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
     }
 
     return data.sort((a, b) => {
-      this.resetDataTableData();
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'generation': return compare(a.generation, b.generation, isAsc);
