@@ -56,10 +56,6 @@ export class PopulationManagerService {
       combineLatest([this.totalGenNumSource, this.currentGenNumSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let totalGenNum = results[0];
         let currentGenNum = results[1];
-        console.log("totalGenNum");
-        console.log(totalGenNum);
-        console.log("currentGenNum");
-        console.log(currentGenNum);
         if(totalGenNum == currentGenNum){
           obs.next(true);
         } else{
@@ -470,6 +466,17 @@ calculatePopulationAlleleFrequency(alleleName: string, populationOfInterest: Pop
     if (allele2 === alleleName){alleleOfInterestCount++;}
   });
   return(alleleOfInterestCount/(2*popSize));
+}
+
+getAlleleCount(alleleName: string, individuals: Organism[]){
+  let alleleOfInterestCount = 0;
+  individuals.forEach(individual =>{
+    let allele1 = individual.getGeneByName("spot color").getGenotype().getAllele1();
+    let allele2 = individual.getGeneByName("spot color").getGenotype().getAllele2();
+    if (allele1 === alleleName){alleleOfInterestCount++;}
+    if (allele2 === alleleName){alleleOfInterestCount++;}
+  });
+  return alleleOfInterestCount;
 }
 
 calculateAlleleFrequencyOfSource(alleleName: string, doYouWantNewGeneration: boolean){ //TODO accommodate different behaviorSubjects!

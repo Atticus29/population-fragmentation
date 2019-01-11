@@ -20,14 +20,19 @@ export interface DisplayTableItem {
 //TODO fix
 let frequencyData: DisplayTableItem[] = [];
 let ngUnsubscribe: Subject<void> = new Subject<void>();
+let popManagerInstance = new PopulationManagerService(new IndividualGenerationService());
+// popManagerInstance.currentMetaPopulation.subscribe(metapopulation =>{
+//   console.log("hi mark");
+//   console.log(metapopulation);
+// });
 // popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
 //   console.log(result);
 //   //TODO update this somehow
 // });
-// const frequencyData: DisplayTableItem[] = [
-//   {id: 1, name: 'Hydrogen'},
-//   {id: 2, name: 'Helium'},
-// ];
+frequencyData = [
+  // {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
+  // {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
+];
 
 /**
  * Data source for the DisplayTable view. This class should
@@ -37,7 +42,7 @@ let ngUnsubscribe: Subject<void> = new Subject<void>();
 export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
   data: DisplayTableItem[] = frequencyData;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, private popManager: PopulationManagerService) {
     super();
   }
 
@@ -59,7 +64,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
     this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData(this.getAllGenerationData([...this.data])));
+      return this.getPagedData(this.getSortedData([...this.data]));
     }));
   }
 
@@ -68,6 +73,25 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}
+
+  resetDataTableData(){
+    this.popManager.metapopulationGenerations.subscribe(results =>{
+      console.log("hi mark from inside resetDataTableData");
+      for (let i = 0; i<results.length; i++){
+        for(let j = 0; j<results[i].getSubpopulations().length; j++){
+          let currentSubpop = results[i].getSubpopulations()[j];
+          let currentIndividuals = currentSubpop.getIndividuals();
+          let currentBlueCount = this.popManager.getAlleleCount("blue", currentIndividuals);
+          let currentGreenCount = this.popManager.getAlleleCount("green", currentIndividuals);
+          let currentMagentaCount = this.popManager.getAlleleCount("magenta", currentIndividuals);
+          console.log(currentBlueCount);
+          console.log(currentGreenCount);
+          console.log(currentMagentaCount);
+          this.data.push({generation: i, fragment: j, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
+        }
+      }
+    });
+  };
 
   getAllGenerationData(data: DisplayTableItem[]){
     return Observable.create(obs => {
@@ -100,6 +124,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
     }
 
     return data.sort((a, b) => {
+      this.resetDataTableData();
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'generation': return compare(a.generation, b.generation, isAsc);
