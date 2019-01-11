@@ -1,6 +1,7 @@
 # Known Bugs
 
 ## High Priority Bugs
+- [ ] All fragments with one individual is problematic (maybe prevent at the form stage?)
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro sections
