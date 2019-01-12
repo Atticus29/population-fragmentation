@@ -79,7 +79,6 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
   resetDataTableData(){
     this.data = [];
     this.popManager.metapopulationGenerations.subscribe(results =>{
-      console.log("hi mark from inside resetDataTableData");
       for (let i = 0; i<results.length; i++){
         for(let j = 0; j<results[i].getSubpopulations().length; j++){
           let currentSubpop = results[i].getSubpopulations()[j];

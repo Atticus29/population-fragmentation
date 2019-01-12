@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { masterConfigProperties } from '../masterConfiguration';
 
 @Component({
   selector: 'app-questions',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
-  //TODO add more questions on the google form
+  private introGoogleSheetUrl: string = masterConfigProperties.googleSheetUrl;
+  private introGoogleFormUrl: string = masterConfigProperties.googleFormUrl;
   constructor() { }
 
   ngOnInit() {

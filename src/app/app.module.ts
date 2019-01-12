@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { masterConfigProperties } from './masterConfiguration';
+
 import { AppComponent } from './app.component';
 import { PopulationDetailsFormComponent } from './population-details-form/population-details-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
