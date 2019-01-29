@@ -1,0 +1,17 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+	"Mark Fisher",
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/Atticus29/population-fragmentation",
+  "datePublished": "2019-01-28",
+  "dateModified": "2019-01-28",
+  "dateCreated": "2019-01-28",
+  "description": "DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in this example instance (Population Simulator)[www.populationsimulator.com] or in a less-structured fashion, students can explore how allele frequencies can change in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. ",
+  "keywords": "evolution, genetic drift, population genetics, simulator, simulation, Hardy-Weinberg equilibrium, HWE, drift, sampling error",
+  "license": "MIT",
+  "title": "DraggleSimulator",
+  "version": "v1.0.0"
+}
