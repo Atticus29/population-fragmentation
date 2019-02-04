@@ -66,6 +66,7 @@ import { ObjectivesComponent } from './objectives/objectives.component';
 import { VocabularyComponent } from './vocabulary/vocabulary.component';
 import { InstructionsComponent } from './instructions/instructions.component';
 import { InstructorConfigureComponent } from './instructor-configure/instructor-configure.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { InstructorConfigureComponent } from './instructor-configure/instructor-
     ObjectivesComponent,
     VocabularyComponent,
     InstructionsComponent,
-    InstructorConfigureComponent
+    InstructorConfigureComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
