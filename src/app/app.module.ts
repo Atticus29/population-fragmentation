@@ -4,6 +4,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { masterConfigProperties } from './masterConfiguration';
 
+import { routingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { PopulationDetailsFormComponent } from './population-details-form/population-details-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -64,6 +65,8 @@ import { MatedSnackbarComponent } from './mated-snackbar/mated-snackbar.componen
 import { ObjectivesComponent } from './objectives/objectives.component';
 import { VocabularyComponent } from './vocabulary/vocabulary.component';
 import { InstructionsComponent } from './instructions/instructions.component';
+import { InstructorConfigureComponent } from './instructor-configure/instructor-configure.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,9 @@ import { InstructionsComponent } from './instructions/instructions.component';
     MatedSnackbarComponent,
     ObjectivesComponent,
     VocabularyComponent,
-    InstructionsComponent
+    InstructionsComponent,
+    InstructorConfigureComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +106,9 @@ import { InstructionsComponent } from './instructions/instructions.component';
     MatStepperModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    routingModule,
+    MatMenuModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

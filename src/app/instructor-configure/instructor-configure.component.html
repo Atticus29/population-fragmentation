@@ -1,0 +1,18 @@
+<form materialize class="full-width" [formGroup]="instructorConfigFG">
+  <div class="row div-wrapper">
+    <div class="col m12 s1 form-wrapper">
+      <mat-form-field class="full">
+        <input matInput placeholder="Google Spreadsheet URL" value="{{googleSheetUrl}}" required formControlName="spreadsheetUrl" [ngClass]="{ 'is-invalid': submitted && spreadsheetUrl.errors}" type="url" [errorStateMatcher]="errorSpreadsheetUrlMatcher">
+        <mat-error>Must be valid URL</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full">
+        <input matInput placeholder="Google Form URL" value="{{googleFormUrl}}" required formControlName="formUrl" [ngClass]="{ 'is-invalid': submitted && formUrl.errors}" type="url" [errorStateMatcher]="errorFormUrlMatcher">
+        <mat-error>Must be valid URL</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row div-wrapper">
+    <button mat-raised-button color="accent" (click)="processForm()" class="uniform-length-button">Submit
+    </button>
+  </div>
+</form>

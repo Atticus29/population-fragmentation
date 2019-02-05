@@ -1,44 +1,8 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div class="mat-app-background basic-container" [appFocus]="true">
-  <h1 class="title">Population Fragmentation Simulator</h1>
-  <h2 class="subtitle">Use the stepper or the buttons at the bottom of the pages to navigate</h2>
-  <mat-horizontal-stepper [linear]="isLinear" #stepperMain>
-    <mat-step label="Introduction">
-      <app-introduction></app-introduction>
-    </mat-step>
-    <mat-step label="Objectives">
-      <app-objectives></app-objectives>
-    </mat-step>
-    <mat-step label="Vocabulary">
-      <app-vocabulary></app-vocabulary>
-    </mat-step>
-    <mat-step label="Instructions">
-      <app-instructions></app-instructions>
-    </mat-step>
-    <mat-step label="Create Population">
-      <app-population-details-form (displayQuestionsEmitter)="setDisplayQuestions($event)" (displayLizardsEmitter)="setDisplayLizards($event)" (takeNextStepEmitter)="takeNextStep($event, stepperMain)"></app-population-details-form>
-    </mat-step>
-    <div class="repeater" *ngFor="let generation of generations">
-      <mat-step label="Inspect Population">
-        <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)"></app-lizard-display>
-      </mat-step>
-      <mat-step label="Answer Questions" class="full-width">
-        <app-problem-display></app-problem-display>
-      </mat-step>
-      <mat-step label="Arrange Matings">
-        <app-lizard-display *ngIf="displayLizards" [appFocus]="focusOnQuestion" (openMatingComponentEmitter)="setMatingDisplay($event)" (takeToEndEmitter)="takeToEnd($event, stepperMain)"></app-lizard-display>
-      </mat-step>
-      <mat-step label="View Matings">
-        <app-matings-display *ngIf="displayLizards" (repeatMatingEmitter)="repeatStepperForNewGen($event, stepperMain)" (doneRepeatingEmitter)="doneRepeatStepper($event, stepperMain)"></app-matings-display>
-      </mat-step>
-    </div>
-    <mat-step>
-      <app-matings-display *ngIf="displayMatings"></app-matings-display>
-      <!-- <app-questions *ngIf="displayQuestions" [appFocus]="displayQuestions"></app-questions> -->
-    </mat-step>
-    <mat-step label="Final Questions">
-      <app-questions *ngIf="displayQuestions" [appFocus]="displayQuestions"></app-questions>
-      <!-- <app-display-table></app-display-table> -->
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <a mat-menu-item routerLink="/instructor-config">Instructors</a>
+  <a mat-menu-item routerLink="/">Genetic Drift</a>
+</mat-menu>
+<router-outlet></router-outlet>
