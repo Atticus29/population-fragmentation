@@ -6,6 +6,7 @@ import {ErrorStateMatcher} from '@angular/material';
 
 import { masterConfigProperties } from '../masterConfiguration';
 import { ConfigurationService } from '../configuration.service';
+import { ValidationService } from '../validation.service';
 
 @Component({
   selector: 'app-instructor-configure',
@@ -20,20 +21,22 @@ export class InstructorConfigureComponent implements OnInit {
 
   errorSpreadsheetUrlMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return (!this.instructorConfigFG.value.spreadsheetUrl);//TODO .isValidUrl
+      return (!this.instructorConfigFG.value.spreadsheetUrl || !this.validationService.validateUrl(this.instructorConfigFG.value.spreadsheetUrl));
     }
   }
 
   errorFormUrlMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return (!this.instructorConfigFG.value.formUrl);//TODO .isValidUrl
+      return (!this.instructorConfigFG.value.formUrl || !this.validationService.validateUrl(this.instructorConfigFG.value.formUrl));
     }
   }
 
-  constructor(private fb: FormBuilder, private configService: ConfigurationService) {
+  get f() { return this.instructorConfigFG.controls; }
+
+  constructor(private fb: FormBuilder, private configService: ConfigurationService, private validationService: ValidationService) {
     this.instructorConfigFG = this.fb.group({
-      spreadsheetUrl: [Validators.required],
-      formUrl: [Validators.required]
+      spreadsheetUrl: [this.googleSheetUrl,Validators.required],
+      formUrl: [this.googleFormUrl,Validators.required]
     })
   }
 
