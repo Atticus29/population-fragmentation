@@ -3,12 +3,9 @@
 ## High Priority Bugs
 - [ ] When you just hit submit from instructor-config, the validation is a little messed up
 - [ ] All fragments with one individual is problematic (maybe prevent at the form stage?)
-- [ ] Table is not loading allele frequencies because of asynchronicity issue
-- [ ] shuffle the question answers
-- [ ] improve the styling of the intro sections
-- [ ] Make the mated pair displays look cleaner
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
+- [x] Table is not loading allele frequencies because of asynchronicity issue
 - [x] disable shuffle button until next button on the problems-display has been clicked
 - [x] display gen number lots of places
 - [x] I don't think the built-in theme is working
@@ -70,11 +67,6 @@
 
 
 ## Low Priority Bugs
-- [ ] Make number of offspring dynamic
-- [ ] make the draw thing scale by %, rather than having pixels everywhere
-- [ ] app-focus directive should point to top of draggles or to questions?
-- [ ] Color name service is incomplete
-- [ ] DRY up by removing all of the population stuff (cf. the metapopulation stuff in population-manager.service)
 - [x] Grid layout for angular material not working well to display the draggle cards
 - [x] if you press next question when there are no more questions, it takes two clicks to go back
 
