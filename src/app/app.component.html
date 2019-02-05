@@ -1,2 +1,16 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet> 
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <a mat-menu-item routerLink="/instructor-config">Instructors</a>
+  <a mat-menu-item routerLink="/">Genetic Drift</a>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voicemail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>
+<router-outlet></router-outlet>

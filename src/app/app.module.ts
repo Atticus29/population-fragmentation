@@ -107,7 +107,8 @@ import { LandingComponent } from './landing/landing.component';
     MatRadioModule,
     MatSnackBarModule,
     MatButtonModule,
-    routingModule
+    routingModule,
+    MatMenuModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
