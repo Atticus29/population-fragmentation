@@ -5,6 +5,7 @@ import {MatInput} from '@angular/material/input';
 import {ErrorStateMatcher} from '@angular/material';
 
 import { masterConfigProperties } from '../masterConfiguration';
+import { ConfigurationService } from '../configuration.service';
 
 @Component({
   selector: 'app-instructor-configure',
@@ -13,23 +14,23 @@ import { masterConfigProperties } from '../masterConfiguration';
 })
 export class InstructorConfigureComponent implements OnInit {
   private googleSheetUrl: string = masterConfigProperties.googleSheetUrl;
-  private googleFormUrl: string = masterConfigProperties.googleFormUrl;
+  private googleFormUrl: string = masterConfigProperties.googleSheetUrl;
   private instructorConfigFG: FormGroup;
   private submitted: boolean = false;
 
   errorSpreadsheetUrlMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return (this.instructorConfigFG.value.spreadsheetUrl);//TODO .isValidUrl
+      return (!this.instructorConfigFG.value.spreadsheetUrl);//TODO .isValidUrl
     }
   }
 
   errorFormUrlMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      return (this.instructorConfigFG.value.formUrl);//TODO .isValidUrl
+      return (!this.instructorConfigFG.value.formUrl);//TODO .isValidUrl
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private configService: ConfigurationService) {
     this.instructorConfigFG = this.fb.group({
       spreadsheetUrl: [Validators.required],
       formUrl: [Validators.required]
@@ -40,7 +41,25 @@ export class InstructorConfigureComponent implements OnInit {
   }
 
   processForm(){
-    console.log("process!");
+    this.submitted = true;
+    if(this.instructorConfigFG.invalid){
+      return;
+    }
+    if(this.instructorConfigFG.valid){
+      let result = this.getValues();
+      let {spreadsheetUrl, formUrl} = result;
+      this.googleSheetUrl = spreadsheetUrl;
+      this.googleFormUrl = formUrl;
+      console.log(this.googleSheetUrl);
+      console.log(this.googleFormUrl);
+      this.configService.emitNewConfigVars([this.googleSheetUrl, this.googleFormUrl]);
+    }
+
+  }
+
+  getValues(){
+    let result = this.instructorConfigFG.value;
+    return result;
   }
 
 }

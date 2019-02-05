@@ -1,6 +1,7 @@
 # Known Bugs
 
 ## High Priority Bugs
+- [ ] When you just hit submit from instructor-config, the validation is a little messed up
 - [ ] All fragments with one individual is problematic (maybe prevent at the form stage?)
 - [ ] Table is not loading allele frequencies because of asynchronicity issue
 - [ ] shuffle the question answers
