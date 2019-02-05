@@ -18,6 +18,7 @@ export class InstructorConfigureComponent implements OnInit {
   private googleFormUrl: string = masterConfigProperties.googleSheetUrl;
   private instructorConfigFG: FormGroup;
   private submitted: boolean = false;
+  private validInputs: boolean = true;
 
   errorSpreadsheetUrlMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
@@ -45,14 +46,16 @@ export class InstructorConfigureComponent implements OnInit {
 
   processForm(){
     this.submitted = true;
-    if(this.instructorConfigFG.invalid){
+    let result = this.getValues();
+    let {spreadsheetUrl, formUrl} = result;
+    this.googleSheetUrl = spreadsheetUrl;
+    this.googleFormUrl = formUrl;
+    if(this.instructorConfigFG.invalid || !this.validationService.validateUrl(this.googleSheetUrl) || !this.validationService.validateUrl(this.googleFormUrl)){
+      console.log("invalid!");
+      this.validInputs = false;
       return;
     }
     if(this.instructorConfigFG.valid){
-      let result = this.getValues();
-      let {spreadsheetUrl, formUrl} = result;
-      this.googleSheetUrl = spreadsheetUrl;
-      this.googleFormUrl = formUrl;
       console.log(this.googleSheetUrl);
       console.log(this.googleFormUrl);
       this.configService.emitNewConfigVars([this.googleSheetUrl, this.googleFormUrl]);

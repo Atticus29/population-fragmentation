@@ -1,3 +1,4 @@
+<h2 class="subtitle">Do you want to link the students to your own Google Sheet and Google Form at the end of the exercise? Enter the new URLs below:</h2>
 <form materialize class="full-width" [formGroup]="instructorConfigFG">
   <div class="row div-wrapper">
     <div class="col m12 s1 form-wrapper">
@@ -14,5 +15,8 @@
   <div class="row div-wrapper">
     <button mat-raised-button color="accent" (click)="processForm()" class="uniform-length-button">Submit
     </button>
+    <div *ngIf="submitted && (f.spreadsheetUrl.errors || f.formUrl.errors || !validInputs)" class="invalid-feedback">
+      <div *ngIf="submitted && (f.spreadsheetUrl.errors || f.formUrl.errors || !validInputs)">Valid URLs are required</div>
+    </div>
   </div>
 </form>
