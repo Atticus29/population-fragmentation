@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validat
 import {MatFormField} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {ErrorStateMatcher} from '@angular/material';
+import {Router} from '@angular/router';
 
 import { masterConfigProperties } from '../masterConfiguration';
 import { ConfigurationService } from '../configuration.service';
@@ -34,7 +35,7 @@ export class InstructorConfigureComponent implements OnInit {
 
   get f() { return this.instructorConfigFG.controls; }
 
-  constructor(private fb: FormBuilder, private configService: ConfigurationService, private validationService: ValidationService) {
+  constructor(private fb: FormBuilder, private configService: ConfigurationService, private validationService: ValidationService, private router: Router) {
     this.instructorConfigFG = this.fb.group({
       spreadsheetUrl: [this.googleSheetUrl,Validators.required],
       formUrl: [this.googleFormUrl,Validators.required]
@@ -59,6 +60,7 @@ export class InstructorConfigureComponent implements OnInit {
       console.log(this.googleSheetUrl);
       console.log(this.googleFormUrl);
       this.configService.emitNewConfigVars([this.googleSheetUrl, this.googleFormUrl]);
+      this.router.navigate(['/']);
     }
 
   }
