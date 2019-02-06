@@ -19,6 +19,8 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit() {
     this.configService.configurationVars.pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
+      console.log(results[0]);
+      console.log(results[1]);
       this.introGoogleSheetUrl = results[0];
       this.introGoogleFormUrl = results[1];
     });

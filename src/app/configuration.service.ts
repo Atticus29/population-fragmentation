@@ -13,7 +13,7 @@ export class ConfigurationService {
   configurationVars = this.configurationVarsSource.asObservable();
 
   constructor() {
-    this.configurationVarsSource.next([masterConfigProperties.googleSheetUrl, masterConfigProperties.googleSheetUrl]);
+    this.configurationVarsSource.next([masterConfigProperties.googleSheetUrl, masterConfigProperties.googleFormUrl]);
   }
 
   emitNewConfigVars(newVars: String[]){

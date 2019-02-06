@@ -15,7 +15,7 @@ import { ValidationService } from '../validation.service';
 })
 export class InstructorConfigureComponent implements OnInit {
   private googleSheetUrl: string = masterConfigProperties.googleSheetUrl;
-  private googleFormUrl: string = masterConfigProperties.googleSheetUrl;
+  private googleFormUrl: string = masterConfigProperties.googleFormUrl;
   private instructorConfigFG: FormGroup;
   private submitted: boolean = false;
   private validInputs: boolean = true;
