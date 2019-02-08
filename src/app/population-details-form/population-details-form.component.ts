@@ -33,12 +33,19 @@ export class PopulationDetailsFormComponent implements OnInit {
   private blueAlleleFreq: number = 0.1;
   private magentaAlleleFreq: number = 0.1;
   private MAX_GEN: number = 100;
+  private insufficientIndividsInFragError: Boolean = false;
 
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
       let theSum: number = +this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq;
       let roundedNum = this.qs.roundToNearest(theSum, 5);
       return(roundedNum != 1);
+    }
+  }
+
+  errorIndividsPerFragMatcher = {
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
+      return (+this.userInputFG.value.popsize/+this.userInputFG.value.fragNum <2);
     }
   }
 
@@ -71,8 +78,8 @@ export class PopulationDetailsFormComponent implements OnInit {
       greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
       blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
       magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
-    },{validator: [this.sumToOne.bind(this), this.popSizeBigEnoughForFrag]})
-  }
+    },{validator: [this.sumToOne.bind(this), this.popSizeBigEnoughForFrag, this.twoOrMoreIndividsPerFragment.bind(this)]}
+  )};
 
   ngOnInit() {
     let alleleFrequecies = new Array<number>(0.7, 0.1, 0.2);
@@ -113,10 +120,22 @@ export class PopulationDetailsFormComponent implements OnInit {
     }
   }
 
-  popSizeBigEnoughForFrag(fg: FormGroup){
-    if(+fg.value.popsize >= +fg.value.fragNum){
+  twoOrMoreIndividsPerFragment(fg: FormGroup){
+    let numIndividsPerFragment: number = +fg.value.popsize/+fg.value.fragNum;
+    if (numIndividsPerFragment>=2){
       return null;
     } else{
+      return {fragmentPopTotalError: true};
+    }
+  }
+
+  popSizeBigEnoughForFrag(fg: FormGroup){
+    console.log()
+    if(+fg.value.popsize/+fg.value.fragNum >= 2){
+      return null;
+    } else{
+      console.log(this);
+
       return {popSizeVsFragNumMismatchError: true};
     }
   }
@@ -128,23 +147,29 @@ export class PopulationDetailsFormComponent implements OnInit {
 
   processForm(){
     this.submitted = true;
+    let result = this.getValues();
+    let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+    this.popsize = popsize;
+    this.fragNum = fragNum;
+    this.genNum = genNum;
+    this.greenAlleleFreq = greenAlleleFreq;
+    this.blueAlleleFreq = blueAlleleFreq;
+    this.magentaAlleleFreq = magentaAlleleFreq;
+    console.log(this.popsize/this.fragNum);
+    if(this.popsize/this.fragNum < 2){
+      this.insufficientIndividsInFragError = true;
+      return;
+    }
     if(this.userInputFG.invalid){
-      // console.log("currently, input is invalid");
+      console.log("currently, input is invalid");
       return;
     }
     if(this.userInputFG.valid){
+      console.log("currently, input is valid");
+      this.popManager.totalGenNumSource.next(genNum);
       // console.log("currently, input is valid");
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
-      let result = this.getValues();
-      let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
-      this.popsize = popsize;
-      this.fragNum = fragNum;
-      this.genNum = genNum;
-      this.popManager.totalGenNumSource.next(genNum);
-      this.greenAlleleFreq = greenAlleleFreq;
-      this.blueAlleleFreq = blueAlleleFreq;
-      this.magentaAlleleFreq = magentaAlleleFreq;
       this.popManager.clearMetaPopulation();
       this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
       //TODO figure out whether this should happen

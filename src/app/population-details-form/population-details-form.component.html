@@ -8,8 +8,8 @@
           <mat-error>Fragment number must be > 0 and population must be large enough to split</mat-error>
         </mat-form-field>
         <mat-form-field class="span-thirty">
-          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
-          <!-- <mat-error>Population too small to split into that many fragments</mat-error> -->
+          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorIndividsPerFragMatcher">
+          <mat-error>Population too small to split into that many fragments</mat-error>
         </mat-form-field>
         <mat-form-field class="span-thirty">
           <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number" [errorStateMatcher]="errorGenNumMatcher">
@@ -59,6 +59,9 @@
         <div *ngIf="f.magentaAlleleFreq.errors.required">Allele frequencies required</div>
         <div *ngIf="f.magentaAlleleFreq.errors.min">Allele frequency must be 0 or greater</div>
         <div *ngIf="f.magentaAlleleFreq.errors.max">Allele frequency must be 1 or less</div>
+      </div>
+      <div *ngIf="submitted && insufficientIndividsInFragError" class="invalid-feedback">
+        <div *ngIf="submitted && insufficientIndividsInFragError">Insufficent number of individuals in each fragment</div>
       </div>
     </div>
   </div>
