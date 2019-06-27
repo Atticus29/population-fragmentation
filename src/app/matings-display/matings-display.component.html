@@ -1,7 +1,7 @@
 <h2>Now Your Couples Need Offspring</h2>
 <h3>Generation {{genNum}}</h3>
 <hr>
-<div class="subpopulation" *ngFor="let subpopulation of matedPairSubpopulations; let k=index">
+<div class="subpopulation" *ngFor="let subpopulation of matedPairSubpopulations; let k=index" id="bootstrap-override">
   <h2>Subpopulation {{k+1}}</h2>
   <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index">
     <mat-card-header>
@@ -9,12 +9,12 @@
       <mat-card-title>A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span></mat-card-title>
     </mat-card-header>
     <mat-grid-list cols="2" rowHeight="5em">
-      <mat-grid-tile>
+      <mat-grid-tile id="tile-1">
         <canvas id="mate-1-canvas" #matingcanvases width="200" height="200" style="border:1px solid #c3c3c3;">
           Your browser does not support the canvas element.
         </canvas>
       </mat-grid-tile>
-      <mat-grid-tile>
+      <mat-grid-tile id="tile-2">
         <canvas id="mate-2-canvas" #matingcanvases width="200" height="200" style="border:1px solid #c3c3c3;">
           Your browser does not support the canvas element.
         </canvas>
