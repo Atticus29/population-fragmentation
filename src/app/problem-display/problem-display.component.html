@@ -2,7 +2,7 @@
 <h3>Generation {{genNum}}</h3>
 <hr>
 <app-display-table></app-display-table>
-<mat-card class="full-width">
+<mat-card class="full-width" id="problem-card">
   <mat-card-header>
     <mat-card-title class="center"><h3>{{currentProblemIndex+1}}. {{question}}</h3></mat-card-title>
     <!-- <mat-card-subtitle>A Draggle</mat-card-subtitle> -->
@@ -26,7 +26,7 @@
       <p class="incorrect">{{incorrectResponse}}</p>
     </div>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions id="next-previous-buttons">
     <button mat-raised-button color="primary" (click)="previousQuestion()" class="uniform-length-button" *ngIf="previousQuestionExists">Previous Question
     </button>
     <button mat-raised-button color="primary" (click)="nextQuestion()" class="uniform-length-button" *ngIf="nextQuestionExists">Next Question

@@ -16,3 +16,11 @@ mat-card{
 .incorrect{
   color: red;
 }
+
+#problem-card{
+  margin-left: 0;
+}
+
+#next-previous-buttons{
+  margin-left: auto;
+}

@@ -22,6 +22,7 @@ export class LandingComponent implements OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private INDEX_OF_POP_DISPLAY: number = 5;
   private INDEX_OF_END: number = 10;
+  private isLinear: boolean = false;
 
   constructor(private popManager:PopulationManagerService) { }
 
