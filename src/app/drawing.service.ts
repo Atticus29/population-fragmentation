@@ -71,27 +71,27 @@ drawEllipse(x: number, y: number, radiusX: number, radiusY: number, rotation: nu
 
 }
 
-drawLizard(canvasRef: ElementRef, genotype: Genotype){
+drawLizard(canvasRef: ElementRef, genotype: Genotype, height: number, width: number){
   // console.log(canvasRef);
   // console.log(genotype);
   //head
-  this.drawTriangle(37.5,87.5,37.5,112.5,25,100, canvasRef, "black", true);
-  this.drawArc(37.5, 100, 12.5, 3*Math.PI/2, Math.PI/2, canvasRef, "black", true);
+  this.drawTriangle(0.1875*width,0.4375*height,0.1875*width,0.5625*height,0.125*width,0.5*height, canvasRef, "black", true);
+  this.drawArc(0.1875*width, 0.5*height, 0.0625*width, 3*Math.PI/2, Math.PI/2, canvasRef, "black", true);
 
   //eyes
-  this.drawArc(37.5, 106.25, 2, 0, 2*Math.PI, canvasRef,"white", true);
-  this.drawArc(37.5, 93.75, 2, 0, 2*Math.PI, canvasRef,"white", true);
-  this.drawArc(37.5, 106.25, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
-  this.drawArc(37.5, 93.75, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
+  this.drawArc(0.1875*width, 0.53125*height, 2, 0, 2*Math.PI, canvasRef,"white", true);
+  this.drawArc(0.1875*width, 0.46875*height, 2, 0, 2*Math.PI, canvasRef,"white", true);
+  this.drawArc(0.1875*width, 0.53125*height, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
+  this.drawArc(0.1875*width, 0.46875*height, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
 
   //body
-  this.drawEllipse(100, 100, 50, 10, 0, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.5*width, 0.5*height, 0.25*width, 10, 0, 0, 2 * Math.PI, canvasRef, 'black', true);
 
   //legs
-  this.drawEllipse(140, 110, 30, 3, 0.65, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(140, 90, 30, 3, 0.9+Math.PI/2, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(70, 110, 30, 3, -Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(70, 90, 30, 3, Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.7*width, 0.55*height, 0.15*width, 3, 0.65, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.7*width, 0.45*height, 0.15*width, 3, 0.9+Math.PI/2, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.35*width, 0.55*height, 0.15*width, 3, -Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.35*width, 0.45*height, 0.15*width, 3, Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
 
   //random polka dots
   // let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
@@ -99,10 +99,10 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype){
 
   // console.log(genotype.getAllele1());
   // console.log(genotype.getAllele2());
-  this.drawArc(60, 101, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
-  this.drawArc(85, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
-  this.drawArc(109, 94, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
-  this.drawArc(120, 102, 3, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
+  this.drawArc(0.3*width, 0.505*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
+  this.drawArc(0.425*width, 0.51*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
+  this.drawArc(0.545*width, 0.47*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
+  this.drawArc(0.6*width, 0.51*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
   // console.log("got to the end");
 }
 }

@@ -117,10 +117,12 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
       let currentSubpopulation = this.subpopulations[i];
       for(let j = 0; j<currentSubpopulation.getIndividuals().length; j++){
         let currentIndividual = currentSubpopulation.getIndividuals()[j];
-        let canvasNum = (i)*currentSubpopulation.getIndividuals().length + j;
+        let canvasNum: number = (i)*currentSubpopulation.getIndividuals().length + j;
         // console.log(canvasArray);
         // console.log(canvasNum);
-        this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype());
+        let width: number = document.getElementById('draggle-canvas').offsetWidth;
+        let height: number = document.getElementById('draggle-canvas').offsetHeight;
+        this.ds.drawLizard(canvasArray[canvasNum], currentIndividual.getGeneByName("spot color").getGenotype(), width, height); //TODO dynamic width height
       }
     }
   }
