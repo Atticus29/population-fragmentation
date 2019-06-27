@@ -89,9 +89,9 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
           // console.log(currentBlueCount);
           // console.log(currentGreenCount);
           // console.log(currentMagentaCount);
-          console.log(this.data);
+          // console.log(this.data);
           this.data.push({generation: i+1, fragment: j+1, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
-          console.log(this.data);
+          // console.log(this.data);
         }
       }
     });

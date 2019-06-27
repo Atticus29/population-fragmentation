@@ -59,11 +59,14 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         let currentMatedPair = currentSubpopulation.getMatedPairs()[j];
         // console.log(canvasNumTracker);
 
+        this.resizeCanvasToDisplaySize(canvasArray[canvasNumTracker]);
         let widthMate1Canvas: number = document.getElementById('mate-1-canvas').offsetWidth;
         let heightMate1Canvas: number = document.getElementById('mate-1-canvas').offsetHeight;
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual1().getGeneByName("spot color").getGenotype(), heightMate1Canvas, widthMate1Canvas); //TODO dynamic width height
         canvasNumTracker ++;
         // console.log(canvasNumTracker);
+
+        this.resizeCanvasToDisplaySize(canvasArray[canvasNumTracker]);
         let widthMate2Canvas: number = document.getElementById('mate-2-canvas').offsetWidth;
         let heightMate2Canvas: number = document.getElementById('mate-2-canvas').offsetHeight;
         this.ds.drawLizard(canvasArray[canvasNumTracker], currentMatedPair.getIndividual2().getGeneByName("spot color").getGenotype(), heightMate2Canvas, widthMate2Canvas); //TODO dynamic width height
@@ -143,6 +146,25 @@ export class MatingsDisplayComponent implements OnInit, AfterViewInit {
         this.repeatMatingEmitter.emit(true); //TODO instead of true, only emit true if numGen max not reached
       }
     });
+  }
+
+    resizeCanvasToDisplaySize(canvas) {
+     // look up the size the canvas is being displayed
+     const width = canvas.clientWidth;
+     console.log(width);
+     console.log(canvas.width);
+     const height = canvas.clientHeight;
+     console.log(height);
+     console.log(canvas.height);
+
+     // If it's resolution does not match change it
+     if (canvas.width !== width || canvas.height !== height) {
+       canvas.width = width;
+       canvas.height = height;
+       return true;
+     }
+
+     return false;
   }
 
 }

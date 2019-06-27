@@ -130,7 +130,6 @@ export class PopulationDetailsFormComponent implements OnInit {
   }
 
   popSizeBigEnoughForFrag(fg: FormGroup){
-    console.log()
     if(+fg.value.popsize/+fg.value.fragNum >= 2){
       return null;
     } else{
@@ -155,17 +154,17 @@ export class PopulationDetailsFormComponent implements OnInit {
     this.greenAlleleFreq = greenAlleleFreq;
     this.blueAlleleFreq = blueAlleleFreq;
     this.magentaAlleleFreq = magentaAlleleFreq;
-    console.log(this.popsize/this.fragNum);
+    // console.log(this.popsize/this.fragNum);
     if(this.popsize/this.fragNum < 2){
       this.insufficientIndividsInFragError = true;
       return;
     }
     if(this.userInputFG.invalid){
-      console.log("currently, input is invalid");
+      // console.log("currently, input is invalid");
       return;
     }
     if(this.userInputFG.valid){
-      console.log("currently, input is valid");
+      // console.log("currently, input is valid");
       this.popManager.totalGenNumSource.next(genNum);
       // console.log("currently, input is valid");
       this.takeNextStep = true;
@@ -176,9 +175,7 @@ export class PopulationDetailsFormComponent implements OnInit {
       // this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
       // });
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
-          console.log("Mark ,this is about to be called");
           this.popManager.addToMetapopulationGenerations(metapopulation);
-          console.log("Mark ,this is got called");
           //TODO add a problem to the problem service after creation of metapopulation
           let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
           let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(blueSubPop1Freq,3).toString(), "0", "1"], this.qs.roundToNearest(blueSubPop1Freq,3).toString());

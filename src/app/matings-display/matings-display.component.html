@@ -1,7 +1,7 @@
 <h2>Now Your Couples Need Offspring</h2>
 <h3>Generation {{genNum}}</h3>
 <hr>
-<div class="subpopulation" *ngFor="let subpopulation of matedPairSubpopulations; let k=index" id="bootstrap-override">
+<div class="subpopulation" *ngFor="let subpopulation of matedPairSubpopulations; let k=index">
   <h2>Subpopulation {{k+1}}</h2>
   <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index">
     <mat-card-header>

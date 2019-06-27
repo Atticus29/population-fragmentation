@@ -8,29 +8,12 @@
 
 mat-grid-tile{
   overflow: hidden;
-  /* border: none; */
 }
 
 mat-card-title{
   text-align: center;
 }
 
-#bootstrap-override canvas{
-  border: none;
-}
-
-#bootstrap-override mat-grid-tile{
-  border: none;
-}
-
-#bootstrap-override mat-figure{
-  border: none;
-}
-
-/* #mate-1-canvas{
-  border: none !important;
-  border-color: none;
-} */
 
 canvas{
   border: none !important;
