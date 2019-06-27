@@ -6,15 +6,25 @@
   text-align: center;
 }
 
-mat-grid-tile{
+#style-override mat-grid-tile{
   overflow: hidden;
 }
 
-mat-card-title{
+#style-override mat-card-title{
   text-align: center;
 }
 
 
 canvas{
   border: none !important;
+}
+
+mat-card-header{
+  text-align: center;
+}
+
+::ng-deep .mat-card-header-text {
+  /* CSS styles go here */
+  text-align: center;
+  align-content: center;
 }

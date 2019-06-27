@@ -5,11 +5,10 @@
   <h3>Subpopulation {{j+1}}</h3>
   <mat-card *ngFor="let individual of subpopulation.getIndividuals(); let i=index" [appMated]="individual.matedStatus">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title><h3>{{individual.getOrganismName()}}</h3></mat-card-title>
       <!-- <mat-card-subtitle>A Draggle</mat-card-subtitle> -->
     </mat-card-header>
-    <canvas id="draggle-canvas" class="special-canvas" #canvases width="200" height="200" style="border:1px solid #c3c3c3;" [appMated]="individual.matedStatus">
+    <canvas id="draggle-canvas" class="special-canvas" #canvases width="100%" height="100%" style="border:1px solid #c3c3c3;" [appMated]="individual.matedStatus">
       Your browser does not support the canvas element.
     </canvas>
     <mat-card-content>

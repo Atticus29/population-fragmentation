@@ -16,3 +16,8 @@ mat-card{
 .no-longer-eligible.special-canvas{
   background-color: lightgrey;
 }
+
+mat-card-header{
+  align-content: center;
+  text-align: center;
+}

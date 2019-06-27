@@ -79,19 +79,19 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype, height: number, width: num
   this.drawArc(0.1875*width, 0.5*height, 0.0625*width, 3*Math.PI/2, Math.PI/2, canvasRef, "black", true);
 
   //eyes
-  this.drawArc(0.1875*width, 0.53125*height, 2, 0, 2*Math.PI, canvasRef,"white", true);
-  this.drawArc(0.1875*width, 0.46875*height, 2, 0, 2*Math.PI, canvasRef,"white", true);
-  this.drawArc(0.1875*width, 0.53125*height, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
-  this.drawArc(0.1875*width, 0.46875*height, 0.5, 0, 2*Math.PI, canvasRef,"black", true);
+  this.drawArc(0.1875*width, 0.53125*height, 0.01*width, 0, 2*Math.PI, canvasRef,"white", true);
+  this.drawArc(0.1875*width, 0.46875*height, 0.01*width, 0, 2*Math.PI, canvasRef,"white", true);
+  this.drawArc(0.1875*width, 0.53125*height, 0.0025*width, 0, 2*Math.PI, canvasRef,"black", true);
+  this.drawArc(0.1875*width, 0.46875*height, 0.0025*width, 0, 2*Math.PI, canvasRef,"black", true);
 
   //body
-  this.drawEllipse(0.5*width, 0.5*height, 0.25*width, 10, 0, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.5*width, 0.5*height, 0.25*width, 0.05*height, 0, 0, 2 * Math.PI, canvasRef, 'black', true);
 
   //legs
-  this.drawEllipse(0.7*width, 0.55*height, 0.15*width, 3, 0.65, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(0.7*width, 0.45*height, 0.15*width, 3, 0.9+Math.PI/2, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(0.35*width, 0.55*height, 0.15*width, 3, -Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
-  this.drawEllipse(0.35*width, 0.45*height, 0.15*width, 3, Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.7*width, 0.55*height, 0.15*width, 0.015*height, 0.65, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.7*width, 0.45*height, 0.15*width, 0.015*height, 0.9+Math.PI/2, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.35*width, 0.55*height, 0.15*width, 0.015*height, -Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
+  this.drawEllipse(0.35*width, 0.45*height, 0.15*width, 0.015*height, Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
 
   //random polka dots
   // let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
