@@ -3,10 +3,13 @@
 <hr>
 <div class="subpopulation" *ngFor="let subpopulation of matedPairSubpopulations; let k=index" id="style-override">
   <h2>Subpopulation {{k+1}}</h2>
-  <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index" width="50%">
-    <mat-card-header>
-      <mat-card-title>A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span></mat-card-title>
-    </mat-card-header>
+  <mat-card *ngFor="let matedPair of subpopulation.getMatedPairs(); let i=index" width="10em">
+    <!-- <mat-card-header> -->
+      <div class="tmp">
+        A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span>
+      </div>
+      <!-- <mat-card-title>A sacred union of love between <span class="emphasis-bold">{{matedPair.getIndividual1().getOrganismName()}}</span> and <span class="emphasis-bold">{{matedPair.getIndividual2().getOrganismName()}}</span></mat-card-title> -->
+    <!-- </mat-card-header> -->
     <mat-grid-list cols="2" rowHeight="5em">
       <mat-grid-tile id="tile-1">
         <canvas id="mate-1-canvas" #matingcanvases width="100%" height="100%" style="border:1px solid #c3c3c3;">
@@ -32,6 +35,28 @@
           </h3>
         </mat-grid-tile>
       </mat-grid-list>
+      <!-- <div class="fbox-wrapper">
+        <div id="words-1">
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </div>
+        <div id="data-1">
+          <p>
+            {{matedPair.getIndividual1().getGeneByName("spot color").getGenotype().getAllele1()}}
+          </p>
+        </div>
+        <div id="words-2">
+          <h4>
+            50% of the gametes are:
+          </h4>
+        </div>
+        <div id="data-2">
+          <p>
+            {{matedPair.getIndividual2().getGeneByName("spot color").getGenotype().getAllele1()}}
+          </p>
+        </div>
+      </div> -->
       <mat-grid-list cols="4" rowHeight="5em">
         <mat-grid-tile>
           <h4>

@@ -23,8 +23,12 @@ mat-card-header{
   text-align: center;
 }
 
-::ng-deep .mat-card-header-text {
-  /* CSS styles go here */
+.tmp{
   text-align: center;
-  align-content: center;
+}
+
+.fbox-wrapper{
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
 }
