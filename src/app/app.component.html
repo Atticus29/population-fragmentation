@@ -5,4 +5,23 @@
   <a mat-menu-item routerLink="/instructor-config">Instructors</a>
   <a mat-menu-item routerLink="/">Genetic Drift</a>
 </mat-menu>
+<div class="container">
+  <div class="row">
+    <div class="col-12 jumbotron">
+        <h1 class="display-4">Room Number Details</h1>
+    </div>
+    <div class="col-12" *ngIf="loading">
+      Loading Room numbers ...
+    </div>
+    <div class="col-12">
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let room of rooms">
+            {{room.roomNumber}}
+            <span class="badge badge-primary pull-right" *ngIf="!todo.status">Pending</span>
+            <span class="badge badge-success pull-right" *ngIf="todo.status">Completed</span>
+          </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

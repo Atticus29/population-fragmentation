@@ -1,5 +1,26 @@
 --- !com.amazonaws.mobilehub.v0.Project 
 features:
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+    components:
+      sampleCloudApi: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: sampleCloudApi
+          requires-signin: false
+        paths:
+          /items: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/sampleLambda-20190628142005.zip
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            name: sampleLambda
+            runtime: nodejs6.10
+          '/items/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/sampleLambda-20190628142005.zip
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            name: sampleLambda
+            runtime: nodejs6.10
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true
