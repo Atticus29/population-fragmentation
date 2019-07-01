@@ -6,7 +6,7 @@ import { Subject } from "rxjs";
 
 import {PopulationManagerService } from './population-manager.service';
 
-import Amplify, { API } from 'aws-amplify';
+import Amplify, { API, Analytics } from 'aws-amplify';
 import aws_exports from '../aws-exports';
 
 @Component({
@@ -23,12 +23,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     Amplify.configure(aws_exports);
+    Analytics.record('app_loaded');
     // console.log('Amplify Initialised');
     // this.message = "Amplify Initialised";
     this.loading = true;
     API.get('sampleCloudApi', '/items', {}).then(data =>{
       this.loading = false;
       this.rooms = data;
+      Analytics.record('rooms_loaded');
     });
 
   }
