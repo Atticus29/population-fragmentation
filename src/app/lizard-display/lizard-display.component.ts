@@ -2,7 +2,7 @@ import { ChangeDetectorRef, OnInit, Component, AfterViewInit, QueryList, Element
 import {MatSnackBar} from '@angular/material';
 
 import { take, takeUntil } from 'rxjs/operators';
-import { Subject, combineLatest } from "rxjs";
+import { Observable, Subject, combineLatest } from "rxjs";
 
 import { Genotype } from '../genotype.model';
 import { Gene } from '../gene.model';
@@ -28,7 +28,11 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   private subpopulations: Array<Population>;
-  private matingsCompleted: boolean = false; //TODO allow to be toggled on
+  private matingsCompleted: any;
+  // private matingsCompleted: Observable<boolean> = Observable.create(obs => {
+  //   obs.next(false);
+  // });
+  false; //TODO allow to be toggled on
   private shuffleAndPairButton: boolean = false; //TODO allow to be toggled on
   private goToQuestions: boolean = true;
   private allGenerationsViewed: boolean = false;
