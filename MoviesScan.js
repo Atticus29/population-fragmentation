@@ -15,7 +15,7 @@ var AWS = require("aws-sdk");
 
 AWS.config.update({
     region: "us-west-2",
-    endpoint: "http://localhost:8000"
+    endpoint: "https://dynamodb.us-west-2.amazonaws.com"
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient();
@@ -29,7 +29,7 @@ var params = {
     },
     ExpressionAttributeValues: {
          ":start_yr": 1950,
-         ":end_yr": 1959 
+         ":end_yr": 1959
     }
 };
 
