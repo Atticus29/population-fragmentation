@@ -48,7 +48,7 @@ export class InstructorConfigureComponent implements OnInit {
       lastName: [this.lastName, Validators.required],
       spreadsheetUrl: [this.googleSheetUrl,Validators.required],
       formUrl: [this.googleFormUrl,Validators.required]
-    })
+    });
   }
 
   ngOnInit() {
