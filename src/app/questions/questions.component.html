@@ -1,7 +1,9 @@
 <h2>Add your Data and Final Questions</h2>
-<p id="question-prompt">
-  Great! Now you'll be adding your data to a group spreadsheet and using that spreadsheet to answer questions as teams about the lab. Click <a href="{{introGoogleSheetUrl}}" target="_blank">here</a> to enter values in the spreadsheet.
-</p>
-<p id="question-prompt">
-  When everyone is done and the lab results have been discussed as a class with your instructor, please submit answers from the worksheet as a team <a href="{{introGoogleFormUrl}}" target="_blank">here</a>
-</p>
+<div *ngIf="roomRetrieved">
+  <p id="question-prompt">
+    Great! Now you'll be adding your data to a group spreadsheet and using that spreadsheet to answer questions as teams about the lab. Click <a href="{{introGoogleSheetUrl}}" target="_blank">here</a> to enter values in the spreadsheet.
+  </p>
+  <p id="question-prompt">
+    When everyone is done and the lab results have been discussed as a class with your instructor, please submit answers from the worksheet as a team <a href="{{introGoogleFormUrl}}" target="_blank">here</a>
+  </p>
+</div>

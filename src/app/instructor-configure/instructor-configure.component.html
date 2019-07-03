@@ -24,7 +24,7 @@
       <div *ngIf="submitted && (f.spreadsheetUrl.errors || f.formUrl.errors || !validInputs)">Valid URLs are required</div>
     </div>
   </div>
-  <div class="row div-wrapper" *ngIf="displaySuccess">
+  <div *ngIf="displaySuccess">
     <p>Thank you! Data entered!</p>
     <p>Your classroom code is {{lastName}}. Please be sure to share this with your students.</p>
     <button mat-raised-button color="accent" (click)="backToHome()" class="uniform-length-button">Ok</button>

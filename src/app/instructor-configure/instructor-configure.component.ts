@@ -67,8 +67,6 @@ export class InstructorConfigureComponent implements OnInit {
       return;
     }
     if(this.instructorConfigFG.valid){
-      console.log(this.googleSheetUrl);
-      console.log(this.googleFormUrl);
       let AWS = require("aws-sdk");
 
       AWS.config.update({
