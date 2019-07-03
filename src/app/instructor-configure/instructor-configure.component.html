@@ -3,6 +3,10 @@
   <div class="row div-wrapper">
     <div class="col m12 s1 form-wrapper">
       <mat-form-field class="full">
+        <input matInput placeholder="Your Last Name" value="{{lastName}}" required formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}" type="string" [errorStateMatcher]="errorFormStringMatcher">
+        <mat-error>Must contain at least two characters and no symbols</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full">
         <input matInput placeholder="Google Spreadsheet URL" value="{{googleSheetUrl}}" required formControlName="spreadsheetUrl" [ngClass]="{ 'is-invalid': submitted && f.spreadsheetUrl.errors}" type="url" [errorStateMatcher]="errorSpreadsheetUrlMatcher">
         <mat-error>Must be valid URL</mat-error>
       </mat-form-field>
@@ -10,6 +14,7 @@
         <input matInput placeholder="Google Form URL" value="{{googleFormUrl}}" required formControlName="formUrl" [ngClass]="{ 'is-invalid': submitted && f.formUrl.errors}" type="url" [errorStateMatcher]="errorFormUrlMatcher">
         <mat-error>Must be valid URL</mat-error>
       </mat-form-field>
+
     </div>
   </div>
   <div class="row div-wrapper">
@@ -18,5 +23,10 @@
     <div *ngIf="submitted && (f.spreadsheetUrl.errors || f.formUrl.errors || !validInputs)" class="invalid-feedback">
       <div *ngIf="submitted && (f.spreadsheetUrl.errors || f.formUrl.errors || !validInputs)">Valid URLs are required</div>
     </div>
+  </div>
+  <div class="row div-wrapper" *ngIf="displaySuccess">
+    <p>Thank you! Data entered!</p>
+    <p>Your classroom code is {{lastName}}. Please be sure to share this with your students.</p>
+    <button mat-raised-button color="accent" (click)="backToHome()" class="uniform-length-button">Ok</button>
   </div>
 </form>

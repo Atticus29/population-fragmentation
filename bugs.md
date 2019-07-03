@@ -1,6 +1,7 @@
 # Known Bugs
 
 ## High Priority Bugs
+- [ ] Generate room number, check for uniqueness, prompt students to enter room number before anything else starts
 - [ ] When you just hit submit from instructor-config, the validation is a little messed up
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
