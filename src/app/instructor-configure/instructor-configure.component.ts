@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup,FormGroupDirective,FormArray,Validators,NgForm,ValidationErrors} from '@angular/forms';
-import {MatFormField} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-import {ErrorStateMatcher} from '@angular/material';
+import {FormBuilder, FormControl, FormGroup,FormGroupDirective,Validators,NgForm,} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import { masterConfigProperties } from '../masterConfiguration';
+import { constants } from '../constants';
 import { ConfigurationService } from '../configuration.service';
 import { ValidationService } from '../validation.service';
 
@@ -17,6 +15,8 @@ import { ValidationService } from '../validation.service';
 export class InstructorConfigureComponent implements OnInit {
   private googleSheetUrl: string = masterConfigProperties.googleSheetUrl;
   private googleFormUrl: string = masterConfigProperties.googleFormUrl;
+  private awsKey: string = constants.awsAccessKeyId;
+  private awsSecret: string = constants.awsSecretAccessKey;
   private instructorConfigFG: FormGroup;
   private submitted: boolean = false;
   private validInputs: boolean = true;
@@ -59,6 +59,43 @@ export class InstructorConfigureComponent implements OnInit {
     if(this.instructorConfigFG.valid){
       console.log(this.googleSheetUrl);
       console.log(this.googleFormUrl);
+      let AWS = require("aws-sdk");
+
+      AWS.config.update({
+        region: "us-east-1",
+        endpoint: 'https://dynamodb.us-east-1.amazonaws.com',
+        // accessKeyId default can be used while using the downloadable version of DynamoDB.
+        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+        accessKeyId: this.awsKey,
+        // secretAccessKey default can be used while using the downloadable version of DynamoDB.
+        // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+        secretAccessKey: this.awsSecret
+        });
+      let docClient = new AWS.DynamoDB.DocumentClient();
+
+      let table = "populationSimulatorRooms";
+
+      let room = "testRoom"; //TODO make this something the user inputs
+
+      let params = {
+          TableName:table,
+          Item:{
+              "room": room,
+              "lastName": "Mom",
+              "googleSheetUrl": this.googleSheetUrl,
+              "googleFormUrl": this.googleFormUrl
+          }
+      };
+
+      console.log("Adding a new item...");
+      docClient.put(params, function(err, data) {
+          if (err) {
+              console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+          } else {
+              console.log("Added item:", JSON.stringify(data, null, 2));
+          }
+      });
+
       this.configService.emitNewConfigVars([this.googleSheetUrl, this.googleFormUrl]);
       this.router.navigate(['/']);
     }
