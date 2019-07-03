@@ -14,6 +14,8 @@ export class ValidationService {
   }
 
   hasTwoOrMoreCharacters(name: string): boolean{
-    return name.length >= 2;
+    let re = /^[A-Za-z]+$/;
+    return (re.test(name) && name.length >= 2);
+    // return name.length >= 2;
   }
 }
