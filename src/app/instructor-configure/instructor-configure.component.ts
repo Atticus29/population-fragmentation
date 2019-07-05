@@ -1,3 +1,5 @@
+declare var require: any;
+
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup,FormGroupDirective,Validators,NgForm,} from '@angular/forms';
 import {Router} from '@angular/router';
