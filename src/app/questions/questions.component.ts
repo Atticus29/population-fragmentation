@@ -1,4 +1,4 @@
-declare var require: any;
+// declare var require: any;
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators, NgForm } from '@angular/forms';
@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { masterConfigProperties } from '../masterConfiguration';
 import { ConfigurationService } from '../configuration.service';
 import { ValidationService } from '../validation.service';
+import { DatabaseService } from '../database.service';
 import { constants } from '../constants';
 // import { masterConfigProperties } from '../masterConfiguration';
 
@@ -28,7 +29,7 @@ export class QuestionsComponent implements OnInit {
   private roomEntryFG: FormGroup;
   private submitted: boolean = false;
   private validInputs: boolean = true;
-  private AWS = require("aws-sdk");
+  // private AWS = require("aws-sdk");
 
 
   errorFormStringMatcher = {
@@ -39,7 +40,7 @@ export class QuestionsComponent implements OnInit {
 
   get f() { return this.roomEntryFG.controls; }
 
-  constructor(private fb: FormBuilder, private configService: ConfigurationService, private validationService: ValidationService) {
+  constructor(private fb: FormBuilder, private configService: ConfigurationService, private validationService: ValidationService, private dbService: DatabaseService) {
     this.roomEntryFG = this.fb.group({
       lastName: [this.lastName, Validators.required],
     });
@@ -60,38 +61,38 @@ export class QuestionsComponent implements OnInit {
     return result;
   }
 
-  fetchRoomDeets(room: string, self: any){
-    self.AWS.config.update({
-      region: "us-east-1",
-      endpoint: "https://dynamodb.us-east-1.amazonaws.com",
-      accessKeyId: this.awsKey,
-      secretAccessKey: this.awsSecret
-    });
-    this.roomRetrieved = true;
-
-    var docClient = new self.AWS.DynamoDB.DocumentClient();
-    let table = "populationSimulatorRooms";
-    let params = {
-        TableName:table,
-        KeyConditionExpression: "room = :rrrr",
-        ExpressionAttributeValues: {
-            ":rrrr": room
-        }
-    }
-    docClient.query(params, function(err, data) {
-        if (err) {
-            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("Query succeeded.");
-            data.Items.forEach(function(item) {
-                console.log(" -", item.googleSheetUrl + ": " + item.googleFormUrl);
-                // self.configService.emitNewConfigVars([item.googleSheetUrl, item.googleFormUrl]);
-                self.introGoogleSheetUrl = item.googleSheetUrl;
-                self.introGoogleFormUrl = item.googleFormUrl;
-            });
-        }
-    });
-  }
+  // fetchRoomDeets(room: string, self: any){
+  //   self.AWS.config.update({
+  //     region: "us-east-1",
+  //     endpoint: "https://dynamodb.us-east-1.amazonaws.com",
+  //     accessKeyId: this.awsKey,
+  //     secretAccessKey: this.awsSecret
+  //   });
+  //   this.roomRetrieved = true;
+  //
+  //   var docClient = new self.AWS.DynamoDB.DocumentClient();
+  //   let table = "populationSimulatorRooms";
+  //   let params = {
+  //       TableName:table,
+  //       KeyConditionExpression: "room = :rrrr",
+  //       ExpressionAttributeValues: {
+  //           ":rrrr": room
+  //       }
+  //   }
+  //   docClient.query(params, function(err, data) {
+  //       if (err) {
+  //           console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+  //       } else {
+  //           console.log("Query succeeded.");
+  //           data.Items.forEach(function(item) {
+  //               console.log(" -", item.googleSheetUrl + ": " + item.googleFormUrl);
+  //               // self.configService.emitNewConfigVars([item.googleSheetUrl, item.googleFormUrl]);
+  //               self.introGoogleSheetUrl = item.googleSheetUrl;
+  //               self.introGoogleFormUrl = item.googleFormUrl;
+  //           });
+  //       }
+  //   });
+  // }
 
   processForm(){
     this.submitted = true;
@@ -105,7 +106,12 @@ export class QuestionsComponent implements OnInit {
       return;
     }
     if(this.roomEntryFG.valid){
-      this.fetchRoomDeets("Zaddy", self);
+      this.dbService.retrieveItemFromDb(lastName).subscribe(result=>{
+        this.introGoogleSheetUrl = result.sheetUrl;
+        this.introGoogleFormUrl = result.formUrl;
+        this.roomRetrieved = true;
+      });
+      // this.fetchRoomDeets("Zaddy", self);
     }
   }
 
