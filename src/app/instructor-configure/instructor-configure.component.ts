@@ -1,4 +1,4 @@
-declare var require: any;
+// declare var require: any;
 
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup,FormGroupDirective,Validators,NgForm,} from '@angular/forms';
@@ -20,14 +20,8 @@ export class InstructorConfigureComponent implements OnInit {
   private lastName: string = masterConfigProperties.lastName;
   private googleSheetUrl: string = masterConfigProperties.googleSheetUrl;
   private googleFormUrl: string = masterConfigProperties.googleFormUrl;
-  // private awsKey: string = constants.awsAccessKeyId;
-  // private awsSecret: string = constants.awsSecretAccessKey;
   private instructorConfigFG: FormGroup;
-  private submitted: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // private self: any;
-  // private submitted: any =  Observable.create(obs => {
-  //     obs.next(false);
-  // });
+  private submitted: BehaviorSubject<any> = new BehaviorSubject(null);
   private validInputs: boolean = true;
   private displaySuccess: boolean = false;
 
@@ -60,10 +54,14 @@ export class InstructorConfigureComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.self = this;
     this.submitted.subscribe(result =>{
-      console.log("result is " + result);
-      this.displaySuccess = result;
+      if(result){
+          this.displaySuccess = true;
+      } else{
+        this.displaySuccess = false;
+      }
+      // console.log("result is " + result);
+      // this.displaySuccess = result;
     });
   }
 
@@ -79,51 +77,17 @@ export class InstructorConfigureComponent implements OnInit {
       return;
     }
     if(this.instructorConfigFG.valid){
+      console.log(this.dbService);
       this.dbService.addItemToDB(this.lastName, this.googleSheetUrl, this.googleFormUrl).subscribe(resp =>{
-        console.log(resp);
-        this.submitted.next(resp);
-      })
-      // console.log("response in component is " + response);
-
-    //   let AWS = require("aws-sdk");
-    //
-    //   AWS.config.update({
-    //     region: "us-east-1",
-    //     endpoint: 'https://dynamodb.us-east-1.amazonaws.com',
-    //     accessKeyId: this.awsKey,
-    //     secretAccessKey: this.awsSecret
-    //     });
-    //   let docClient = new AWS.DynamoDB.DocumentClient();
-    //
-    //   let table = "populationSimulatorRooms";
-    //
-    //   let room = lastName; //TODO make this something the user inputs
-    //
-    //   let params = {
-    //       TableName:table,
-    //       Item:{
-    //           "room": room,
-    //           "lastName": lastName,
-    //           "googleSheetUrl": this.googleSheetUrl,
-    //           "googleFormUrl": this.googleFormUrl
-    //       }
-    //   };
-    //   console.log("Adding a new item...");
-    //   docClient.put(params, function(err, data) {
-    //       if (err) {
-    //           console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-    //       } else {
-    //           self.submitted.next(true);
-    //           console.log("Added item:", JSON.stringify(data, null, 2));
-    //           console.log("got here hi");
-    //           this.displaySuccess = true;
-    //       }
-    //   });
-    //
-    //   // this.configService.emitNewConfigVars([this.googleSheetUrl, this.googleFormUrl]);
-    //   // this.router.navigate(['/']);
+        // console.log(resp);
+        if(resp){
+          this.lastName = resp.lastName;
+          this.submitted.next(true);
+        } else{
+          this.submitted.next(false);
+        }
+      });
     }
-
   }
 
   getValues(){

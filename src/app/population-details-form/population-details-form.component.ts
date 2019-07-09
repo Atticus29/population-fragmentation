@@ -133,7 +133,7 @@ export class PopulationDetailsFormComponent implements OnInit {
     if(+fg.value.popsize/+fg.value.fragNum >= 2){
       return null;
     } else{
-      console.log(this);
+      // console.log(this);
 
       return {popSizeVsFragNumMismatchError: true};
     }
