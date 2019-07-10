@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup,FormGroupDirective,Validators,NgForm,} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject, ReplaySubject } from "rxjs";
 
 import { masterConfigProperties } from '../masterConfiguration';
 import { ConfigurationService } from '../configuration.service';
@@ -18,12 +18,15 @@ import { DatabaseService } from '../database.service';
 })
 export class InstructorConfigureComponent implements OnInit {
   private lastName: string = masterConfigProperties.lastName;
+  private lastNameDisplay: string = null;
+  // private lastNamePlaceholder: string = masterConfigProperties.lastName;
   private googleSheetUrl: string = masterConfigProperties.googleSheetUrl;
   private googleFormUrl: string = masterConfigProperties.googleFormUrl;
   private instructorConfigFG: FormGroup;
-  private submitted: BehaviorSubject<any> = new BehaviorSubject(null);
+  private submitted: ReplaySubject<any> = new ReplaySubject();
   private validInputs: boolean = true;
   private displaySuccess: boolean = false;
+  private loading: boolean = true;
 
   errorFormStringMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
@@ -54,14 +57,24 @@ export class InstructorConfigureComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.lastName.next(masterConfigProperties.lastName);
+    console.log(this.loading);
+    this.submitted.next(false);
+    this.dbService.dbDisplayName.subscribe(result =>{
+      this.lastNameDisplay = result;
+      if(result){
+        this.loading = false;
+        console.log("loading false now");
+      }
+    });
     this.submitted.subscribe(result =>{
+      console.log("result in component is " + result);
       if(result){
           this.displaySuccess = true;
       } else{
+        console.log("submitted result is false/null");
         this.displaySuccess = false;
       }
-      // console.log("result is " + result);
-      // this.displaySuccess = result;
     });
   }
 
@@ -70,18 +83,18 @@ export class InstructorConfigureComponent implements OnInit {
     let {lastName, spreadsheetUrl, formUrl} = result;
     this.googleSheetUrl = spreadsheetUrl;
     this.googleFormUrl = formUrl;
-    this.lastName = lastName;
     if(this.instructorConfigFG.invalid || !this.validationService.validateUrl(this.googleSheetUrl) || !this.validationService.validateUrl(this.googleFormUrl)){
       console.log("invalid!");
       this.validInputs = false;
       return;
     }
     if(this.instructorConfigFG.valid){
-      console.log(this.dbService);
-      this.dbService.addItemToDB(this.lastName, this.googleSheetUrl, this.googleFormUrl).subscribe(resp =>{
-        // console.log(resp);
+      console.log("instructorConfigFG is valid. Awaiting addItemToDB...");
+      let dbAdditionSubject = this.dbService.addItemToDB(lastName, this.googleSheetUrl, this.googleFormUrl);
+      this.submitted.next(true);
+      dbAdditionSubject.subscribe(resp =>{
+        console.log("response to dbAdditionSubject subscription in instructor-configure component is "+ resp);
         if(resp){
-          this.lastName = resp.lastName;
           this.submitted.next(true);
         } else{
           this.submitted.next(false);
