@@ -62,24 +62,10 @@ export class LizardDisplayComponent implements OnInit, AfterViewInit {
         this.matingsCompleted = everyoneMatedStatus;
         this.shuffleAndPairButton = !everyoneMatedStatus && nextClicked;
         if(isLastGen){
-          console.log("it's the last gen!");
+          // console.log("it's the last gen!");
           this.shuffleAndPairButton = false;
         }
       });
-
-      // this.popManager.isEveryoneInTheMetaPopulationMated().subscribe(status =>{
-      //   this.matingsCompleted = status;
-      //   this.shuffleAndPairButton = !status; //TODO this won't make it false until it's false everywhere?
-      // });
-
-      // this.qs.questionsAnswered.subscribe(questionsAnswered =>{
-      //   this.shuffleAndPairButton = questionsAnswered;
-      //   if(questionsAnswered){
-      //     this.goToQuestions = false;
-      //   } else {
-      //     this.goToQuestions = true;
-      //   }
-      // });
 
       combineLatest([this.popManager.isThisTheLastGeneration(), this.qs.questionsAnswered, this.popManager.nextClickedAfterQuestionsAnsweredSource]).pipe(takeUntil(this.ngUnsubscribe)).subscribe(results =>{
         let isThisTheLastGeneration = results[0];

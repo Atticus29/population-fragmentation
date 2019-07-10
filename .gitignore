@@ -37,3 +37,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Constants and API Keys
+/src/app/constants.ts

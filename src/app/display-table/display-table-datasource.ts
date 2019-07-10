@@ -101,8 +101,8 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
     return Observable.create(obs => {
       let popManagerInstance = new PopulationManagerService(new IndividualGenerationService());
       popManagerInstance.metapopulationGenerations.subscribe(results =>{
-        console.log("results!");
-        console.log(results);
+        // console.log("results!");
+        // console.log(results);
         data.push({generation: 0, fragment: 1,fragmentPopSize: 10 , blueCount: 5, greenCount: 0.77, magentaCount: 0.78});
         obs.next(data);
       });

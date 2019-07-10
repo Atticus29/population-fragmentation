@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ColorNameService } from './color-name.service';
 import { IndividualGenerationService } from './individual-generation.service';
 import { PopulationManagerService } from './population-manager.service';
+import { DatabaseService } from './database.service';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -108,9 +109,10 @@ import { LandingComponent } from './landing/landing.component';
     MatSnackBarModule,
     MatButtonModule,
     routingModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressBarModule
   ],
-  providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService],
+  providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService, DatabaseService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

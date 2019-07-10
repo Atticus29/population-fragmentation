@@ -1,9 +1,9 @@
 # Known Bugs
 
 ## High Priority Bugs
-- [ ] When you just hit submit from instructor-config, the validation is a little messed up
 - [ ] Some of the lizard names in lizard display aren't centered
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
+- [x] When you just hit submit from instructor-config, the validation is a little messed up
 - [x] All fragments with one individual is problematic (maybe prevent at the form stage?)
 - [x] Table is not loading allele frequencies because of asynchronicity issue
 - [x] disable shuffle button until next button on the problems-display has been clicked
