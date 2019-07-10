@@ -1,8 +1,9 @@
 # Known Bugs
 
 ## High Priority Bugs
-- [ ] Some of the lizard names in lizard display aren't centered
+- [x] Some of the lizard names in lizard display aren't centered
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
+- [ ] the form submission warning for classroom number to not have a number barks but doesn't bite/enforce
 - [x] When you just hit submit from instructor-config, the validation is a little messed up
 - [x] All fragments with one individual is problematic (maybe prevent at the form stage?)
 - [x] Table is not loading allele frequencies because of asynchronicity issue

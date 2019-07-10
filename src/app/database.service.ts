@@ -31,11 +31,9 @@ export class DatabaseService {
     subjRet.next(lastName);
     this.doesRoomAlreadyExist(lastName).subscribe(results =>{
       if(results === true){
-        console.log("not unique!");
         let newLastName = lastName + Math.floor(Math.random() * 9);
         this.addItemToDB(newLastName, googleSheetUrl, googleFormUrl);
       } else{
-        console.log("good to go!");
         let room = lastName;
         let params = {
             TableName:this.table,
@@ -51,10 +49,7 @@ export class DatabaseService {
             if (err) {
                 console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
             } else {
-                console.log("Added item:", JSON.stringify(data, null, 2));
-                console.log("transmitting " + lastName);
                 subjRet.next(lastName);
-                setTimeout(function(){}, 2000); //TODO remove after testing
                 self.dbDisplayName.next(lastName);
             }
         });
