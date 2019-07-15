@@ -1,4 +1,4 @@
-# DraggleSimulator: and Open Source Web Application for Teaching Genetic Drift
+# DraggleSimulator: An Open Source Web Application for Teaching Genetic Drift
 
 By: Mark Fisher
 January, 2019 - July, 2019
