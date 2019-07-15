@@ -8,7 +8,7 @@ January, 2019 - July, 2019
 Click image below to watch the tutorial video!
 [![Click here to watch the tutorial video!](https://s3.amazonaws.com/www.populationsimulator.com/Screen+Shot+2019-02-05+at+5.38.48+PM.png)](https://youtu.be/izER-V9PTxs)
 
-The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in this example instance (Population Simulator)[www.populationsimulator.com] or in a less-structured fashion, students can explore how allele frequencies can change in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. They can compare how allele frequencies change in populations of different sizes or in metapopulations of the same total size but with different numbers of isolated subpopulations. For instance, I used the simulation to help students explore the effects of fragmenting populations on genetic diversity.
+The concept of genetic drift in population genetics is a notoriously difficult concept to teach and to learn. DraggleSimulator is an open-source simulation webapp that allows students to create a metapopulation of fictitious, diploid, monogamous, and simultaneously-hermaphroditic animals with replacement-level fertility (2 offspring per couple) called draggles and track it across generations. Upon creation, this metapopulation satisfies all assumptions of Hardy-Weinberg Equilibrium except infinite population size (thereby only allowing the sampling error that accounts for genetic drift). By experimenting in either a guided fashion as seen in this example instance (Population Simulator)[https://www.populationsimulator.com/] or in a less-structured fashion, students can explore how allele frequencies can change in populations even in the absence of nonrandom mating, natural selection, mutation, or migration. They can compare how allele frequencies change in populations of different sizes or in metapopulations of the same total size but with different numbers of isolated subpopulations. For instance, I used the simulation to help students explore the effects of fragmenting populations on genetic diversity.
 
 The simulation tracks individuals over the course of any number of generations with respect to one gene that is necessary and sufficient to determine spot color in the fictitious draggles. Currently, the simulation tracks three alleles at this gene (although it should not be difficult to extend this).
 
@@ -20,7 +20,7 @@ At the beginning of the simulation, users are able to specify parameters includi
 
 Each generation of the simulation, the user must answer several questions about allele frequencies of the current generation of the metapopulation. Then, the user is prompted to assign two individuals in the same subpopulation that are currently unmated (the "Shuffle and Designate a Random Pair to Mate" button) to form a mated pair for each subpopulation. Afterwards, users are taken a to a new component of the app that displays the mated pairs and prompts the user to generate two offspring (this should be easily extensible to more or fewer offspring by other contributors). Once all possible offspring are generated for each pair (i.e., currently 2 to reflect replacement-level fertility), the user is then escorted to a new component that displays the new generation of offspring as a fresh metapopulation. If this is not the final generation, the user is again prompted to answer questions about allele frequencies for the new generation. The sequence of components continues as described above until the final generation selected by the user at the beginning of the simulation is reached. At this point, the user is guided to a final component. Instructors can add any questions they might like to this component, or they can link students to google sheets or google forms to make collaborative spreadsheets and answer easily-graded questions.
 
-## How to Set Up Your Own Google Sheets and Google Forms Questions at populationsimulator.com
+## How to Set Up Your Own Google Sheets and Google Forms Questions at https://www.populationsimulator.com
 
 Populationsimulator.com is connected to a database, such that you can enter your own URLs to customize DraggleSimulator with your own questions and to track your own class's data. Simply navigate to the expandable menu on the top left of the site in your browser, and click, "Instructors":
 
@@ -44,7 +44,7 @@ Similarly, the metapopulations, which, depending on user input from the form, co
 
 DraggleSimulator is not currently optimized to be viewed on a mobile device, but it should be possible to improve some of the css to improve this.
 
-Classroom codes (see How to Set Up Your Own Google Sheets and Google Forms Questions at populationsimulator.com section above) are persisted on a dynamoDB table using Amazon Web Services. Each classroom code returned to the user (presumably an instructor) will be unique.
+Classroom codes (see How to Set Up Your Own Google Sheets and Google Forms Questions at https://www.populationsimulator.com section above) are persisted on a dynamoDB table using Amazon Web Services. Each classroom code returned to the user (presumably an instructor) will be unique.
 
 ## Known Bugs
 Known and resolved bugs are tracked [here](https://github.com/Atticus29/population-fragmentation/blob/master/bugs.md)
@@ -94,10 +94,12 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Note that unit testing has not yet been implemented in DraggleSimulator.
 
 ### Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Note that e2e testing has not yet been implemented in DraggleSimulator.
 
 ### Further help
 
