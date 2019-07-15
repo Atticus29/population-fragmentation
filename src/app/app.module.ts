@@ -4,8 +4,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { masterConfigProperties } from './masterConfiguration';
 
-import * as firebaseui from 'firebaseui';
-
 import { routingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { PopulationDetailsFormComponent } from './population-details-form/population-details-form.component';

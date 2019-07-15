@@ -1,6 +1,6 @@
 # Specs
 
-- [ ] Instructor enters last name and if that name already exists in the database, a new name with a random numerals appended until it's unique is given
+- [x] Instructor enters last name and if that name already exists in the database, a new name with a random numerals appended until it's unique is given
 - [x] Users can see a table of allele counts for each generation
 - [x] User can choose starting total population size
 - [x] User can choose number of population fragments

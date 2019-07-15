@@ -1,6 +1,7 @@
 # Known Bugs
 
 ## Unresolved Bugs
+- [ ] the link in instructions.component is not hooked up to the database. This means people will have to get the room number from their instructor earlier.
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
 - [ ] the form submission warning for classroom number to not have a number barks but doesn't bite/enforce
 
