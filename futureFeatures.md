@@ -1,7 +1,6 @@
 # Future Features
 
 ## High Priority
-- [ ] Prevent non-unique entries into the database
 - [ ] shuffle the question answers
 - [ ] improve the styling of the intro. sections
 - [ ] Make the mated pair displays look cleaner

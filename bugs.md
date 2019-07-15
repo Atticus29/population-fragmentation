@@ -1,9 +1,11 @@
 # Known Bugs
 
-## High Priority Bugs
-- [x] Some of the lizard names in lizard display aren't centered
+## Unresolved Bugs
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
 - [ ] the form submission warning for classroom number to not have a number barks but doesn't bite/enforce
+
+##  Resolved Bugs
+- [x] Some of the lizard names in lizard display aren't centered
 - [x] When you just hit submit from instructor-config, the validation is a little messed up
 - [x] All fragments with one individual is problematic (maybe prevent at the form stage?)
 - [x] Table is not loading allele frequencies because of asynchronicity issue
@@ -65,9 +67,6 @@
     - [x] Add a generateSingleIndividualGivenAlleleFrequencies
 - [x] When you enter 5 individuals, six are generated
 - [x] You need to click twice to re-seed population (maybe change to disabling generate population button until you hit clear population button?)
-
-
-## Low Priority Bugs
 - [x] Grid layout for angular material not working well to display the draggle cards
 - [x] if you press next question when there are no more questions, it takes two clicks to go back
 
