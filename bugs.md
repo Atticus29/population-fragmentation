@@ -1,11 +1,12 @@
 # Known Bugs
 
 ## Unresolved Bugs
-- [ ] the link in instructions.component is not hooked up to the database. This means people will have to get the room number from their instructor earlier.
+- [ ] Students can't enter roomNames that contain numbers. This should be true for instructors, but not for students.
 - [ ] navigating back to inspect population after getting to final question component and clicking I'm ready to answer some final questions doesn't do anything
 - [ ] the form submission warning for classroom number to not have a number barks but doesn't bite/enforce
 
 ##  Resolved Bugs
+- [x] the link in instructions.component is not hooked up to the database. This means people will have to get the room number from their instructor earlier.
 - [x] Some of the lizard names in lizard display aren't centered
 - [x] When you just hit submit from instructor-config, the validation is a little messed up
 - [x] All fragments with one individual is problematic (maybe prevent at the form stage?)
