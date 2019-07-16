@@ -1,19 +1,47 @@
-<h2>
-  {{heading}}
-</h2>
-<p>
-  {{text}}
-</p>
-<p>
-  {{text2}}
-</p>
-<p>
-  {{text3}}
-</p>
-<p>
-  {{text4}}
-</p>
-<p>Watch this introductory video</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/izER-V9PTxs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
-<button matStepperNext mat-raised-button color="accent" name="button">Next</button>
+<div id="roomForm" *ngIf="displayRoomForm">
+  <h2>Add your Data and Final Questions</h2>
+
+  <form materialize class="full-width" [formGroup]="roomEntryFG">
+    <div class="row div-wrapper">
+      <div class="col m12 s1 form-wrapper">
+        <mat-form-field class="full">
+          <input matInput placeholder="Your Instructor-Provided Room Name" value="{{lastName}}" required formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}" type="string" [errorStateMatcher]="errorFormStringMatcher">
+          <mat-error>Must contain at least two characters and no symbols</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row div-wrapper">
+      <button mat-raised-button color="accent" (click)="processForm()" class="uniform-length-button">Submit
+      </button>
+      <div *ngIf="submitted && (f.lastName.errors || !validInputs)" class="invalid-feedback">
+        <div *ngIf="submitted && (f.lastName.errors || !validInputs)">Valid room name is required</div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="errorDisplay" *ngIf="displayError">
+  <p>Hmm...that must not have been a valid classroom name. Please try again.</p>
+</div>
+
+<div id="introText" *ngIf="roomRetrieved">
+  <h2>
+    {{heading}}
+  </h2>
+  <p>
+    {{text}}
+  </p>
+  <p>
+    {{text2}}
+  </p>
+  <p>
+    {{text3}}
+  </p>
+  <p>
+    {{text4}}
+  </p>
+  <p>Watch this introductory video</p>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/izER-V9PTxs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <br>
+  <button matStepperNext mat-raised-button color="accent" name="button">Next</button>
+</div>
