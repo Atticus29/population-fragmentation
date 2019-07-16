@@ -1,23 +1,3 @@
-<h2>Add your Data and Final Questions</h2>
-
-<form materialize class="full-width" [formGroup]="roomEntryFG">
-  <div class="row div-wrapper">
-    <div class="col m12 s1 form-wrapper">
-      <mat-form-field class="full">
-        <input matInput placeholder="Your Instructor-Provided Room Name" value="{{lastName}}" required formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}" type="string" [errorStateMatcher]="errorFormStringMatcher">
-        <mat-error>Must contain at least two characters and no symbols</mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row div-wrapper">
-    <button mat-raised-button color="accent" (click)="processForm()" class="uniform-length-button">Submit
-    </button>
-    <div *ngIf="submitted && (f.lastName.errors || !validInputs)" class="invalid-feedback">
-      <div *ngIf="submitted && (f.lastName.errors || !validInputs)">Valid room name is required</div>
-    </div>
-  </div>
-</form>
-
 <div *ngIf="roomRetrieved">
   <p id="question-prompt">
     Great! Now you'll be adding your data to a group spreadsheet and using that spreadsheet to answer questions as teams about the lab. Click <a href="{{introGoogleSheetUrl}}" target="_blank">here</a> to enter values in the spreadsheet.

@@ -14,6 +14,7 @@ export class DatabaseService {
   private AWS: any = require("aws-sdk");
   private table: string = "populationSimulatorRooms";
   dbDisplayName: BehaviorSubject<string> = new BehaviorSubject(null);
+  studentEnteredRoomName: BehaviorSubject<string> = new BehaviorSubject(null);
 
   constructor() {
     this.AWS.config.update({
@@ -23,6 +24,10 @@ export class DatabaseService {
       secretAccessKey: constants.awsSecretAccessKey
       });
     // let self = this;
+  }
+
+  emitRoomName(name:string){
+    this.studentEnteredRoomName.next(name);
   }
 
   addItemToDB(lastName: string, googleSheetUrl: string, googleFormUrl: string): ReplaySubject<any>{

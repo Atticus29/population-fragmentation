@@ -1,3 +1,7 @@
 .button-spaced{
   margin: 1em;
 }
+
+#google-sheet-progress-bar{
+  width: 30%;
+}
