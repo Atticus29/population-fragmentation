@@ -16,7 +16,7 @@ export class DisplayTableComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef, private popManager: PopulationManagerService){};
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['generation', 'fragment', 'fragmentPopSize', 'blueCount', 'greenCount', 'magentaCount'];
+  displayedColumns = ['generation', 'fragment', 'fragmentPopSize', 'cyanCount', 'greenCount', 'magentaCount'];
 
   ngOnInit() {
     this.popManager.currentMetaPopulation.subscribe(results=>{

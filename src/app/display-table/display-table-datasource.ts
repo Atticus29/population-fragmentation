@@ -11,7 +11,7 @@ export interface DisplayTableItem {
   generation: number;
   fragment: number;
   fragmentPopSize: number;
-  blueCount: number;
+  cyanCount: number;
   greenCount: number;
   magentaCount: number;
 }
@@ -25,13 +25,13 @@ let popManagerInstance = new PopulationManagerService(new IndividualGenerationSe
 //   console.log("hi mark");
 //   console.log(metapopulation);
 // });
-// popManagerInstance.calculateAlleleFrequency("blue", false).subscribe(result => {
+// popManagerInstance.calculateAlleleFrequency("cyan", false).subscribe(result => {
 //   console.log(result);
 //   //TODO update this somehow
 // });
 frequencyData = [
-  // {generation: 12, fragment: 2, fragmentPopSize: 4, blueCount: 3, greenCount: 5,magentaCount: 0},
-  // {generation: 13, fragment: 2, fragmentPopSize: 4, blueCount: 2, greenCount: 4,magentaCount: 2}
+  // {generation: 12, fragment: 2, fragmentPopSize: 4, cyanCount: 3, greenCount: 5,magentaCount: 0},
+  // {generation: 13, fragment: 2, fragmentPopSize: 4, cyanCount: 2, greenCount: 4,magentaCount: 2}
 ];
 
 /**
@@ -83,14 +83,14 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
         for(let j = 0; j<results[i].getSubpopulations().length; j++){
           let currentSubpop = results[i].getSubpopulations()[j];
           let currentIndividuals = currentSubpop.getIndividuals();
-          let currentBlueCount = this.popManager.getAlleleCount("blue", currentIndividuals);
+          let currentcyanCount = this.popManager.getAlleleCount("cyan", currentIndividuals);
           let currentGreenCount = this.popManager.getAlleleCount("green", currentIndividuals);
           let currentMagentaCount = this.popManager.getAlleleCount("magenta", currentIndividuals);
-          // console.log(currentBlueCount);
+          // console.log(currentcyanCount);
           // console.log(currentGreenCount);
           // console.log(currentMagentaCount);
           // console.log(this.data);
-          this.data.push({generation: i+1, fragment: j+1, fragmentPopSize: currentIndividuals.length, blueCount: currentBlueCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
+          this.data.push({generation: i+1, fragment: j+1, fragmentPopSize: currentIndividuals.length, cyanCount: currentcyanCount, greenCount: currentGreenCount, magentaCount: currentMagentaCount});
           // console.log(this.data);
         }
       }
@@ -103,7 +103,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
       popManagerInstance.metapopulationGenerations.subscribe(results =>{
         // console.log("results!");
         // console.log(results);
-        data.push({generation: 0, fragment: 1,fragmentPopSize: 10 , blueCount: 5, greenCount: 0.77, magentaCount: 0.78});
+        data.push({generation: 0, fragment: 1,fragmentPopSize: 10 , cyanCount: 5, greenCount: 0.77, magentaCount: 0.78});
         obs.next(data);
       });
     });
@@ -133,7 +133,7 @@ export class DisplayTableDataSource extends DataSource<DisplayTableItem> {
         case 'generation': return compare(a.generation, b.generation, isAsc);
         case 'fragment': return compare(+a.fragment, +b.fragment, isAsc);
         case 'fragmentPopSize': return compare(+a.fragmentPopSize, +b.fragmentPopSize, isAsc);
-        case 'blueCount': return compare(+a.blueCount, +b.blueCount, isAsc);
+        case 'cyanCount': return compare(+a.cyanCount, +b.cyanCount, isAsc);
         case 'greenCount': return compare(+a.greenCount, +b.greenCount, isAsc);
         case 'magentaCount': return compare(+a.magentaCount, +b.magentaCount, isAsc);
         default: return 0;

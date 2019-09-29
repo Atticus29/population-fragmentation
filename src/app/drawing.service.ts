@@ -94,7 +94,7 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype, height: number, width: num
   this.drawEllipse(0.35*width, 0.45*height, 0.15*width, 0.015*height, Math.PI/6, 0, 2 * Math.PI, canvasRef, 'black', true);
 
   //random polka dots
-  // let colorArray = new Array<string>("blue", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
+  // let colorArray = new Array<string>("cyan", "pink", "orange", "#FF00FF", "red", "#00FFFF", "#800000", "#00FF00", "#008000", "#00FFFF", "#008080", "#BFBFFE", "#800080");
   // this.drawArc(77, 95, 3, 0, 2*Math.PI, canvasRef, colorArray[Math.floor(Math.random()*colorArray.length)], true);
 
   // console.log(genotype.getAllele1());

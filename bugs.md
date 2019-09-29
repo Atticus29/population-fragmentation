@@ -55,7 +55,7 @@
 - [x] Form doesn't check for invalid allele frequency entries
 - [x] generateMetaPopulation doesn't handle small population sizes or large subpopulations well
     - [x] E.g., popSize 1 subpop 2 (see form validation)
-    - [x] E.g., popSize 2 subpop 2 (always blue blue homozygotes)
+    - [x] E.g., popSize 2 subpop 2 (always cyan cyan homozygotes)
 - [x] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [x] <app-mate> isn't working

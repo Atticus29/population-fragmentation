@@ -30,14 +30,14 @@ export class PopulationDetailsFormComponent implements OnInit {
   private fragNum: number = 1;
   private genNum: number = 1;
   private greenAlleleFreq: number = 0.8;
-  private blueAlleleFreq: number = 0.1;
+  private cyanAlleleFreq: number = 0.1;
   private magentaAlleleFreq: number = 0.1;
   private MAX_GEN: number = 100;
   private insufficientIndividsInFragError: Boolean = false;
 
   errorMatcher = {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
-      let theSum: number = +this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.blueAlleleFreq + +this.userInputFG.value.magentaAlleleFreq;
+      let theSum: number = +this.userInputFG.value.greenAlleleFreq + +this.userInputFG.value.cyanAlleleFreq + +this.userInputFG.value.magentaAlleleFreq;
       let roundedNum = this.qs.roundToNearest(theSum, 5);
       return(roundedNum != 1);
     }
@@ -76,14 +76,14 @@ export class PopulationDetailsFormComponent implements OnInit {
       fragNum: ['1', [Validators.required, Validators.min(1), Validators.max(1000)]],//, Validators.max(1000)
       genNum:  ['10', [Validators.required, Validators.min(1), Validators.max(1000)]],//, Validators.max(1000)
       greenAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]], //, Validators.max(1), Validators.min(0)
-      blueAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
+      cyanAlleleFreq: ['0.33', [Validators.required, Validators.max(1), Validators.min(0)]],//, Validators.max(1), Validators.min(0)
       magentaAlleleFreq: ['0.34', [Validators.required, Validators.max(1), Validators.min(0)]] //, Validators.max(1), Validators.min(0)
     },{validator: [this.sumToOne.bind(this), this.popSizeBigEnoughForFrag, this.twoOrMoreIndividsPerFragment.bind(this)]}
   )};
 
   ngOnInit() {
     let alleleFrequecies = new Array<number>(0.7, 0.1, 0.2);
-    let alleleNames = new Array<string>("blue", "green", "magenta");
+    let alleleNames = new Array<string>("cyan", "green", "magenta");
     this.popManager.generateMetaPopulation(alleleFrequecies, alleleNames , 20, 2);
     this.popManager.metapopulationGenerations.pipe(take(1)).subscribe(metapopulations =>{
       metapopulations.forEach(metapopulation =>{
@@ -111,7 +111,7 @@ export class PopulationDetailsFormComponent implements OnInit {
   get f() { return this.userInputFG.controls; }
 
   sumToOne(fg: FormGroup){
-    let theSum: number = +fg.value.greenAlleleFreq + +fg.value.blueAlleleFreq + +fg.value.magentaAlleleFreq;
+    let theSum: number = +fg.value.greenAlleleFreq + +fg.value.cyanAlleleFreq + +fg.value.magentaAlleleFreq;
     let roundedNum = this.qs.roundToNearest(theSum, 5);
     if(roundedNum == 1){
       return null;
@@ -147,12 +147,12 @@ export class PopulationDetailsFormComponent implements OnInit {
   processForm(){
     this.submitted = true;
     let result = this.getValues();
-    let {popsize, fragNum, genNum, greenAlleleFreq, blueAlleleFreq, magentaAlleleFreq} = result;
+    let {popsize, fragNum, genNum, greenAlleleFreq, cyanAlleleFreq, magentaAlleleFreq} = result;
     this.popsize = popsize;
     this.fragNum = fragNum;
     this.genNum = genNum;
     this.greenAlleleFreq = greenAlleleFreq;
-    this.blueAlleleFreq = blueAlleleFreq;
+    this.cyanAlleleFreq = cyanAlleleFreq;
     this.magentaAlleleFreq = magentaAlleleFreq;
     // console.log(this.popsize/this.fragNum);
     if(this.popsize/this.fragNum < 2){
@@ -170,16 +170,16 @@ export class PopulationDetailsFormComponent implements OnInit {
       this.takeNextStep = true;
       this.takeNextStepEmitter.emit(this.takeNextStep);
       this.popManager.clearMetaPopulation();
-      this.popManager.generateMetaPopulation([+blueAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["blue", "green", "magenta"], +popsize, +fragNum);
+      this.popManager.generateMetaPopulation([+cyanAlleleFreq, +greenAlleleFreq, +magentaAlleleFreq],["cyan", "green", "magenta"], +popsize, +fragNum);
       //TODO figure out whether this should happen
       // this.popManager.currentMetapopulationOfMatedPairs.pipe(take(1)).subscribe((metapopulationOfMatedPairs: MetapopulationOfMatedPairs) =>{
       // });
       this.popManager.currentMetaPopulation.pipe(take(1)).subscribe(metapopulation =>{
           this.popManager.addToMetapopulationGenerations(metapopulation);
           //TODO add a problem to the problem service after creation of metapopulation
-          let blueSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("blue", metapopulation.getSubpopulation(0));
-          let blueSubPop1FreqProblem = new Problem("What is the allele frequency of the blue allele in subpopulation 1?", [this.qs.roundToNearest((blueSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(blueSubPop1Freq,3).toString(), "0", "1"], this.qs.roundToNearest(blueSubPop1Freq,3).toString());
-          this.qs.addProblemToList(blueSubPop1FreqProblem);
+          let cyanSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("cyan", metapopulation.getSubpopulation(0));
+          let cyanSubPop1FreqProblem = new Problem("What is the allele frequency of the cyan allele in subpopulation 1?", [this.qs.roundToNearest((cyanSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(cyanSubPop1Freq,3).toString(), "0", "1"], this.qs.roundToNearest(cyanSubPop1Freq,3).toString());
+          this.qs.addProblemToList(cyanSubPop1FreqProblem);
           let greenSubPop1Freq = this.popManager.calculatePopulationAlleleFrequency("green", metapopulation.getSubpopulation(0));
           let greenSubPop1FreqProblem = new Problem("What is the allele frequency of the green allele in subpopulation 1?", ["0", this.qs.roundToNearest((greenSubPop1Freq + 0.25),3).toString(), this.qs.roundToNearest(greenSubPop1Freq,3).toString(), "1"], this.qs.roundToNearest(greenSubPop1Freq,3).toString());
           this.qs.addProblemToList(greenSubPop1FreqProblem);
