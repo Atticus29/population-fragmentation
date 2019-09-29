@@ -79,9 +79,11 @@ Paste your access key ID and secret access key into the relevant text fields of 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
-### Development server
+### Run it on a local development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
+
+Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
 
 ### Code scaffolding
 
@@ -94,11 +96,13 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
 Note that unit testing has not yet been implemented in DraggleSimulator.
 
 ### Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
 Note that e2e testing has not yet been implemented in DraggleSimulator.
 
 ### Further help
