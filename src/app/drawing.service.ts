@@ -99,10 +99,10 @@ drawLizard(canvasRef: ElementRef, genotype: Genotype, height: number, width: num
 
   // console.log(genotype.getAllele1());
   // console.log(genotype.getAllele2());
-  this.drawArc(0.3*width, 0.505*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
-  this.drawArc(0.425*width, 0.51*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
-  this.drawArc(0.545*width, 0.47*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
-  this.drawArc(0.6*width, 0.51*height, 0.015*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
+  this.drawArc(0.3*width, 0.505*height, 0.035*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
+  this.drawArc(0.425*width, 0.51*height, 0.040*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
+  this.drawArc(0.545*width, 0.47*height, 0.035*width, 0, 2*Math.PI, canvasRef, genotype.getAllele1(), true);
+  this.drawArc(0.6*width, 0.51*height, 0.05*width, 0, 2*Math.PI, canvasRef, genotype.getAllele2(), true);
   // console.log("got to the end");
 }
 }
