@@ -291,13 +291,13 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
 	return combs;
   }
 
-  generatePopulation(alleleFrequencyBlue: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
+  generatePopulation(alleleFrequencycyan: number, alleleFrequencyGreen: number, alleleFrequencyMagenta: number, popSize: number){
     //TODO generalize this for an array of allele frequencies
     //TODO generalize to different populationSources
     //assuming Hardy-Weinberg Equilibrium
-    let blueHomozygousCount = Math.round(alleleFrequencyBlue * alleleFrequencyBlue * popSize);
-    for (let i = 0; i<blueHomozygousCount; i++){
-      let individual = this.individualGenerator.makeIndividual("blue", "blue");
+    let cyanHomozygousCount = Math.round(alleleFrequencycyan * alleleFrequencycyan * popSize);
+    for (let i = 0; i<cyanHomozygousCount; i++){
+      let individual = this.individualGenerator.makeIndividual("cyan", "cyan");
       this.addOrganismToPopulation(individual);
     }
     let greenHomozygousCount = Math.round(alleleFrequencyGreen * alleleFrequencyGreen * popSize);
@@ -310,14 +310,14 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
       let individual = this.individualGenerator.makeIndividual("magenta", "magenta");
       this.addOrganismToPopulation(individual);
     }
-    let blueGreenHeterozygoteCount = Math.round(2* alleleFrequencyBlue * alleleFrequencyGreen * popSize);
-    for (let i = 0; i<blueGreenHeterozygoteCount; i++){
-      let individual = this.individualGenerator.makeIndividual("blue", "green");
+    let cyanGreenHeterozygoteCount = Math.round(2* alleleFrequencycyan * alleleFrequencyGreen * popSize);
+    for (let i = 0; i<cyanGreenHeterozygoteCount; i++){
+      let individual = this.individualGenerator.makeIndividual("cyan", "green");
       this.addOrganismToPopulation(individual);
     }
-    let blueMagentaHeterozygoteCount = Math.round(2* alleleFrequencyBlue * alleleFrequencyMagenta * popSize);
-    for (let i = 0; i<blueMagentaHeterozygoteCount; i++){
-      let individual = this.individualGenerator.makeIndividual("blue", "magenta");
+    let cyanMagentaHeterozygoteCount = Math.round(2* alleleFrequencycyan * alleleFrequencyMagenta * popSize);
+    for (let i = 0; i<cyanMagentaHeterozygoteCount; i++){
+      let individual = this.individualGenerator.makeIndividual("cyan", "magenta");
       this.addOrganismToPopulation(individual);
     }
     let greenMagentaHeterozygoteCount = Math.round(2* alleleFrequencyGreen * alleleFrequencyMagenta * popSize);
@@ -331,7 +331,7 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
     // console.log(population);
     if(population.getIndividuals().length<popSize){
       // console.log("your population is too small!");
-      this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
+      this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencycyan, alleleFrequencyGreen, alleleFrequencyMagenta], ["cyan", "green", "magenta"]);
     }
     if(population.getIndividuals().length>popSize){
       // console.log("your population is too big! Weird!")
@@ -343,7 +343,7 @@ shuffle(array) { //TODO could have a smaller big O; won't scale well with large 
   // console.log(population);
   if(population.getIndividuals().length<popSize){
     // console.log("your population is too small!");
-    this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencyBlue, alleleFrequencyGreen, alleleFrequencyMagenta], ["blue", "green", "magenta"]);
+    this.addRandomIndividualGivenPopAlleleFrequencies([alleleFrequencycyan, alleleFrequencyGreen, alleleFrequencyMagenta], ["cyan", "green", "magenta"]);
   }
   if(population.getIndividuals().length>popSize){
     // console.log("your population is too big! Weird!")
