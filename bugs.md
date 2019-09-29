@@ -9,16 +9,16 @@
 - [x] the link in instructions.component is not hooked up to the database. This means people will have to get the room number from their instructor earlier.
 - [x] Some of the lizard names in lizard display aren't centered
 - [x] When you just hit submit from instructor-config, the validation is a little messed up
-- [x] All fragments with one individual is problematic (maybe prevent at the form stage?)
+- [x] All subpopulations with one individual is problematic (maybe prevent at the form stage?)
 - [x] Table is not loading allele frequencies because of asynchronicity issue
 - [x] disable shuffle button until next button on the problems-display has been clicked
 - [x] display gen number lots of places
 - [x] I don't think the built-in theme is working
 - [x] round later questions
-- [x] check for generation x fragment number bugs
+- [x] check for generation x subpopulation number bugs
 - [x] flesh out actual content of intro sections
 - [x] Displays as correct even after gen 1 questions are done --> when you hit "next" (not next question), it should reset that
-- [x] confirm that the generations work with large fragment numbers --> works fine unless you hit clear pop (this should really just be a refresh)
+- [x] confirm that the generations work with large subpopulation numbers --> works fine unless you hit clear pop (this should really just be a refresh)
 - [x] round the question answers
 - [x] check that the new questions reflect the current generation and not the previous generation's allele frequencies
 - [x] TODO this is not true fix
@@ -28,7 +28,7 @@
 - [x] TODO try without the detect changes
 - [x] Canvases of metapopulation not displaying after first couple is randomly selected, but gets restored after that continues
 - [x] Canvases of matedPairs not displaying (I think it has something to do with them not being dynamically generated)
-- [x] You can submit the form with a negative number of fragments
+- [x] You can submit the form with a negative number of subpopulations
 - [x] You can submit the form with a negative number of generations
 - [x] fix bug where designate a random pair to mate button doesn't disappear
 - [x] fix bug where I'm ready to answer questions about this population doesn't disappear in the second lizard-display (should it?)
@@ -47,15 +47,15 @@
 - [x] Does not remove the mated pairs when you clear population
 - [x] Errors out when you try to mate a population of size 1 (what about odd pop sizes?)
 - [x] Errors out when you try to mate but nobody in the population is eligible
-- [x] negative and 0 frag numbers don't throw errors....
+- [x] negative and 0 subpoop numbers don't throw errors....
 - [x] the real-time pre-submission validation no longer seems to be working?
 - [x] getScrambledPopulation doesn't work yet (I think because child shuffle doesn't work as advertised)
 - [x] Grid layout in app.component.html is not working (no longer relevant)
 - [x] Form doesn't validate
 - [x] Form doesn't check for invalid allele frequency entries
-- [x] generateMetaPopulation doesn't handle small population sizes or large fragments well
-    - [x] E.g., popSize 1 frag 2 (see form validation)
-    - [x] E.g., popSize 2 frag 2 (always blue blue homozygotes)
+- [x] generateMetaPopulation doesn't handle small population sizes or large subpopulations well
+    - [x] E.g., popSize 1 subpop 2 (see form validation)
+    - [x] E.g., popSize 2 subpop 2 (always blue blue homozygotes)
 - [x] Accommodate different behaviorSubjects in calculateAlleleFrequency in population-manager
 - [x] components that conceptually should not be nested in the form were... extract them and deal with inputs and outputs
 - [x] <app-mate> isn't working

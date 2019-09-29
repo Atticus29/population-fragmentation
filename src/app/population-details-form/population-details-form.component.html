@@ -5,11 +5,11 @@
       <div class="col m12 s1 form-wrapper">
         <mat-form-field class="span-thirty">
           <input matInput placeholder="Desired Pop. Size (may vary)" value="10" required formControlName="popsize" [ngClass]="{ 'is-invalid': submitted && f.popsize.errors}" type="number" [errorStateMatcher]="errorPopSizeMatcher">
-          <mat-error>Fragment number must be > 0 and population must be large enough to split</mat-error>
+          <mat-error>Subpopulation number must be > 0 and population must be large enough to split</mat-error>
         </mat-form-field>
         <mat-form-field class="span-thirty">
-          <input matInput placeholder="Number of fragments" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorIndividsPerFragMatcher">
-          <mat-error>Population too small to split into that many fragments</mat-error>
+          <input matInput placeholder="Number of subpopulations" value="1" required formControlName="fragNum" [ngClass]="{ 'is-invalid': submitted && f.fragNum.errors}" type="number" [errorStateMatcher]="errorIndividsPerFragMatcher">
+          <mat-error>Population too small to split into that many subpopulations</mat-error>
         </mat-form-field>
         <mat-form-field class="span-thirty">
           <input matInput placeholder="Number of generations" value="10" required formControlName="genNum" [ngClass]="{ 'is-invalid': submitted && f.genNum.errors}" type="number" [errorStateMatcher]="errorGenNumMatcher">
@@ -36,9 +36,9 @@
         <div *ngIf="f.popsize.errors.min">Population Size is too small</div>
       </div>
       <div *ngIf="submitted && f.fragNum.errors" class="invalid-feedback">
-        <div *ngIf="f.fragNum.errors.required">Number of fragments required</div>
-        <div *ngIf="f.fragNum.errors.min">Number of fragments is too small</div>
-        <div *ngIf="f.fragNum.errors.max">Number of fragments is too large</div>
+        <div *ngIf="f.fragNum.errors.required">Number of subpopulations required</div>
+        <div *ngIf="f.fragNum.errors.min">Number of subpopulations is too small</div>
+        <div *ngIf="f.fragNum.errors.max">Number of subpopulations is too large</div>
       </div>
       <div *ngIf="submitted && f.genNum.errors" class="invalid-feedback">
         <div *ngIf="f.genNum.errors.required">Number of generations required</div>
@@ -61,7 +61,7 @@
         <div *ngIf="f.magentaAlleleFreq.errors.max">Allele frequency must be 1 or less</div>
       </div>
       <div *ngIf="submitted && insufficientIndividsInFragError" class="invalid-feedback">
-        <div *ngIf="submitted && insufficientIndividsInFragError">Insufficent number of individuals in each fragment</div>
+        <div *ngIf="submitted && insufficientIndividsInFragError">Insufficent number of individuals in each subpopulation</div>
       </div>
     </div>
   </div>

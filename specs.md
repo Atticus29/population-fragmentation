@@ -4,7 +4,7 @@
 - [x] Instructor enters last name and if that name already exists in the database, a new name with a random numerals appended until it's unique is given
 - [x] Users can see a table of allele counts for each generation
 - [x] User can choose starting total population size
-- [x] User can choose number of population fragments
+- [x] User can choose number of subpopulations
 - [x] User can choose the number of generations to track
 - [x] User can choose allele frequencies of brown, green, and magenta alleles
   - [x] Default frequency is ~1/3, ~1/3, ~1/3

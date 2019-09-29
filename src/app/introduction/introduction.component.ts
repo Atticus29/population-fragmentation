@@ -24,10 +24,10 @@ export class IntroductionComponent implements OnInit {
   private submitted: boolean = false;
   private validInputs: boolean = true;
   private heading: string = "Introduction";
-  private text: string = "In this simulation, you will be learning about how population fragmentation increases the rate at which genetic diversity is lost. We’ll be simulating populations of snarl-toothed draggles. Scientists have recently discovered that a single gene fully controls spot color, which is the gene you’ll be tracking through the generations."
+  private text: string = "In this simulation, you will be learning about how population fragmentation (i.e., creating separate, isolated subpopulations) increases the rate at which genetic diversity is lost. We’ll be simulating populations of snarl-toothed draggles. Scientists have recently discovered that a single gene fully controls spot color, which is the gene you’ll be tracking through the generations."
   private text2: string = "We'll be tracking genetic diversity at this spot color gene using a metric called, 'expected heterozygosity'."
-  private text3: string = "The class will be dividing into teams of two or three. Some teams will simulate populations split into various equally-sized fragments (a.k.a., subpopulation), while others will simulate one intact population.";
-  private text4: string = "Each population fragment can’t reach (and therefore can’t mate with) any other.";
+  private text3: string = "The class will be dividing into teams of two or three. Some teams will simulate populations split into various equally-sized subpopulations, while others will simulate one intact population.";
+  private text4: string = "Each subpopulation can’t reach (and therefore can’t mate with) any other.";
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private displayRoomForm: boolean = true;
   private displayIntroText: boolean = false;
