@@ -40,7 +40,7 @@ DraggleSimulator currently only simulates genetic drift, but contains object mod
 
 The questions are managed and persisted across the components by injecting a service called QuestionService. Each question is an instance of the "problem" object model.
 
-Similarly, the metapopulations, which, depending on user input from the form, consist of one or more subpopulations, are persisted across components by injecting a service called PopulationManagerService. Both of these services currently track the status of their respective data using various flavors of the [rxjs Subject pattern](https://www.learnrxjs.io/subjects/behaviorsubject.html) (either BehaviorSubjects or ReplaySubjects). There is currently no "Generation" model explicitly; all generations are currently tracked as BehaviorSubject of an array of Metapopulation models (each tracking the metapopulation in one generational snapshot). This BehaviorSubject, along with many of BehaviorSubject objects that track various metapopulation features and statistics are housed in the PopulationManagerService.
+Similarly, the metapopulations, which, depending on user input from the form, consist of one or more subpopulations, are persisted across components by injecting a service called PopulationManagerService. Both of these services currently track the status of their respective data using various flavors of the [rxjs Subject pattern](https://www.learnrxjs.io/subjects/behaviorsubject.html) (either BehaviorSubjects or ReplaySubjects). There is currently no "Generation" model explicitly; all generations are currently tracked as a BehaviorSubject of an array of Metapopulation models (each tracking the metapopulation in one generational snapshot). This BehaviorSubject, along with many of BehaviorSubject objects that track various metapopulation features and statistics are housed in the PopulationManagerService.
 
 DraggleSimulator is not currently optimized to be viewed on a mobile device, but it should be possible to improve some of the css to improve this.
 
@@ -51,7 +51,16 @@ Known and resolved bugs are tracked [here](https://github.com/Atticus29/populati
 
 If you find a new bug or issue to which you'd like to draw my attention, please post about it [here](https://github.com/Atticus29/population-fragmentation/issues)
 
-## How to Set Up Your Own Instance of DraggleSimulator in Amazon Web Services
+### Run it on a local development server
+
+Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
+
+Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
+
+## How to Set Up Your Own Instance of DraggleSimulator in Amazon Web Services (AWS)
+
+**Note that these instructions are not exhaustive, and it is not recommended to set up your own hosted instance if you are unfamiliar with AWS**
+
 1. In your terminal, type `git clone https://github.com/Atticus29/population-fragmentation.git`
 1. In your terminal, type `cd population-fragmentation` to navigate into the new directory.
 1. Sign up for AWS (Amazon Web Services) [here](https://aws.amazon.com/account/). It will require your credit card, but it won't charge you unless you start using non-free-tier services.
@@ -79,12 +88,6 @@ Paste your access key ID and secret access key into the relevant text fields of 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
-### Run it on a local development server
-
-Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
-
-Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
-
 ### Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
@@ -95,15 +98,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-Note that unit testing has not yet been implemented in DraggleSimulator.
+**Unit testing has not yet been implemented in DraggleSimulator.**
 
 ### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-Note that e2e testing has not yet been implemented in DraggleSimulator.
+**e2e testing has not yet been implemented in DraggleSimulator.**
 
 ### Further help
 
