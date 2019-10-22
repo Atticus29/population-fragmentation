@@ -3,6 +3,9 @@
 By: Mark Fisher
 January, 2019 - July, 2019
 
+## Publication Status
+[![status](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba/status.svg)](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba)
+
 ## What is DraggleSimulator?
 
 Click image below to watch the tutorial video!
