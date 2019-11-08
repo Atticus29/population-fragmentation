@@ -1,8 +1,8 @@
 /// <reference types="jest" />
 import { fun } from './test-config';
-// fun.cleanup;
+fun.cleanup;
 
-import { db, stripe } from '../src/config';
+// import { db, stripe } from '../src/config';
 
 test('foo', ()=>{
   expect(true).toBe(true);
@@ -14,5 +14,4 @@ test('foo', ()=>{
 //
 // test('Stripe is initialized', () => {
 //     expect(stripe).toBeDefined();
-
-});
+// });

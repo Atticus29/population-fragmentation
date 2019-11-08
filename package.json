@@ -24,6 +24,7 @@
     "aws-sdk": "^2.487.0",
     "compass-mixins": "^0.12.10",
     "core-js": "^2.6.9",
+    "firebase-functions-test": "^0.1.7",
     "hammerjs": "^2.0.8",
     "material-design-icons": "^3.0.1",
     "pet-names": "^1.0.1",
