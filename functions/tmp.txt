@@ -1,0 +1,27 @@
+
+[1m[37m===[39m Deploying to 'dragglesimulator'...[22m
+
+[1m[36mi [39m[22m deploying [1mfunctions[22m
+Running command: npm --prefix "$RESOURCE_DIR" run lint
+
+> functions@ lint /Users/mf/Desktop/population-fragmentation/functions
+> tslint --project tsconfig.json
+
+Running command: npm --prefix "$RESOURCE_DIR" run build
+
+> functions@ build /Users/mf/Desktop/population-fragmentation/functions
+> tsc
+
+[1m[32m✔ [39m[22m [1m[32mfunctions:[39m[22m Finished running [1mpredeploy[22m script.
+[1m[36mi  functions:[39m[22m ensuring necessary APIs are enabled...
+[1m[32m✔  functions:[39m[22m all necessary APIs are enabled
+[1m[36mi [39m[22m [1m[36mfunctions:[39m[22m preparing [1mfunctions[22m directory for uploading...
+[1m[36mi [39m[22m [1m[36mfunctions:[39m[22m packaged [1mfunctions[22m (81.65 KB) for uploading
+[1m[32m✔ [39m[22m [1m[32mfunctions:[39m[22m [1mfunctions[22m folder uploaded successfully
+[1m[36mi [39m[22m [1m[36mfunctions: [39m[22mcreating Node.js 8 function [1mtestFunction(us-central1)[22m...
+[1m[32m✔ [39m[22m [1m[32mfunctions[testFunction(us-central1)]: [39m[22mSuccessful create operation. 
+[1mFunction URL[22m (testFunction): https://us-central1-dragglesimulator.cloudfunctions.net/testFunction
+
+[1m[32m✔ [39m[22m [1m[4mDeploy complete![24m[22m
+
+[1mProject Console:[22m https://console.firebase.google.com/project/dragglesimulator/overview
