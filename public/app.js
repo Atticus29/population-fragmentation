@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
+  // Attach a Payment Source
   const attachFun = fun.httpsCallable('stripeAttachSource');
   const sourceHandler = async(source) => {
     console.log(source.id);
@@ -88,4 +89,13 @@ document.addEventListener('DOMContentLoaded', function(){
     console.log(res);
     alert("Success! Source attached to customer!");
   }
+
+  // Create Charge for Specific amount
+  const chargeFun = fun.httpsCallable('stripeCreateCharge');
+  const chargeHandler = async(source) => {
+    const res = await chargeFun({ source: source.id, amount: 3000}); //TODO update of course
+    console log(res);
+    alert('Success, charge customer $30.00'); //TODO change of course
+  }
+
 });

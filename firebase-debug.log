@@ -1,0 +1,193 @@
+[debug] [2019-11-09T21:21:44.041Z] ----------------------------------------------------------------------
+[debug] [2019-11-09T21:21:44.044Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-11-09T21:21:44.045Z] CLI Version:   7.4.0
+[debug] [2019-11-09T21:21:44.045Z] Platform:      darwin
+[debug] [2019-11-09T21:21:44.045Z] Node Version:  v10.16.0
+[debug] [2019-11-09T21:21:44.053Z] Time:          Sat Nov 09 2019 13:21:44 GMT-0800 (Pacific Standard Time)
+[debug] [2019-11-09T21:21:44.053Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-09T21:21:44.072Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-09T21:21:44.073Z] > authorizing via signed-in user
+[debug] [2019-11-09T21:21:44.073Z] [iam] checking project dragglesimulator for permissions ["firebase.projects.get"]
+[debug] [2019-11-09T21:21:44.075Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-09T21:21:44.075Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-09T21:21:44.249Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-09T21:21:44.292Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/dragglesimulator:testIamPermissions  
+
+[debug] [2019-11-09T21:21:44.403Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-09T21:21:44.405Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator  
+ 
+[debug] [2019-11-09T21:21:44.616Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/mf/Desktop/population-fragmentation'...
+[info] 
+[debug] [2019-11-09T21:21:44.625Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-11-09T21:21:45.002Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/mf/Desktop/population-fragmentation/functions" for Cloud Functions...
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-11-09T21:21:45.444Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-09T21:21:45.445Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-09T21:21:45.451Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-09T21:21:45.454Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-09T21:21:45.455Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+[debug] [2019-11-09T21:54:32.895Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/helpers.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.898Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/helpers.js changed, reloading triggers
+[debug] [2019-11-09T21:54:32.898Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/config.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.898Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/config.js changed, reloading triggers
+[debug] [2019-11-09T21:54:32.898Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/sources.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/sources.js changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/charges.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/charges.js changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/index.js.map changed, reloading triggers
+[debug] [2019-11-09T21:54:32.899Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/index.js changed, reloading triggers
+[debug] [2019-11-09T21:54:34.321Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-09T21:54:34.321Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-09T21:54:34.326Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-09T21:54:34.329Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-09T21:54:34.330Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+[debug] [2019-11-12T03:36:52.709Z] File /Users/mf/Desktop/population-fragmentation/functions/test/mocks.ts changed, reloading triggers
+[debug] [2019-11-12T03:36:54.801Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-12T03:36:54.806Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-12T03:36:54.808Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-12T03:36:54.809Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-12T03:36:54.809Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+[debug] [2019-11-12T03:39:26.628Z] File /Users/mf/Desktop/population-fragmentation/functions/test/mocks.ts changed, reloading triggers
+[debug] [2019-11-12T03:39:28.214Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-12T03:39:28.221Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-12T03:39:28.227Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-12T03:39:28.231Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-12T03:39:28.231Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+[debug] [2019-11-12T03:40:38.059Z] File /Users/mf/Desktop/population-fragmentation/functions/test/mocks.ts changed, reloading triggers
+[debug] [2019-11-12T03:40:39.602Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-12T03:40:39.605Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-12T03:40:39.614Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-12T03:40:39.615Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-12T03:40:39.615Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
+[debug] [2019-11-12T03:48:03.184Z] ----------------------------------------------------------------------
+[debug] [2019-11-12T03:48:03.187Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-11-12T03:48:03.187Z] CLI Version:   7.4.0
+[debug] [2019-11-12T03:48:03.187Z] Platform:      darwin
+[debug] [2019-11-12T03:48:03.187Z] Node Version:  v10.16.0
+[debug] [2019-11-12T03:48:03.189Z] Time:          Mon Nov 11 2019 19:48:03 GMT-0800 (Pacific Standard Time)
+[debug] [2019-11-12T03:48:03.189Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-12T03:48:03.211Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-12T03:48:03.212Z] > authorizing via signed-in user
+[debug] [2019-11-12T03:48:03.212Z] [iam] checking project dragglesimulator for permissions ["firebase.projects.get"]
+[debug] [2019-11-12T03:48:03.214Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-12T03:48:03.214Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-12T03:48:03.483Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-12T03:48:03.500Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/dragglesimulator:testIamPermissions  
+
+[debug] [2019-11-12T03:48:03.697Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-12T03:48:03.700Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator  
+ 
+[debug] [2019-11-12T03:48:03.928Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/mf/Desktop/population-fragmentation'...
+[info] 
+[debug] [2019-11-12T03:48:03.935Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-11-12T03:48:04.500Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/mf/Desktop/population-fragmentation/functions" for Cloud Functions...
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-11-12T03:48:04.908Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-12T03:48:04.909Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-11-12T03:48:04.913Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-12T03:48:04.915Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-12T03:48:04.916Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[warn] ⚠  TypeError: Cannot read property 'secret' of undefined
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/config.js:11:49)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/mf/Desktop/population-fragmentation/functions/lib/sources.js:5:18)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+[warn] ⚠  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.
