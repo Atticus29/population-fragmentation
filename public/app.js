@@ -77,14 +77,15 @@ document.addEventListener('DOMContentLoaded', function(){
       errorElement.textContent = error.message;
     }else{
       // Send the token to server
-      sourceHandler(source);
+      // sourceHandler(source);
+      subscriptionHandler(source);
     }
   });
 
   // Attach a Payment Source
   const attachFun = fun.httpsCallable('stripeAttachSource');
   const sourceHandler = async(source) => {
-    console.log(source.id);
+    // console.log(source.id);
     const res = await attachFun({source: source.id});
     console.log(res);
     alert("Success! Source attached to customer!");
@@ -94,8 +95,21 @@ document.addEventListener('DOMContentLoaded', function(){
   const chargeFun = fun.httpsCallable('stripeCreateCharge');
   const chargeHandler = async(source) => {
     const res = await chargeFun({ source: source.id, amount: 3000}); //TODO update of course
-    console log(res);
+    console.log(res);
     alert('Success, charge customer $30.00'); //TODO change of course
   }
 
+  // Get charges
+  const chargesBtn = document.getElementById('charges');
+  const getChargesFun = fun.httpsCallable('stripeGetCharges');
+
+  //subscriptions
+  //Create charge for specific amount
+  const subscriptionFun = fun.httpsCallable('stripeCreateSubscription');
+  const subscriptionHandler = async(source) => {
+    console.log(source.id);
+    const res = await subscriptionFun({ plan: 'Match Annotator Monthly Subscription', source: source.id});
+    console.log(res);
+    alert('Success, subscribed to plan');
+  }
 });
