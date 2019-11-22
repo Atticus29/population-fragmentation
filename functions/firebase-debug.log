@@ -1,0 +1,69 @@
+[debug] [2019-11-22T23:29:56.952Z] ----------------------------------------------------------------------
+[debug] [2019-11-22T23:29:56.955Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-11-22T23:29:56.955Z] CLI Version:   7.8.1
+[debug] [2019-11-22T23:29:56.956Z] Platform:      darwin
+[debug] [2019-11-22T23:29:56.956Z] Node Version:  v10.16.0
+[debug] [2019-11-22T23:29:56.956Z] Time:          Fri Nov 22 2019 15:29:56 GMT-0800 (Pacific Standard Time)
+[debug] [2019-11-22T23:29:56.956Z] ----------------------------------------------------------------------
+[debug] [2019-11-22T23:29:56.956Z] 
+[debug] [2019-11-22T23:29:56.967Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-22T23:29:56.967Z] > authorizing via signed-in user
+[debug] [2019-11-22T23:29:56.967Z] [iam] checking project dragglesimulator for permissions ["firebase.projects.get"]
+[debug] [2019-11-22T23:29:56.969Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/dragglesimulator:testIamPermissions  
+
+[debug] [2019-11-22T23:29:57.136Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-22T23:29:57.138Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator  
+ 
+[debug] [2019-11-22T23:29:57.321Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/mf/Desktop/population-fragmentation'...
+[info] 
+[debug] [2019-11-22T23:29:57.327Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-11-22T23:29:57.668Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/mf/Desktop/population-fragmentation/functions" for Cloud Functions...
+[debug] [2019-11-22T23:29:57.697Z] [worker-~diagnostic~-2e27447e-b729-4cae-b3af-718875d310b1]: Assigning socketPath: /var/folders/lw/l_9fdk056fq46_dpdrgjnpvc0000gn/T/fire_emu_35061.sock
+[debug] [2019-11-22T23:29:57.697Z] [worker-~diagnostic~-2e27447e-b729-4cae-b3af-718875d310b1]: BUSY
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-11-22T23:29:58.095Z] [runtime-status] [35061] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-22T23:29:58.097Z] [runtime-status] [35061] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2019-11-22T23:29:58.099Z] [runtime-status] [35061] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-22T23:29:58.101Z] [runtime-status] [35061] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-22T23:29:58.102Z] [runtime-status] [35061] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[info] ✔  functions[testFunction]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/testFunction).
+[info] ✔  functions[stripeAttachSource]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeAttachSource).
+[info] ✔  functions[stripeCreateCharge]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeCreateCharge).
+[info] ✔  functions[stripeGetCharges]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeGetCharges).
+[info] ✔  functions[stripeCreateSubscription]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeCreateSubscription).
+[info] ✔  functions[stripeGetSubscriptions]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeGetSubscriptions).
+[info] ✔  functions[stripeCancelSubscription]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeCancelSubscription).
+[info] ✔  functions[invoiceWebhookEndpoint]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/invoiceWebhookEndpoint).
+[debug] [2019-11-22T23:29:58.273Z] [worker-~diagnostic~-2e27447e-b729-4cae-b3af-718875d310b1]: exited
+[debug] [2019-11-22T23:29:58.274Z] [worker-~diagnostic~-2e27447e-b729-4cae-b3af-718875d310b1]: FINISHED
+[debug] [2019-11-22T23:31:44.598Z] File /Users/mf/Desktop/population-fragmentation/functions/src/customers.ts changed, reloading triggers
+[debug] [2019-11-22T23:31:44.599Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js.map changed, reloading triggers
+[debug] [2019-11-22T23:31:44.599Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js changed, reloading triggers
+[debug] [2019-11-22T23:31:45.609Z] [worker-~diagnostic~-3724b390-3137-4a58-b58b-5e0df1da7a00]: Assigning socketPath: /var/folders/lw/l_9fdk056fq46_dpdrgjnpvc0000gn/T/fire_emu_35221.sock
+[debug] [2019-11-22T23:31:45.609Z] [worker-~diagnostic~-3724b390-3137-4a58-b58b-5e0df1da7a00]: BUSY
+[debug] [2019-11-22T23:31:46.131Z] [runtime-status] [35221] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-22T23:31:46.134Z] [runtime-status] [35221] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2019-11-22T23:31:46.138Z] [runtime-status] [35221] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-22T23:31:46.140Z] [runtime-status] [35221] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-22T23:31:46.141Z] [runtime-status] [35221] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-22T23:31:46.394Z] [worker-~diagnostic~-3724b390-3137-4a58-b58b-5e0df1da7a00]: exited
+[debug] [2019-11-22T23:31:46.395Z] [worker-~diagnostic~-3724b390-3137-4a58-b58b-5e0df1da7a00]: FINISHED
+[debug] [2019-11-22T23:32:25.867Z] File /Users/mf/Desktop/population-fragmentation/functions/src/customers.ts changed, reloading triggers
+[debug] [2019-11-22T23:32:25.867Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js.map changed, reloading triggers
+[debug] [2019-11-22T23:32:25.867Z] File /Users/mf/Desktop/population-fragmentation/functions/lib/customers.js changed, reloading triggers
+[debug] [2019-11-22T23:32:26.873Z] [worker-~diagnostic~-ca29967b-c3b2-499a-bade-7afaf0c4f790]: Assigning socketPath: /var/folders/lw/l_9fdk056fq46_dpdrgjnpvc0000gn/T/fire_emu_35284.sock
+[debug] [2019-11-22T23:32:26.873Z] [worker-~diagnostic~-ca29967b-c3b2-499a-bade-7afaf0c4f790]: BUSY
+[debug] [2019-11-22T23:32:27.404Z] [runtime-status] [35284] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-22T23:32:27.407Z] [runtime-status] [35284] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2019-11-22T23:32:27.412Z] [runtime-status] [35284] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-22T23:32:27.414Z] [runtime-status] [35284] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-22T23:32:27.415Z] [runtime-status] [35284] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-22T23:32:27.673Z] [worker-~diagnostic~-ca29967b-c3b2-499a-bade-7afaf0c4f790]: exited
+[debug] [2019-11-22T23:32:27.673Z] [worker-~diagnostic~-ca29967b-c3b2-499a-bade-7afaf0c4f790]: FINISHED
