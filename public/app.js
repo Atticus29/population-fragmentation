@@ -139,5 +139,17 @@ document.addEventListener('DOMContentLoaded', function() {
     alert('Success, subscribed to plan');
   }
 
+  // coupons
+  const couponForm = document.getElementById('couponForm');
+  const couponFun = fun.httpsCallable('stripeGetCoupon');
+
+  couponForm.onblur = async() => {
+    const val = couponForm.value;
+    console.log(val);
+    const coupon = await couponFun({coupon: val});
+    console.log(coupon);
+    alert(`sweet! ${coupon.date.name}`);
+  }
+
 
 });

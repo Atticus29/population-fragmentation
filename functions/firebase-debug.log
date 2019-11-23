@@ -1,38 +1,38 @@
-[debug] [2019-11-23T01:02:50.678Z] ----------------------------------------------------------------------
-[debug] [2019-11-23T01:02:50.681Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-11-23T01:02:50.681Z] CLI Version:   7.8.1
-[debug] [2019-11-23T01:02:50.681Z] Platform:      darwin
-[debug] [2019-11-23T01:02:50.681Z] Node Version:  v10.16.0
-[debug] [2019-11-23T01:02:50.682Z] Time:          Fri Nov 22 2019 17:02:50 GMT-0800 (Pacific Standard Time)
-[debug] [2019-11-23T01:02:50.682Z] ----------------------------------------------------------------------
-[debug] [2019-11-23T01:02:50.682Z] 
-[debug] [2019-11-23T01:02:50.695Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-11-23T01:02:50.696Z] > authorizing via signed-in user
-[debug] [2019-11-23T01:02:50.696Z] [iam] checking project dragglesimulator for permissions ["firebase.projects.get"]
-[debug] [2019-11-23T01:02:50.698Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/dragglesimulator:testIamPermissions  
+[debug] [2019-11-23T20:31:02.291Z] ----------------------------------------------------------------------
+[debug] [2019-11-23T20:31:02.294Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-11-23T20:31:02.295Z] CLI Version:   7.8.1
+[debug] [2019-11-23T20:31:02.295Z] Platform:      darwin
+[debug] [2019-11-23T20:31:02.295Z] Node Version:  v10.16.0
+[debug] [2019-11-23T20:31:02.303Z] Time:          Sat Nov 23 2019 12:31:02 GMT-0800 (Pacific Standard Time)
+[debug] [2019-11-23T20:31:02.303Z] ----------------------------------------------------------------------
+[debug] [2019-11-23T20:31:02.303Z] 
+[debug] [2019-11-23T20:31:02.318Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-23T20:31:02.318Z] > authorizing via signed-in user
+[debug] [2019-11-23T20:31:02.319Z] [iam] checking project dragglesimulator for permissions ["firebase.projects.get"]
+[debug] [2019-11-23T20:31:02.322Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/dragglesimulator:testIamPermissions  
 
-[debug] [2019-11-23T01:02:50.897Z] <<< HTTP RESPONSE 200
-[debug] [2019-11-23T01:02:50.900Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator  
+[debug] [2019-11-23T20:31:02.507Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-23T20:31:02.509Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator  
  
-[debug] [2019-11-23T01:02:51.075Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-23T20:31:02.667Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/mf/Desktop/population-fragmentation'...
 [info] 
-[debug] [2019-11-23T01:02:51.080Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator/webApps/-/config  
+[debug] [2019-11-23T20:31:02.671Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/dragglesimulator/webApps/-/config  
  
 [warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
 [info] ✔  functions: Emulator started at http://localhost:5001
-[debug] [2019-11-23T01:02:51.418Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-23T20:31:03.371Z] <<< HTTP RESPONSE 200
 [info] i  functions: Watching "/Users/mf/Desktop/population-fragmentation/functions" for Cloud Functions...
-[debug] [2019-11-23T01:02:51.448Z] [worker-~diagnostic~-101d4170-c1be-49f0-89e5-06e7e2ea6ac4]: Assigning socketPath: /var/folders/lw/l_9fdk056fq46_dpdrgjnpvc0000gn/T/fire_emu_40986.sock
-[debug] [2019-11-23T01:02:51.448Z] [worker-~diagnostic~-101d4170-c1be-49f0-89e5-06e7e2ea6ac4]: BUSY
+[debug] [2019-11-23T20:31:03.408Z] [worker-~diagnostic~-b0a44cc5-060e-4b45-af8c-f61089501356]: Assigning socketPath: /var/folders/lw/l_9fdk056fq46_dpdrgjnpvc0000gn/T/fire_emu_56942.sock
+[debug] [2019-11-23T20:31:03.409Z] [worker-~diagnostic~-b0a44cc5-060e-4b45-af8c-f61089501356]: BUSY
 [info] i  hosting: Serving hosting files from: public
 [info] ✔  hosting: Local server: http://localhost:5000
-[debug] [2019-11-23T01:02:51.848Z] [runtime-status] [40986] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
-[debug] [2019-11-23T01:02:51.851Z] [runtime-status] [40986] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2019-11-23T01:02:51.854Z] [runtime-status] [40986] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2019-11-23T01:02:51.855Z] [runtime-status] [40986] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2019-11-23T01:02:51.856Z] [runtime-status] [40986] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-23T20:31:03.919Z] [runtime-status] [56942] Functions runtime initialized. {"cwd":"/Users/mf/Desktop/population-fragmentation/functions","node_version":"10.16.0"}
+[debug] [2019-11-23T20:31:03.921Z] [runtime-status] [56942] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2019-11-23T20:31:03.927Z] [runtime-status] [56942] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.7.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-11-23T20:31:03.930Z] [runtime-status] [56942] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-11-23T20:31:03.931Z] [runtime-status] [56942] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/mf/Desktop/population-fragmentation/functions/node_modules/firebase-functions/lib/index.js"}
 [info] ✔  functions[testFunction]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/testFunction).
 [info] ✔  functions[stripeAttachSource]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeAttachSource).
 [info] ✔  functions[stripeCreateCharge]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeCreateCharge).
@@ -41,5 +41,5 @@
 [info] ✔  functions[stripeGetSubscriptions]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeGetSubscriptions).
 [info] ✔  functions[stripeCancelSubscription]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/stripeCancelSubscription).
 [info] ✔  functions[invoiceWebhookEndpoint]: http function initialized (http://localhost:5001/dragglesimulator/us-central1/invoiceWebhookEndpoint).
-[debug] [2019-11-23T01:02:52.106Z] [worker-~diagnostic~-101d4170-c1be-49f0-89e5-06e7e2ea6ac4]: exited
-[debug] [2019-11-23T01:02:52.106Z] [worker-~diagnostic~-101d4170-c1be-49f0-89e5-06e7e2ea6ac4]: FINISHED
+[debug] [2019-11-23T20:31:04.256Z] [worker-~diagnostic~-b0a44cc5-060e-4b45-af8c-f61089501356]: exited
+[debug] [2019-11-23T20:31:04.256Z] [worker-~diagnostic~-b0a44cc5-060e-4b45-af8c-f61089501356]: FINISHED
