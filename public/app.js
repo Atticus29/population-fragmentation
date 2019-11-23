@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const subscriptionHandler = async(source) => {
     console.log("subscriptionHandler called");
     console.log(source.id);
-    const res = await subscriptionFun({ plan: 'draggle-subscription', source: source.id });
+    const res = await subscriptionFun({ plan: 'plan_GBak65OXFnPtcD', source: source.id });
     console.log("res is:");
     console.log(res);
     alert('Success, subscribed to plan');

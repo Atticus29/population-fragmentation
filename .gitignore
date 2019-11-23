@@ -41,3 +41,5 @@ Thumbs.db
 # Constants and API Keys
 /src/app/constants.ts
 /functions/service-account.json
+
+functions/firebase-debug.log

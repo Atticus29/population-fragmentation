@@ -15,6 +15,7 @@ Gets a customer from Stripe
 */
 export const getCustomer = async(uid: string) => {
     console.log("entered getCustomer");
+    console.log("uid is : " + uid);
     const user = await getUser(uid);
     console.log(user);
     return assert(user, 'stripeCustomerId');

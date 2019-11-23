@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { assert, assertUID, catchErrors } from './helpers';
 import { stripe, db } from './config';
-import { getCustomer } from './customers';
+import { getCustomer, getOrCreateCustomer } from './customers';
 import { attachSource } from './sources';
 
 
@@ -28,10 +28,12 @@ export const createSubscription = async(uid:string, source:string, plan: string,
     console.log(source);
     console.log(plan);
 
-    const customer = await getCustomer(uid);
+    const customer = await getOrCreateCustomer(uid);
     console.log("customer in createSubscription")
     console.log(customer);
-    const customerId = assert (customer, 'stripeCustomerId');
+    const customerId = assert (customer, 'id'); //stripeCustomerId
+    console.log("customerId:");
+    console.log(customerId);
 
     await attachSource(uid, source);
     console.log("source attached in createSubscription");
