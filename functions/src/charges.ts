@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { assert, assertUID, catchErrors } from './helpers';
 import { stripe } from './config';
-import { getCustomer } from './customers';
+import { getCustomer } from './customers'; //getOrCreateCustomer
 import { attachSource } from './sources';
 
 /**
@@ -20,33 +20,50 @@ export const getUserCharges = async(uid: string, limit?: number) => {
 Creates a charge for a specific amount
 */
 export const createCharge = async(uid: string, source: string, amount: number, idempotency_key?: string) => {
-    const customer = await getCustomer(uid);
+  console.log("createCharge entered");
+  const customer = await getCustomer(uid);
+  // const customer = await getOrCreateCustomer(uid);
+  let customerId: string = customer.id;
+  console.log("customer");
+  console.log(customer);
+  console.log("customerId");
+  console.log(customerId);
+  await attachSource(uid, source);
 
-    await attachSource(uid, source);
+  // return null;
 
-    return stripe.charges.create({
-            amount,
-            customer,
-            source,
-            currency: 'usd',
-        },
+  return stripe.charges.create({
+          amount,
+          customer,
+          source,
+          currency: 'usd',
+      },
 
-        { idempotency_key }
-     )
+      { idempotency_key }
+   )
 }
 
 
 /////// DEPLOYABLE FUNCTIONS ////////
 
 export const stripeCreateCharge = functions.https.onCall( async (data, context) => {
-    const uid = assertUID(context);
-    const source = assert(data, 'source');
-    const amount = assert(data, 'amount');
+  console.log("stripeCreateCharge called");
+  console.log("data in stripeCreateCharge: ");
+  console.log(data);
+  const uid = assertUID(context);
+  console.log("uid");
+  console.log(uid);
+  const source = assert(data, 'source');
+  console.log("source");
+  console.log(source);
+  const amount = assert(data, 'amount');
+  console.log("amount");
+  console.log(amount);
 
-    // Optional
-    const idempotency_key = data.itempotency_key;
+  // Optional
+  const idempotency_key = data.itempotency_key;
 
-    return catchErrors( createCharge(uid, source, amount, idempotency_key) );
+  return catchErrors( createCharge(uid, source, amount, idempotency_key) );
 });
 
 

@@ -1,0 +1,30 @@
+<h1>My Store</h1>
+
+<div *ngIf="auth.user$ | async as user; else login">
+
+  <!-- <img [src]="user.photoURL" width="100"> -->
+  <hr>
+  <button class="button" (click)="auth.signOut()">Sign Out</button>
+</div>
+
+
+
+<ng-template #login>
+  <button mat-raised-button color="primary" (click)="signInAnonymously()" *ngIf="!localLoggedInStatus">Login</button>
+  <mat-chip-list>
+    <mat-chip color="accent" *ngIf="localLoggedInStatus">Successfully logged in</mat-chip>
+  </mat-chip-list>
+</ng-template>
+
+<hr>
+
+<h4>Think this was a helpful tool? Help offset the cost of hosting this site!</h4>
+<button mat-raised-button color="primary" (click)="checkout($event)">
+  Donate ${{ amount / 100}}.00
+</button>
+
+<hr>
+
+<div *ngIf="loading">
+  Loading...
+</div>

@@ -2,7 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+
 import { masterConfigProperties } from './masterConfiguration';
+import { firebaseConfig } from './masterConfiguration';
 
 import { routingModule } from './app.routing';
 import { AppComponent } from './app.component';
@@ -68,6 +75,7 @@ import { VocabularyComponent } from './vocabulary/vocabulary.component';
 import { InstructionsComponent } from './instructions/instructions.component';
 import { InstructorConfigureComponent } from './instructor-configure/instructor-configure.component';
 import { LandingComponent } from './landing/landing.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +96,8 @@ import { LandingComponent } from './landing/landing.component';
     VocabularyComponent,
     InstructionsComponent,
     InstructorConfigureComponent,
-    LandingComponent
+    LandingComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +119,12 @@ import { LandingComponent } from './landing/landing.component';
     MatButtonModule,
     routingModule,
     MatMenuModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
+    AngularFirestoreModule,
+    MatChipsModule
   ],
   providers: [DrawingService, ColorNameService, IndividualGenerationService, PopulationManagerService, DatabaseService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

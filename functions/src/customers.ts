@@ -17,8 +17,9 @@ export const getCustomer = async(uid: string) => {
     console.log("entered getCustomer");
     console.log("uid is : " + uid);
     const user = await getUser(uid);
+    console.log("user after getUser (function call is back in getCustomer now)");
     console.log(user);
-    return assert(user, 'stripeCustomerId');
+    return assert(user, 'stripeCustomerId'); //used to be stripeCustomerId
 }
 
 /**
