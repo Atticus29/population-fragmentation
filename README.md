@@ -3,8 +3,11 @@
 By: Mark Fisher
 January, 2019 - July, 2019
 
-## Publication Status
 [![status](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba/status.svg)](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba)
+[![GitHub release](https://img.shields.io/github/release/Atticus29/population-fragmentation)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ## What is DraggleSimulator?
 
@@ -56,9 +59,27 @@ If you find a new bug or issue to which you'd like to draw my attention, please 
 
 ### Run it on a local development server
 
-Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
+1. Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
 
-Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
+1. Set up an account with google's firebase, and follow [these instructions](https://codeforgeek.com/how-to-set-up-an-angular-application-on-firebase/) to hook up your database to this code.
+
+1. Create a file in the ./functions directory called, 'service-account.json'. In it, add contents below. It's actually simpler to download the json file wholesale from Firebase (under project settings --> click the "service account" tab, select node.js, click, "Generate new private key", and download):
+
+  ```
+  {
+    "type": "service_account",
+    "project_id": "your_project_id_from_firebase",
+    "private_key_id": "your_private_key_id_from_firebase",
+    "private_key": "-----BEGIN PRIVATE KEY-----\n_your_private_key_here_from_firebase",
+    "client_email": "your_client_email_from_firebase",
+    "client_id": "your_client_id_from_firebase",
+    "auth_uri": "your_auth_uri_from_firebase",
+    "token_uri": "your_token_uri_from_firebase",
+    "auth_provider_x509_cert_url": "your_auth_provider_x509_cert_url_from_firebase",
+    "client_x509_cert_url": "your_client_x509_cert_url_from_firebase"
+  }
+  ```
+1. Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
 
 ## How to Set Up Your Own Instance of DraggleSimulator in Amazon Web Services (AWS)
 
