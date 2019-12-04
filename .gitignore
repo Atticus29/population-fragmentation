@@ -43,3 +43,4 @@ Thumbs.db
 /functions/service-account.json
 
 functions/firebase-debug.log
+src/app/masterConfiguration.ts

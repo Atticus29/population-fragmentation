@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
 
-  var stripe = Stripe('pk_test_NKyjLSwnMosdX0mIgQaRRHbS');
+  var stripe = Stripe('pk_live_ztqhLfPwjEf2SFC26LDmWkXr');
   var elements = stripe.elements();
 
   const style = {

@@ -1,5 +1,7 @@
 # Specs
 
+- [ ] Add stripe donation option
+- [ ] Add feedback component
 - [ ] A link to the open source repository is displayed on the first page
 - [x] Instructor enters last name and if that name already exists in the database, a new name with a random numerals appended until it's unique is given
 - [x] Users can see a table of allele counts for each generation

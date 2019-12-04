@@ -63,6 +63,29 @@ If you find a new bug or issue to which you'd like to draw my attention, please 
 
 1. Set up an account with google's firebase, and follow [these instructions](https://codeforgeek.com/how-to-set-up-an-angular-application-on-firebase/) to hook up your database to this code.
 
+1. Create a file in the ./src/app directory called, 'masterConfiguration.ts'. In it, add the contents below:
+
+```
+export const masterConfigProperties = {
+  lastName: "Default",
+  googleSheetUrl: "https://docs.google.com/spreadsheets/d/1d28w0Trn2ST-sg7VvIeNZwzBSSth-e3z_-HYmojyKCc/edit?usp=sharing",
+  googleFormUrl : "https://goo.gl/forms/d9M8EAgyg5UC1A4z2",
+  amountToCharge: 300
+};
+
+export const firebaseConfig = {
+    apiKey: "your_data_here",
+    authDomain: "your_data_here",
+    databaseURL: "your_data_here",
+    projectId: "your_data_here",
+    storageBucket: "your_data_here",
+    messagingSenderId: "your_data_here",
+    appId: "your_data_here",
+    measurementId: "your_data_here"
+  };
+
+```
+
 1. Create a file in the ./functions directory called, 'service-account.json'. In it, add contents below. It's actually simpler to download the json file wholesale from Firebase (under project settings --> click the "service account" tab, select node.js, click, "Generate new private key", and download):
 
   ```
