@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.handler = StripeCheckout.configure({
-      key: 'pk_test_NKyjLSwnMosdX0mIgQaRRHbS',
+      key: 'pk_live_ztqhLfPwjEf2SFC26LDmWkXr',
       // image: '/your-avatar.png',
       locale: 'auto',
       source: async (source) => {
@@ -50,11 +50,16 @@ export class CheckoutComponent implements OnInit {
   // }
 
   async checkout(e){
+    console.log("checkout entered");
+    // this.auth.signOut();
+    // console.log("signed out");
+    this.signInAnonymously();
+    // console.log("signed in");
     const user = await this.auth.getUser();
-    console.log("user in checkout");
-    console.log(user);
+    // console.log("user in checkout");
+    // console.log(user);
     this.handler.open({
-      name: 'Fireship Store',
+      name: 'DraggleSimulator Store',
       description: this.description,
       amount: this.amount,
       email: user.email,
@@ -69,7 +74,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   signInAnonymously(){
+    console.log("signInAnonymously in checkout component entered");
     this.auth.signInAnonymously();
+    console.log("signInAnonymously in auth called successfully?");
+    // const user = await this.auth.getUser();
     const user = this.auth.getUser().then(result =>{
       console.log("result of promise from auth get User call:");
       console.log(result);

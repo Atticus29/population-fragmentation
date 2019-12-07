@@ -32,12 +32,20 @@ export class AuthService {
     );
   }
 
+ //  signOut() {
+ //   return this.afAuth.auth.signOut().then(() => {
+ //     console.log("logged out");
+ //     // this.router.navigate(['sign-in']);
+ //   });
+ // }
+
   googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
 
   signInAnonymously(){
+    console.log("signInAnonymously in auth service entered");
     return this.afAuth.auth.signInAnonymously()
     // return this.afAuth.auth.login({
     //   provider: AuthProviders.Anonymous,

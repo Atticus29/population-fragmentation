@@ -8,8 +8,11 @@ import { getOrCreateCustomer } from './customers';
 Attaches a payment source to a stripe customer account.
 */
 export const attachSource = async(uid: string, source: string) => {
+    console.log("entered attachSource");
 
     const customer = await getOrCreateCustomer(uid);
+    console.log("customer in attachSource:");
+    console.log(customer);
 
     const existingSource = customer.sources.data.filter(s => s.id === source).pop();
 
