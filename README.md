@@ -55,6 +55,14 @@ Classroom codes (see How to Set Up Your Own Google Sheets and Google Forms Quest
 ## Known Bugs
 Known and resolved bugs are tracked [here](https://github.com/Atticus29/population-fragmentation/blob/master/bugs.md)
 
+If, during `npm install` and then `ng serve`, you have issues related to "Error: ENOENT: no such file or directory, scandir '\**/node_modules/node-sass/vendor'", please see [this github issue](https://github.com/sass/node-sass/issues/1579). You may need to do the following:
+```
+npm update
+npm install
+nodejs node_modules/node-sass/scripts/install.js
+npm rebuild node-sass
+```
+
 If you find a new bug or issue to which you'd like to draw my attention, please post about it [here](https://github.com/Atticus29/population-fragmentation/issues)
 
 ### Run it on a local development server
