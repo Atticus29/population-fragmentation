@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 100px;
+        text-align: center;
+      }
+
+      form {
+        min-width: 500px;
+      }
+      #card-element {
+        padding: 10px;
+        border: 2px dashed gray;
+      }
+      pre {
+        max-width: 500px;
+        word-break: break-all;
+      }
+    </style>
+
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.8.4/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.8.4/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.8.4/firebase-functions.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <script src="app.js" defer></script>
+
+
+  </head>
+  <body class="content">
+
+    <h1>
+      <span id="profile"></span>
+    </h1>
+
+    <button class="button is-info" id="login">Login</button>
+    <button class="button is-danger" id="logout">Logout</button>
+
+    <hr>
+
+    <button class="button" id="testFunButton">Test Callable Function</button>
+
+    <form action="/charge" method="post" id="payment-form">
+      <div class="form-row">
+        <label for="card-element">
+          Credit or debit card
+        </label>
+        <div id="card-element">
+          <!-- A Stripe Element will be inserted here. -->
+        </div>
+
+        <!-- Used to display Element errors. -->
+        <div id="card-errors" role="alert"></div>
+      </div>
+      <hr>
+
+      <button class="button">Subscribe to Plan</button>
+    </form>
+
+    <hr>
+    <input type="text" id="couponForm" class="input" placeholder="coupon ID">
+
+    <!-- <button class="button" id="charges">Get Charges</button> -->
+
+  </body>
+</html>

@@ -3,8 +3,11 @@
 By: Mark Fisher
 January, 2019 - July, 2019
 
-## Publication Status
 [![status](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba/status.svg)](http://jose.theoj.org/papers/2b64c5d5657f506b0d0e8418b02642ba)
+[![GitHub release](https://img.shields.io/github/release/Atticus29/population-fragmentation)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ## What is DraggleSimulator?
 
@@ -52,13 +55,67 @@ Classroom codes (see How to Set Up Your Own Google Sheets and Google Forms Quest
 ## Known Bugs
 Known and resolved bugs are tracked [here](https://github.com/Atticus29/population-fragmentation/blob/master/bugs.md)
 
+If, during `npm install` and then `ng serve`, you have issues related to "Error: ENOENT: no such file or directory, scandir '\**/node_modules/node-sass/vendor'", please see [this github issue](https://github.com/sass/node-sass/issues/1579). You may need to do the following:
+```
+npm update
+npm install
+nodejs node_modules/node-sass/scripts/install.js
+npm rebuild node-sass
+```
+
 If you find a new bug or issue to which you'd like to draw my attention, please post about it [here](https://github.com/Atticus29/population-fragmentation/issues)
 
 ### Run it on a local development server
 
-Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
+1. Install node pacakge manager (npm). Navigate into the project repo (using cd in your terminal). Type `npm install` and maybe go grab a coffee...
 
-Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
+1. Set up an account with google's firebase, and follow [these instructions](https://codeforgeek.com/how-to-set-up-an-angular-application-on-firebase/) to hook up your database to this code.
+
+1. Create a file in the ./src/app directory called, 'masterConfiguration.ts'. In it, add the contents below. You can get the firebaseConfig details from your firebase console in your project.
+```
+export const masterConfigProperties = {
+  lastName: "Default",
+  googleSheetUrl: "https://docs.google.com/spreadsheets/d/1d28w0Trn2ST-sg7VvIeNZwzBSSth-e3z_-HYmojyKCc/edit?usp=sharing",
+  googleFormUrl : "https://goo.gl/forms/d9M8EAgyg5UC1A4z2",
+  amountToCharge: 300
+};
+export const firebaseConfig = {
+    apiKey: "your_data_here",
+    authDomain: "your_data_here",
+    databaseURL: "your_data_here",
+    projectId: "your_data_here",
+    storageBucket: "your_data_here",
+    messagingSenderId: "your_data_here",
+    appId: "your_data_here",
+    measurementId: "your_data_here"
+  };
+```
+
+1. Create a file in the ./functions directory called, 'service-account.json'. In it, add contents below. It's actually simpler to download the json file wholesale from Firebase (under project settings --> click the "service account" tab, select node.js, click, "Generate new private key", and download):
+```
+{
+  "type": "service_account",
+  "project_id": "your_project_id_from_firebase",
+  "private_key_id": "your_private_key_id_from_firebase",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n_your_private_key_here_from_firebase",
+  "client_email": "your_client_email_from_firebase",
+  "client_id": "your_client_id_from_firebase",
+  "auth_uri": "your_auth_uri_from_firebase",
+  "token_uri": "your_token_uri_from_firebase",
+  "auth_provider_x509_cert_url": "your_auth_provider_x509_cert_url_from_firebase",
+  "client_x509_cert_url": "your_client_x509_cert_url_from_firebase"
+}
+```
+1. Create a file in population-fragmentation/src/app/ called constants.ts, with the following contents:
+```
+export var constants = {
+    awsAccessKeyId: "YOUR_ACCESS_KEY_HERE",
+    awsSecretAccessKey: "YOUR_SECRET_ACCESS_KEY_HERE"
+};
+```
+Paste your access key ID and secret access key into the relevant text fields of the code.
+
+1. Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a browser. The app will automatically reload if you change any of the source files.
 
 ## How to Set Up Your Own Instance of DraggleSimulator in Amazon Web Services (AWS)
 
@@ -70,17 +127,32 @@ Type `ng serve` to run a dev server. Navigate to `http://localhost:4200/` in a b
 1. Watch [this tutorial](https://youtu.be/g9NbuTcos18) for setting up an AWS S3 bucket for static website hosting. If confusing, watch more than one. There are many tutorials on youTube for setting up an AWS S3 bucket for static website hosting that are good, but it many take more than one of them to help wrap your brain around the concept. Don't give up!
 1. Acquire IAM credentials and record the access key ID and the secret key as described in the video above.
 1. Create a file in population-fragmentation/src/app/ called constants.ts, with the following contents:
-
 ```
 export var constants = {
     awsAccessKeyId: "YOUR_ACCESS_KEY_HERE",
     awsSecretAccessKey: "YOUR_SECRET_ACCESS_KEY_HERE"
 };
-
 ```
-
 Paste your access key ID and secret access key into the relevant text fields of the code.
-
+1. Create a file in the ./src/app directory called, 'masterConfiguration.ts'. In it, add the contents below. You can get the firebaseConfig details from your firebase console in your project.
+```
+export const masterConfigProperties = {
+  lastName: "Default",
+  googleSheetUrl: "https://docs.google.com/spreadsheets/d/1d28w0Trn2ST-sg7VvIeNZwzBSSth-e3z_-HYmojyKCc/edit?usp=sharing",
+  googleFormUrl : "https://goo.gl/forms/d9M8EAgyg5UC1A4z2",
+  amountToCharge: 300
+};
+export const firebaseConfig = {
+    apiKey: "your_data_here",
+    authDomain: "your_data_here",
+    databaseURL: "your_data_here",
+    projectId: "your_data_here",
+    storageBucket: "your_data_here",
+    messagingSenderId: "your_data_here",
+    appId: "your_data_here",
+    measurementId: "your_data_here"
+  };
+```
 1. If you don't have Node.js installed on your computer, install node (and node package manager, which should be included automatically) by following the instructions on [their website](https://nodejs.org/en/).
 1. In your terminal, type `npm install`.
 1. In your terminal, type `ng build`.

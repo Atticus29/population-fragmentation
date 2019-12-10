@@ -1,0 +1,6 @@
+{
+  "stripe": {
+    "webhook_signature": "whsec_3UlG1KBtptklXcvrFHZlIwbhfpk86Ju7",
+    "secret": "sk_live_4UfbhTefY4rVHuYH2jq2p9t6"
+  }
+}

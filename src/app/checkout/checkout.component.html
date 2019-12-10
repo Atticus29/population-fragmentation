@@ -1,0 +1,12 @@
+<h4>This site is gladly provided to you for free. Show your appreciation by helping the developer offset the costs of hosting the site.</h4>
+<button mat-raised-button color="primary" (click)="checkout($event)">
+  Donate ${{ amount / 100}}.00
+</button>
+<div *ngIf="displayThings">
+  <div *ngIf="loading">
+    ...Loading
+  </div>
+  <div *ngIf="!loading">
+    {{paymentStatus}}
+  </div>
+</div>
