@@ -32,19 +32,41 @@ export class AuthService {
     );
   }
 
+ //  signOut() {
+ //   return this.afAuth.auth.signOut().then(() => {
+ //     console.log("logged out");
+ //     // this.router.navigate(['sign-in']);
+ //   });
+ // }
+
   googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  signInAnonymously(){
+  // signInAnonymously(){
+  //   console.log("signInAnonymously in auth service entered");
+  //   const credential = await this.afAuth.auth.signInAnonymously();
+  //   return this.updateUserData(credential.user);
+  //   // return this.afAuth.auth.signInAnonymously()
+  //   // return this.afAuth.auth.login({
+  //   //   provider: AuthProviders.Anonymous,
+  //   //   method: AuthMethods.Anonymous,
+  //   // })
+  //   // .then(() => console.log("successful login") )
+  //   // .catch(error => console.log(error));
+  // }
+
+  anonymousLogin() {
+    console.log("anonymousLogin entered");
+    // console.log('AuthIsStateResolved: ' + this.afAuth.auth.isStateResolved_);
     return this.afAuth.auth.signInAnonymously()
-    // return this.afAuth.auth.login({
-    //   provider: AuthProviders.Anonymous,
-    //   method: AuthMethods.Anonymous,
-    // })
-    .then(() => console.log("successful login") )
-    .catch(error => console.log(error));
+     .then((credential) => {
+       console.log("success inside callback for signInAnonymously");
+       // this.authState = credential;
+       this.updateUserData(credential.user);
+     })
+     .catch(error => console.log(error));
   }
 
   getUser(): Promise<any> {

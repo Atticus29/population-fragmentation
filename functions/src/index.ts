@@ -1,29 +1,8 @@
 import * as functions from 'firebase-functions';
 
-// A simple callable function for a sanity check
-export const testFunction = functions.https.onCall( async (data, context) => {
-    const uid  = context.auth && context.auth.uid;
-    const message = data.message;
-
-    return `${uid} sent a message of ${message}`
-});
-
-
-export {
-    stripeAttachSource
-} from './sources';
-
-export {
-    stripeCreateCharge,
-    stripeGetCharges
-} from './charges';
-
-export {
-    stripeCreateSubscription,
-    stripeGetSubscriptions,
-    stripeCancelSubscription
-} from './subscriptions';
-
-export {
-    invoiceWebhookEndpoint
-} from './webhooks';
+// // Start writing Firebase Functions
+// // https://firebase.google.com/docs/functions/typescript
+//
+// export const helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// });

@@ -8,12 +8,16 @@ import { attachSource } from './sources';
 Gets a user's charge history
 */
 export const getUserCharges = async(uid: string, limit?: number) => {
-    const customer = await getCustomer(uid);
-
-    return await stripe.charges.list({
-        limit,
-        customer
-    });
+  console.log("entered getUserCharges");
+  console.log("uid is " + uid);
+  console.log("limit is " + limit);
+  const customer = await getCustomer(uid);
+  console.log("customer after customer await in getUserCharges:");
+  console.log(customer);
+  return await stripe.charges.list({
+      limit,
+      customer
+  });
 }
 
 /**
@@ -26,8 +30,8 @@ export const createCharge = async(uid: string, source: string, amount: number, i
   let customerId: string = customer.id;
   console.log("customer");
   console.log(customer);
-  console.log("customerId");
-  console.log(customerId);
+  // console.log("customerId");
+  // console.log(customerId);
   await attachSource(uid, source);
 
   // return null;

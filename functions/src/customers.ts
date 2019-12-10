@@ -7,7 +7,10 @@ Read the user document from Firestore
 export const getUser = async(uid: string) => {
   console.log('entered getUser');
   console.log(uid);
-  return await db.collection('users').doc(uid).get().then(doc => doc.data());
+  const returnDoc = await db.collection('users').doc(uid).get().then(doc => doc.data());
+  console.log("returnDoc is:");
+  console.log(returnDoc);
+  return returnDoc;
 }
 
 /**
@@ -16,10 +19,20 @@ Gets a customer from Stripe
 export const getCustomer = async(uid: string) => {
     console.log("entered getCustomer");
     console.log("uid is : " + uid);
-    const user = await getUser(uid);
+    const user = await getOrCreateCustomer(uid);
     console.log("user after getUser (function call is back in getCustomer now)");
     console.log(user);
-    return assert(user, 'stripeCustomerId'); //used to be stripeCustomerId
+    if(user){
+      console.log("user in getCustomer is:");
+      console.log(user);
+      return assert(user, 'id'); //used to be stripeCustomerId
+    } else{
+      console.log("uh oh! User didn't exist in getCustomer");
+      const customer = await createCustomer(uid);
+      return assert(customer, 'id'); //used to be stripeCustomerId
+    }
+    console.log("user after getUser (function call is back in getCustomer now)");
+    console.log(user);
 }
 
 /**

@@ -2,3 +2,11 @@
 <button mat-raised-button color="primary" (click)="checkout($event)">
   Donate ${{ amount / 100}}.00
 </button>
+<div *ngIf="displayThings">
+  <div *ngIf="loading">
+    ...Loading
+  </div>
+  <div *ngIf="!loading">
+    {{paymentStatus}}
+  </div>
+</div>
