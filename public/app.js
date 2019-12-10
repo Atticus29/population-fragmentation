@@ -107,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create Charge for Specfic Amount
   const chargeFun = fun.httpsCallable('stripeCreateCharge');
   const chargeHandler = async(source) => {
-    const res = await chargeFun({ source: source.id, amount: 3000 });
+    const res = await chargeFun({ source: source.id, amount: 300 });
     console.log(res);
-    alert('Success, charged customer $30.00');
+    alert('Success, charged customer $3.00');
   }
 
 
