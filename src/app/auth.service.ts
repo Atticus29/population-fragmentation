@@ -63,8 +63,10 @@ export class AuthService {
     return this.afAuth.auth.signInAnonymously()
      .then((credential) => {
        console.log("success inside callback for signInAnonymously");
+       console.log(credential.user);
        // this.authState = credential;
        this.updateUserData(credential.user);
+       return this.getUser();
      })
      .catch(error => console.log(error));
   }
@@ -73,25 +75,34 @@ export class AuthService {
     return this.afAuth.authState.pipe(first()).toPromise();
   }
 
+  getUserObservable() {
+    return this.afAuth.authState;
+  }
+
   private async oAuthLogin(provider) {
     const credential = await this.afAuth.auth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
   }
 
   private updateUserData({ uid, email, displayName, photoURL }: User) {
+    console.log("updateUserData entered");
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
-
+    console.log("userRef is:");
+    console.log(userRef);
     const data = {
       uid,
       email,
       displayName,
       photoURL
     };
+    console.log("data is");
+    console.log(data);
 
     return userRef.set(data, { merge: true });
   }
 
   async signOut() {
+    console.log("signOut called");
     await this.afAuth.auth.signOut();
     return this.router.navigate(['/']);
   }
